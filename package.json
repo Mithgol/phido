@@ -1,0 +1,11 @@
+{
+"name": "phido",
+"version": "0.0.1",
+"description": "Fidonet browser with a GUI.",
+"keywords": ["Fidonet", "Fido", "GUI"],
+"author": { "name": "Mithgol the Webmaster" },
+"repository": {
+   "type": "git",
+   "url": "https://github.com/Mithgol/phido.git"
+}
+}
