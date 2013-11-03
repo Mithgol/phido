@@ -1,3 +1,5 @@
+![PhiDo](master/icon/PhiDo-32x32.png)
+
 **PhiDo** (aka **φ道**) is a Fidonet browser with a GUI.
 
 Its name means “the Golden Path”, where “φ” represents [the golden ratio](http://en.wikipedia.org/wiki/Golden_ratio) and “道” means “path”.
