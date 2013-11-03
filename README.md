@@ -1,4 +1,4 @@
-![PhiDo](master/icon/PhiDo-32x32.png)
+![PhiDo](icon/PhiDo-32x32.png)
 
 **PhiDo** (aka **φ道**) is a Fidonet browser with a GUI.
 
