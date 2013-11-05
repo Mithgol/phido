@@ -7,5 +7,13 @@
 "repository": {
    "type": "git",
    "url": "https://github.com/Mithgol/phido.git"
+},
+"window": {
+   "width": 600,
+   "height": 400,
+   "position": "center",
+   "toolbar": false,
+   "title": "Starting...",
+   "icon": "icon/PhiDo-32x32.png"
 }
 }
