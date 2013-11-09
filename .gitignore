@@ -29,3 +29,6 @@ node_modules
 
 # NPM error logs
 npm-debug.log
+
+# Project-specific
+phido.conf
