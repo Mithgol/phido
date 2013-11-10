@@ -2,9 +2,9 @@
 
 **PhiDo** (aka **φ道**) is a Fidonet browser with a GUI.
 
-Its name means “the Golden Path”, where “φ” represents [the golden ratio](http://en.wikipedia.org/wiki/Golden_ratio) and “道” means “path”.
+* Its name means “the Golden Path”, where “φ” represents [the golden ratio](http://en.wikipedia.org/wiki/Golden_ratio) and “道” means “path”.
 
-Its name sounds like the Russian “Фидо” that means “Fido” (as in “Fidonet”).
+* Its name sounds like the Russian “Фидо” that means “Fido” (as in “Fidonet”).
 
 ## Requirements
 
@@ -20,7 +20,7 @@ Its name sounds like the Russian “Фидо” that means “Fido” (as in �
 
 2. Download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory. Then run `npm install --production` in that directory.
 
-3. Download [node-webkit](https://github.com/rogerwang/node-webkit). Either unpack it to the PhiDo's directory or put in some other directory. In the latter case, add the node-webkit's directory to your system's `PATH` variable's value.
+3. Download [node-webkit](https://github.com/rogerwang/node-webkit). Either unpack it to the PhiDo's directory or put in some other directory. In the latter case, add the node-webkit's directory to your system's `PATH` variable's value (unless you plan to use the verbose node-webkit's path when you launch PhiDo).
 
 ### Setting up
 
@@ -30,7 +30,7 @@ Copy `phido.conf-example` to `phido.conf` and edit in your favourite text ed
 
 Run `nw .` in the PhiDo's directory.
 
-**Note:** if node-webkit resides in another directory and you won't add that directory to your system's `PATH` variable's value, then you should give a verbose (absolute or relative) path to node-webkit. (On Windows you may use the `start.bat` file as an example and edit it according to your circumstances.)
+**Note:** if node-webkit resides in another directory and you won't add that directory to your system's `PATH` variable's value, then you should use a verbose (absolute or relative) path to the node-webkit's executable. (On Windows you may use the `start.bat` file as an example and edit it according to your circumstances.)
 
 ## License
 
