@@ -34,4 +34,6 @@ Run `nw .` in the PhiDo's directory.
 
 ## License
 
-MIT License, see the `LICENSE` file.
+The source code is MIT-licensed (see `LICENSE`), with the following exception:
+
+* The file `script/$.js` contains [jQuery](http://jquery.com/), which is also [MIT-licensed,](https://jquery.org/license/) but has its own authors.

@@ -8,6 +8,7 @@
    "type": "git",
    "url": "https://github.com/Mithgol/phido.git"
 },
+"main": "index.html",
 "window": {
    "width": 600,
    "height": 400,
