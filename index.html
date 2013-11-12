@@ -5,6 +5,34 @@
 <link rel="stylesheet" href="style/main.css">
 <script src="script/$.js"></script>
 <title>PhiDo</title>
+<script>
+$(function(){
+//require('nw.gui').Window.get().showDevTools();
+var simteconf = require('simteconf');
+var phiConf = simteconf('phido.conf', {
+   skipNames: ['//', '#']
+});
+var encodingGED = phiConf.last('EncodingGoldED') || 'utf8';
+var encodingHPT = phiConf.last('EncodingHPT')    || 'utf8';
+var confGED = simteconf(phiConf.last('ConfigGoldED'), {
+   encoding: encodingGED,
+   skipNames: ['//', '#', '-'+'-']
+});
+var areas = simteconf(phiConf.last('AreasHPT'), {
+   encoding: encodingHPT,
+   skipNames: ['#'],
+   prefixGroups: [
+      'NetmailArea',
+      'BadArea',
+      'DupeArea',
+      'LocalArea',
+      'EchoArea'
+   ]
+});
+var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'незнакомец';
+$('center').html('Добро пожаловать, <b>'+UserName+'!</b>');
+});
+</script>
 </head>
 <body>
 <center><img src="icon/loading.gif"><br>
