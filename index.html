@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="style/main.css">
 <script src="script/$.js"></script>
+<script src="node_modules/underscore/underscore-min.js"></script>
+<script src="node_modules/underscore.string/dist/underscore.string.min.js"></script>
+<script>
+_.mixin(_.str.exports());
+</script>
 <title>PhiDo</title>
 <script>
 $(function(){
@@ -30,7 +35,18 @@ var areas = simteconf(phiConf.last('AreasHPT'), {
    ]
 });
 var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'незнакомец';
-$('center').html('Добро пожаловать, <b>'+UserName+'!</b>');
+$('center').html(
+   '<p><img src="icon/PhiDo-32x32.png"></p>' +
+   'Добро пожаловать, <b>'+UserName+'!</b>'
+);
+var echoNames = areas.group('EchoArea').names();
+if( echoNames.length > 0 ){
+   $('center').after('<ul id="areaList"></ul>');
+   echoNames = _(echoNames).sortBy(function(value){return value;}); // stable
+   _(echoNames).each(function(echoName){
+      $('#areaList').append('<li>'+_.escapeHTML(echoName)+'</li>');
+   });
+}
 });
 </script>
 </head>
