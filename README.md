@@ -34,6 +34,8 @@ Run `nw .` in the PhiDo's directory.
 
 ## License
 
-The source code is MIT-licensed (see `LICENSE`), with the following exception:
+The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
-* The file `script/$.js` contains [jQuery](http://jquery.com/), which is also [MIT-licensed,](https://jquery.org/license/) but has its own authors.
+* The file `script/$.js` contains [jQuery](http://jquery.com/) which is also [MIT-licensed](https://jquery.org/license/) but has its own authors.
+
+* The modules installed in the `node_modules` directory are the property of their respective owners.
