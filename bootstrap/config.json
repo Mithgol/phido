@@ -2,7 +2,8 @@
   "vars": {
     "@font-family-sans-serif": "'PT Sans', sans-serif",
     "@font-family-serif": "'PT Serif', serif",
-    "@font-family-monospace": "'PT Mono', monospace"
+    "@font-family-monospace": "'PT Mono', monospace",
+    "@font-size-base": "16px"
   },
   "css": [
     "print.less",
