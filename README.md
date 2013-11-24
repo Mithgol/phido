@@ -42,4 +42,6 @@ The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
 * The directory `bootstrap` contains [Bootstrap](http://getbootstrap.com/) licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0). It is used in a hope that a newer version becomes MIT-licensed eventually [(as planned)](http://blog.getbootstrap.com/2013/10/29/bootstrap-3-0-1-released/) and replaces the current version.
 
-* The modules installed in the `node_modules` directory are the property of their respective owners.
+* The directory `awesome` contains [Font Awesome](http://fortawesome.github.io/Font-Awesome/), licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).
+
+* Node.js modules installed in the `node_modules` directory are the property of their respective owners.
