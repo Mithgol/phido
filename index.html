@@ -40,7 +40,7 @@ var areas = simteconf(phiConf.last('AreasHPT'), {
 var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'незнакомец';
 $('center').html(
    '<p><img src="icon/PhiDo-32x32.png"></p>' +
-   'Добро пожаловать, <b>'+UserName+'!</b>'
+   'Добро пожаловать, <i class="fa fa-user"></i><b>'+UserName+'!</b>'
 );
 var echoNames = areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
@@ -53,8 +53,8 @@ if( echoNames.length > 0 ){
 });
 </script>
 </head>
-<body>
+<body><div class="container">
 <center><img src="img/loading.gif"><br>
 loading configuration…</center>
-</body>
+</div></body>
 </html>
