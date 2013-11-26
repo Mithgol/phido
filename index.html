@@ -29,6 +29,7 @@ var confGED = simteconf(phiConf.last('ConfigGoldED'), {
 var areas = simteconf(phiConf.last('AreasHPT'), {
    encoding: encodingHPT,
    skipNames: ['#'],
+   lowercase: false,
    prefixGroups: [
       'NetmailArea',
       'BadArea',
@@ -37,18 +38,33 @@ var areas = simteconf(phiConf.last('AreasHPT'), {
       'EchoArea'
    ]
 });
-var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'незнакомец';
+var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'anonymous';
 $('center').html(
-   'Добро пожаловать, <i class="fa fa-user"></i><b>'+UserName+'!</b>'
+   'Welcome, <i class="fa fa-user"></i><b>'+UserName+'!</b>'
 );
 var echoNames = areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
-   $('center').after('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
-      '<tr><th>Echotag</th></tr>' +
-   '</table>');
-   echoNames = _(echoNames).sortBy(function(value){return value;}); // stable
+   $('center').after('<table id="areaList" class="table table-bordered table-hover table-condensed"><tr>' +
+      '<th>Area title</th>' +
+      '<th style="text-align: center;">Msgs</th>' +
+      '<th>Echotag</th>' +
+   '</tr></table>');
+   echoNames = _(echoNames).sortBy(function(value){ // stable sort
+      return value.toLowerCase();
+   });
    _(echoNames).each(function(echoName){
-      $('#areaList tbody').append('<tr><td>'+_.escapeHTML(echoName)+'</td></tr>');
+      var arrDesc = /-d "([^"]+?)"/.exec( areas.group('EchoArea').first(echoName) );
+      var echoDesc;
+      if( arrDesc === null ){
+         echoDesc = echoName;
+      } else {
+         echoDesc = arrDesc[1];
+      }
+      $('#areaList tbody').append('<tr>' +
+         '<td>'+_.escapeHTML(echoDesc)+'</td>' +
+         '<td align="center"><i class="fa fa-spinner fa-spin"></i></td>' +
+         '<td>'+_.escapeHTML(echoName)+'</td>' +
+      '</tr>');
    });
 }
 });
@@ -58,9 +74,14 @@ if( echoNames.length > 0 ){
 <div class="container">
 <div class="row"><div class="col-xs-12">
 <div style="display: flex; flex-direction: row;">
-<div><img src="icon/PhiDo-32x32.png"></div>
-<input type="text" style="flex-grow: 1;" placeholder="Search">
-<button type="submit" class="btn btn-default">Submit</button>
+<input type="text" class="form-control" style="flex-grow: 1;"
+placeholder="Enter FGHI URL here" value="area://">
+<button type="submit" class="form-control btn btn-default" style="width: 50px; flex-grow: 0;"><i
+class="fa fa-play"
+></i></button>
+<button type="button" class="form-control btn btn-default" style="width: 50px; flex-grow: 0;"><img
+src="icon/PhiDo-16x16.png"
+></button>
 </div>
 </div></div>
 <center><img src="img/loading.gif"><br>
