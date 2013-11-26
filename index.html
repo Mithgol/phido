@@ -39,21 +39,30 @@ var areas = simteconf(phiConf.last('AreasHPT'), {
 });
 var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'незнакомец';
 $('center').html(
-   '<p><img src="icon/PhiDo-32x32.png"></p>' +
    'Добро пожаловать, <i class="fa fa-user"></i><b>'+UserName+'!</b>'
 );
 var echoNames = areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
-   $('center').after('<ul id="areaList"></ul>');
+   $('center').after('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
+      '<tr><th>Echotag</th></tr>' +
+   '</table>');
    echoNames = _(echoNames).sortBy(function(value){return value;}); // stable
    _(echoNames).each(function(echoName){
-      $('#areaList').append('<li>'+_.escapeHTML(echoName)+'</li>');
+      $('#areaList tbody').append('<tr><td>'+_.escapeHTML(echoName)+'</td></tr>');
    });
 }
 });
 </script>
 </head>
-<body><div class="container">
+<body>
+<div class="container">
+<div class="row"><div class="col-xs-12">
+<div style="display: flex; flex-direction: row;">
+<div><img src="icon/PhiDo-32x32.png"></div>
+<input type="text" style="flex-grow: 1;" placeholder="Search">
+<button type="submit" class="btn btn-default">Submit</button>
+</div>
+</div></div>
 <center><img src="img/loading.gif"><br>
 loading configuration…</center>
 </div></body>
