@@ -13,8 +13,8 @@ queue.prototype.push = function(task){
    this.tasks.push(task);
 };
 
-queue.prototype.pop = function(){
-   return this.tasks.pop();
+queue.prototype.shift = function(){
+   return this.tasks.shift();
 };
 
 queue.prototype.next = function(){
@@ -26,13 +26,27 @@ queue.prototype.next = function(){
 
 queue.prototype.step = function(){
    if( !this.running ) return;
-   var nextTask = this.pop();
+   var nextTask = this.shift();
    if( typeof nextTask === 'undefined' ){
       this.stop();
       return;
    }
    nextTask();
    this.next();
+};
+
+queue.prototype.singleNext = function(){
+   var here = this;
+   setTimeout(function(){
+      here.singleStep();
+   }, 1);
+};
+
+queue.prototype.singleStep = function(){
+   if( this.running ) return;
+   var nextTask = this.shift();
+   if( typeof nextTask === 'undefined' ) return;
+   nextTask();
 };
 
 queue.prototype.start = function(){

@@ -87,15 +87,15 @@ if( echoNames.length > 0 ){
          echobase.readJDX(function(err){
             if( err ){
                $cell.html('FAIL');
-               phiQ.next();
+               phiQ.singleNext();
                return;
             }
             $cell.html( echobase.size() );
-            phiQ.next();
+            phiQ.singleNext();
          });
       });
    });
-   phiQ.start();
+   phiQ.singleStep();
 }
 });
 </script>
