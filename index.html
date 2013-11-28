@@ -13,6 +13,9 @@
 _.mixin(_.str.exports());
 </script>
 <script src="script/queue.js"></script>
+<script>
+phiQ = queue();
+</script>
 <title>PhiDo</title>
 <script>
 $(function(){
@@ -68,6 +71,13 @@ if( echoNames.length > 0 ){
          '<td>'+_.escapeHTML(echoName)+'</td>' +
       '</tr>');
    });
+   $('#areaList .msgnum').each(function(idx){
+      var $cell = $(this);
+      phiQ.push(function(){
+         $cell.html('test '+(idx+1));
+      });
+   });
+   phiQ.start();
 }
 });
 </script>
