@@ -17,6 +17,13 @@ queue.prototype.pop = function(){
    return this.tasks.pop();
 };
 
+queue.prototype.next = function(){
+   var here = this;
+   setTimeout(function(){
+      here.step();
+   }, 1);
+};
+
 queue.prototype.step = function(){
    if( !this.running ) return;
    var nextTask = this.pop();
@@ -25,10 +32,7 @@ queue.prototype.step = function(){
       return;
    }
    nextTask();
-   var here = this;
-   setTimeout(function(){
-      here.step();
-   }, 1);
+   this.next();
 };
 
 queue.prototype.start = function(){

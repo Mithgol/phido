@@ -15,6 +15,14 @@ _.mixin(_.str.exports());
 <script src="script/queue.js"></script>
 <script>
 phiQ = queue();
+JAM = require('fidonet-jam');
+
+beforeSpace = function(inString){
+   if( inString.indexOf(' ') === -1 ){
+      return inString;
+   }
+   return _(inString).strLeft(' ');
+};
 </script>
 <title>PhiDo</title>
 <script>
@@ -64,17 +72,27 @@ if( echoNames.length > 0 ){
       } else {
          echoDesc = arrDesc[1];
       }
-      $('#areaList tbody').append('<tr>' +
+      $('<tr>' +
          '<td>'+_.escapeHTML(echoDesc)+'</td>' +
-         '<td class="msgnum" data-echotag="' + _.escapeHTML(echoName) +
-         '"><i class="fa fa-spinner fa-spin"></i></td>' +
+         '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
-      '</tr>');
+      '</tr>').appendTo('#areaList tbody').find('.msgnum').data({
+         'echopath': beforeSpace( areas.group('EchoArea').first(echoName) )
+      });
    });
    $('#areaList .msgnum').each(function(idx){
       var $cell = $(this);
       phiQ.push(function(){
-         $cell.html('test '+(idx+1));
+         var echobase = JAM( $cell.data('echopath') );
+         echobase.readJDX(function(err){
+            if( err ){
+               $cell.html('FAIL');
+               phiQ.next();
+               return;
+            }
+            $cell.html( echobase.size() );
+            phiQ.next();
+         });
       });
    });
    phiQ.start();
