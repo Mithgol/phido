@@ -56,7 +56,8 @@ $('center').html(
 );
 var echoNames = areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
-   $('center').after('<table id="areaList" class="table table-bordered table-hover table-condensed"><tr>' +
+   $('center').after('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
+   '<tr class="inverse">' +
       '<th>Area title</th>' +
       '<th style="text-align: center;">Msgs</th>' +
       '<th>Echotag</th>' +
