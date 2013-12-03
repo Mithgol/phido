@@ -27,7 +27,6 @@ beforeSpace = function(inString){
 <title>PhiDo</title>
 <script>
 $(function(){
-//require('nw.gui').Window.get().showDevTools();
 var simteconf = require('simteconf');
 var phiConf = simteconf('phido.conf', {
    skipNames: ['//', '#']
@@ -38,6 +37,7 @@ var confGED = simteconf(phiConf.last('ConfigGoldED'), {
    encoding: encodingGED,
    skipNames: ['//', '#', '-'+'-']
 });
+var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'anonymous';
 var areas = simteconf(phiConf.last('AreasHPT'), {
    encoding: encodingHPT,
    skipNames: ['#'],
@@ -50,7 +50,6 @@ var areas = simteconf(phiConf.last('AreasHPT'), {
       'EchoArea'
    ]
 });
-var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'anonymous';
 $('center').html(
    'Welcome, <i class="fa fa-user"></i><b>'+UserName+'!</b>'
 );
