@@ -1,5 +1,5 @@
-historyHandler = function(){
-   if (!(this instanceof historyHandler)) return new historyHandler();
+urlbar = function(){
+   if (!(this instanceof urlbar)) return new urlbar();
 
    this.history = [];
 };
