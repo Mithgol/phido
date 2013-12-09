@@ -43,7 +43,7 @@ The following configuration options are supported (in arbitrary order):
 
 * `UserName` — the user's name. May be borrowed from GoldED's configuration if omitted in PhiDo's.
 
-### Launching PhiDo
+## Launching PhiDo
 
 Run `nw .` in the PhiDo's directory.
 
