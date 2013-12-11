@@ -53,7 +53,7 @@ Run `nw .` in the PhiDo's directory.
 
 The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
-* The file `script/$.js` contains [jQuery](http://jquery.com/) which is also [MIT-licensed](https://jquery.org/license/) but has its own authors.
+* The file `jq/$.js` contains [jQuery](http://jquery.com/) which is also [MIT-licensed](https://jquery.org/license/) but has its own authors.
 
 * Fonts in the `paratype` directory are published [by ParaType](http://www.paratype.com/public/) on the terms of [ParaType Free Font Licensing Agreement](http://www.paratype.com/public/pt_openlicense_eng.asp). (See the `PT Free Font License*.txt` files in the same folder.)
 
