@@ -5,13 +5,14 @@
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="awesome/css/font-awesome.css">
 <link rel="stylesheet" href="style/main.css">
-<script src="script/$.js"></script>
+<script src="jq/$.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="node_modules/underscore/underscore.js"></script>
 <script src="node_modules/underscore.string/dist/underscore.string.min.js"></script>
 <script>
 _.mixin(_.str.exports());
 </script>
+<script src="script/setup.js"></script>
 <script src="script/queue.js"></script>
 <script src="script/urlbar.js"></script>
 <script>
@@ -28,37 +29,13 @@ beforeSpace = function(inString){
 <title>PhiDo</title>
 <script>
 $(function(){
-var simteconf = require('simteconf');
-var phiConf = simteconf('phido.conf', {
-   skipNames: ['//', '#']
-});
-// Read GoldED settings:
-var encodingGED = phiConf.last('EncodingGoldED') || 'utf8';
-var confGED = simteconf(phiConf.last('ConfigGoldED'), {
-   encoding: encodingGED,
-   skipNames: ['//', '#', '-'+'-']
-});
-var UserName = phiConf.first('UserName') || confGED.first('UserName') || 'anonymous';
-// Read HPT areas:
-var encodingHPT = phiConf.last('EncodingHPT') || 'utf8';
-var areas = simteconf(phiConf.last('AreasHPT'), {
-   encoding: encodingHPT,
-   skipNames: ['#'],
-   lowercase: false,
-   prefixGroups: [
-      'NetmailArea',
-      'BadArea',
-      'DupeArea',
-      'LocalArea',
-      'EchoArea'
-   ]
-});
-$('center').html(
-   'Welcome, <i class="fa fa-user"></i><b>'+UserName+'!</b>'
+initSetup();
+$('#content').html(
+   'Welcome, <i class="fa fa-user"></i><b>'+setup.UserName+'!</b>'
 );
-var echoNames = areas.group('EchoArea').names();
+var echoNames = setup.areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
-   $('center').after('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
+   $('#content').after('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
    '<tr class="inverse">' +
       '<th>Area title</th>' +
       '<th style="text-align: center;">Msgs</th>' +
@@ -68,7 +45,7 @@ if( echoNames.length > 0 ){
       return value.toLowerCase();
    });
    _(echoNames).each(function(echoName){
-      var arrDesc = /-d "([^"]+?)"/.exec( areas.group('EchoArea').first(echoName) );
+      var arrDesc = /-d "([^"]+?)"/.exec( setup.areas.group('EchoArea').first(echoName) );
       var echoDesc;
       if( arrDesc === null ){
          echoDesc = echoName;
@@ -80,7 +57,7 @@ if( echoNames.length > 0 ){
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
       '</tr>').appendTo('#areaList tbody').find('.msgnum').data({
-         'echopath': beforeSpace( areas.group('EchoArea').first(echoName) )
+         'echopath': beforeSpace( setup.areas.group('EchoArea').first(echoName) )
       });
    });
    $('#areaList .msgnum').each(function(idx){
@@ -106,7 +83,7 @@ if( echoNames.length > 0 ){
 <body>
 <div class="container">
 <div class="row"><div class="col-xs-12">
-<div id="urlbar" style="display: flex; flex-direction: row;">
+<div id="urlbar" style="display: flex; flex-direction: row; margin-bottom: 1em;">
 <button type="button" class="form-control btn btn-default" style="width: 50px; flex-grow: 0;"
 id="back" disabled><i class="fa fa-arrow-left"></i></button>
 <button type="button" class="form-control btn btn-default" style="width: 50px; flex-grow: 0;"
@@ -121,7 +98,7 @@ src="icon/PhiDo-16x16.png"
 ></button>
 </div>
 </div></div>
-<center><img src="img/loading.gif"><br>
-loading configuration…</center>
+<div id="content" style="text-align: center;"><img src="img/loading.gif"><br>
+loading configuration…</div>
 </div></body>
 </html>
