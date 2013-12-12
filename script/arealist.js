@@ -1,11 +1,15 @@
 arealist = function(){
 
-$('#content').html(
-   'Welcome, <i class="fa fa-user"></i><b>'+setup.UserName+'!</b>'
-);
+$('#content').html([
+'<div style="text-align: center; margin: 0 0 0.5em; padding: 0;">',
+   'Welcome, <i class="fa fa-user"></i><b>',
+      setup.UserName,
+   '!</b>',
+'</div>'
+].join(''));
 var echoNames = setup.areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
-   $('#content').after('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
+   $('#content').append('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
    '<tr class="inverse">' +
       '<th>Area title</th>' +
       '<th style="text-align: center;">Msgs</th>' +
