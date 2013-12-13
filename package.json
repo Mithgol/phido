@@ -9,6 +9,7 @@
    "url": "https://github.com/Mithgol/phido.git"
 },
 "dependencies": {
+   "fghi-url": "~0.5.0-pre.2",
    "fidonet-jam": "~1.0.2",
    "simteconf": "~0.5.0",
    "underscore": "~1.5.2",
