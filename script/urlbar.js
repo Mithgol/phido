@@ -17,5 +17,9 @@ urlbar.prototype.open = function(URL){
    $urlbar.find('#forward').attr('disabled', 'disabled');
    if( this.curr > 0 ) $urlbar.find('#back').attr('disabled', '');
 
-   // TODO: open the designated content
+   try {
+      var parsedURL = phiURL(URL);
+   } catch(e) {
+      $('#content').html(''+e);
+   }
 };
