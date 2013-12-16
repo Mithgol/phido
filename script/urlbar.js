@@ -20,6 +20,11 @@ urlbar.prototype.open = function(URL){
    try {
       var parsedURL = phiURL(URL);
    } catch(e) {
-      $('#content').html(''+e);
+      $('#content').html([
+      '<div style="text-align: center;">',
+         '<i class="fa fa-exclamation-triangle fa-5x"></i><br>',
+         ''+e,
+      '</div>'
+      ].join(''));
    }
 };
