@@ -6,8 +6,8 @@ urlbar = function(){
 };
 
 urlbar.prototype.open = function(URL){
-   if(this.curr < this.history.length-1 ){
-      this.history.splice(this.curr + 1, this.history.length - 1 - this.curr);
+   if(this.curr >= 0 ){
+      this.history.length = this.curr + 1;
    }
    this.history.push(URL);
    this.curr++;
