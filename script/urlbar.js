@@ -20,6 +20,23 @@ urlbar.prototype.open = function(URL){
    this.render(URL);
 };
 
+urlbar.prototype.forward = function(){
+   if( this.history.length <= 0 || this.history.length <= this.curr + 1 ){
+      return;
+   }
+   this.curr++;
+   var URL = this.history[this.curr];
+
+   $urlbar = $('#urlbar');
+   $urlbar.find('#URL').val( URL );
+   if( this.history.length <= this.curr + 1 ) {
+      $urlbar.find('#forward').attr('disabled', 'disabled');
+   }
+   if( this.curr > 0 ) $urlbar.find('#back').attr('disabled', '');
+
+   this.render(URL);
+};
+
 urlbar.prototype.render = function(URL){
    try {
       var parsedURL = phiURL(URL);
