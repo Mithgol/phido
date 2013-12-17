@@ -17,6 +17,10 @@ urlbar.prototype.open = function(URL){
    $urlbar.find('#forward').attr('disabled', 'disabled');
    if( this.curr > 0 ) $urlbar.find('#back').attr('disabled', '');
 
+   this.render(URL);
+};
+
+urlbar.prototype.render = function(URL){
    try {
       var parsedURL = phiURL(URL);
    } catch(e) {
@@ -26,5 +30,6 @@ urlbar.prototype.open = function(URL){
          ''+e,
       '</div>'
       ].join(''));
+      return;
    }
 };
