@@ -37,6 +37,19 @@ urlbar.prototype.forward = function(){
    this.render(URL);
 };
 
+urlbar.prototype.back = function(){
+   if( curr <= 0 ) return;
+   this.curr--;
+   var URL = this.history[this.curr];
+
+   $urlbar = $('#urlbar');
+   $urlbar.find('#URL').val( URL );
+   $urlbar.find('#forward').attr('disabled', '');
+   if( this.curr <= 0 ) $urlbar.find('#back').attr('disabled', 'disabled');
+
+   this.render(URL);
+};
+
 urlbar.prototype.render = function(URL){
    try {
       var parsedURL = phiURL(URL);
