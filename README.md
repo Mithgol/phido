@@ -73,4 +73,4 @@ The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
 * This product uses the JAM(mbp) API — Copyright 1993 Joaquim Homrighausen, Andrew Milner, Mats Birch, Mats Wallin. ALL RIGHTS RESERVED. (JAM may be used by any developer as long as its specifications are followed exactly. JAM may be used free-of-charge by any developer for any purpose, commercially or otherwise.)
 
-* Node.js modules installed in the `node_modules` directory are the property of their respective owners.
+* Node.js modules (installed in the `node_modules` directory) belong to their respective owners.
