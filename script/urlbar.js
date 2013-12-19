@@ -1,3 +1,5 @@
+/* global $, phiURL, urlbar:true */
+
 urlbar = function(){
    if (!(this instanceof urlbar)) return new urlbar();
 
@@ -12,7 +14,7 @@ urlbar.prototype.open = function(URL){
    this.history.push(URL);
    this.curr++;
 
-   $urlbar = $('#urlbar');
+   var $urlbar = $('#urlbar');
    $urlbar.find('#URL').val( URL );
    $urlbar.find('#forward').attr('disabled', 'disabled');
    if( this.curr > 0 ) $urlbar.find('#back').attr('disabled', '');
@@ -27,7 +29,7 @@ urlbar.prototype.forward = function(){
    this.curr++;
    var URL = this.history[this.curr];
 
-   $urlbar = $('#urlbar');
+   var $urlbar = $('#urlbar');
    $urlbar.find('#URL').val( URL );
    if( this.history.length <= this.curr + 1 ) {
       $urlbar.find('#forward').attr('disabled', 'disabled');
@@ -38,11 +40,11 @@ urlbar.prototype.forward = function(){
 };
 
 urlbar.prototype.back = function(){
-   if( curr <= 0 ) return;
+   if( this.curr <= 0 ) return;
    this.curr--;
    var URL = this.history[this.curr];
 
-   $urlbar = $('#urlbar');
+   var $urlbar = $('#urlbar');
    $urlbar.find('#URL').val( URL );
    $urlbar.find('#forward').attr('disabled', '');
    if( this.curr <= 0 ) $urlbar.find('#back').attr('disabled', 'disabled');
@@ -54,12 +56,10 @@ urlbar.prototype.render = function(URL){
    try {
       var parsedURL = phiURL(URL);
    } catch(e) {
-      $('#content').html([
-      '<div style="text-align: center;">',
+      $('#content').html(['<div style="text-align: center;">',
          '<i class="fa fa-exclamation-triangle fa-5x"></i><br>',
          ''+e,
-      '</div>'
-      ].join(''));
+      '</div>'].join(''));
       return;
    }
 };
