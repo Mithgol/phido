@@ -55,6 +55,7 @@ urlbar.prototype.back = function(){
 urlbar.prototype.render = function(URL){
    try {
       var parsedURL = phiURL(URL);
+      console.log(parsedURL); // TODO: really render
    } catch(e) {
       $('#content').html(['<div style="text-align: center;">',
          '<i class="fa fa-exclamation-triangle fa-5x"></i><br>',
