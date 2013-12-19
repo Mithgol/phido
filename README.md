@@ -51,6 +51,8 @@ Run `nw .` in the PhiDo's directory.
 
 ## Testing PhiDo
 
+[![(build testing status)](https://travis-ci.org/Mithgol/phido.png?branch=master)](https://travis-ci.org/Mithgol/phido)
+
 It is necessary to install [JSHint](http://jshint.com/) for testing.
 
 * You may install JSHint globally (`npm install jshint -g`) or locally (`npm install jshint` in the directory of PhiDo).
