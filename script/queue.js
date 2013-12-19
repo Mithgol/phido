@@ -1,3 +1,5 @@
+/* global queue:true */
+
 queue = function(){
    if (!(this instanceof queue)) return new queue();
 
