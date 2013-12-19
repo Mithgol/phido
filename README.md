@@ -49,6 +49,14 @@ Run `nw .` in the PhiDo's directory.
 
 **Note:** if node-webkit resides in another directory and you won't add that directory to your system's `PATH` variable's value, then you should use a verbose (absolute or relative) path to the node-webkit's executable. (On Windows you may use the `start.bat` file as an example and edit it according to your circumstances.)
 
+## Testing PhiDo
+
+It is necessary to install [JSHint](http://jshint.com/) for testing.
+
+* You may install JSHint globally (`npm install jshint -g`) or locally (`npm install jshint` in the directory of PhiDo).
+
+After that you may run `npm test` (in the directory of PhiDo). Only the JS code errors are caught.
+
 ## License
 
 The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
