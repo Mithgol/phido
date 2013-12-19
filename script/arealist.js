@@ -1,4 +1,6 @@
-arealist = function(){
+/* global $, _, arealist:true, beforeSpace, JAM, phiQ, setup */
+
+arealist = function(){ /* jshint indent:false */
 
 $('#content').html([
 '<div style="text-align: center; margin: 0 0 0.5em; padding: 0;">',
@@ -9,7 +11,9 @@ $('#content').html([
 ].join(''));
 var echoNames = setup.areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
-   $('#content').append('<table id="areaList" class="table table-bordered table-hover table-condensed">' +
+   $('#content').append(
+   '<table id="areaList" ' +
+          'class="table table-bordered table-hover table-condensed">' +
    '<tr class="inverse">' +
       '<th>Area title</th>' +
       '<th style="text-align: center;">Msgs</th>' +
@@ -19,7 +23,9 @@ if( echoNames.length > 0 ){
       return value.toLowerCase();
    });
    _(echoNames).each(function(echoName){
-      var arrDesc = /-d "([^"]+?)"/.exec( setup.areas.group('EchoArea').first(echoName) );
+      var arrDesc = /-d "([^"]+?)"/.exec(
+         setup.areas.group('EchoArea').first(echoName)
+      );
       var echoDesc;
       if( arrDesc === null ){
          echoDesc = echoName;
@@ -31,10 +37,12 @@ if( echoNames.length > 0 ){
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
       '</tr>').appendTo('#areaList tbody').find('.msgnum').data({
-         'echopath': beforeSpace( setup.areas.group('EchoArea').first(echoName) )
+         'echopath': beforeSpace(
+            setup.areas.group('EchoArea').first(echoName)
+         )
       });
    });
-   $('#areaList .msgnum').each(function(idx){
+   $('#areaList .msgnum').each(function(){
       var $cell = $(this);
       phiQ.push(function(){
          var echobase = JAM( $cell.data('echopath') );
@@ -52,4 +60,4 @@ if( echoNames.length > 0 ){
    phiQ.singleStep();
 }
 
-}
+};
