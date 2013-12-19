@@ -1,4 +1,4 @@
-/* global $, phiURL, urlbar:true */
+/* global $, _, phiURL, urlbar:true */
 
 urlbar = function(){
    if (!(this instanceof urlbar)) return new urlbar();
@@ -55,12 +55,17 @@ urlbar.prototype.back = function(){
 urlbar.prototype.render = function(URL){
    try {
       var parsedURL = phiURL(URL);
-      console.log(parsedURL); // TODO: really render
+      console.log(parsedURL); // TODO: really render (after this try-catch)
    } catch(e) {
-      $('#content').html(['<div style="text-align: center;">',
-         '<i class="fa fa-exclamation-triangle fa-5x"></i><br>',
-         e.message,
-      '</div>'].join(''));
-      return;
+      return this.reportErrorHTML(
+         _.escapeHTML(e.message)
+      );
    }
+};
+
+urlbar.prototype.reportErrorHTML = function(errorHTML){
+   $('#content').html(['<div style="text-align: center;">',
+      '<i class="fa fa-exclamation-triangle fa-5x"></i><br>',
+      errorHTML,
+   '</div>'].join(''));
 };
