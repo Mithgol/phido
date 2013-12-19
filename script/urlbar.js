@@ -59,7 +59,7 @@ urlbar.prototype.render = function(URL){
    } catch(e) {
       $('#content').html(['<div style="text-align: center;">',
          '<i class="fa fa-exclamation-triangle fa-5x"></i><br>',
-         ''+e,
+         e.message,
       '</div>'].join(''));
       return;
    }
