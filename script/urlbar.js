@@ -7,6 +7,10 @@ urlbar = function(){
    this.curr = -1;
 };
 
+urlbar.prototype.attach = function($element){
+   this.$urlbar = $element;
+};
+
 urlbar.prototype.open = function(URL){
    if(this.curr >= 0 ){
       this.history.length = this.curr + 1;
@@ -14,10 +18,9 @@ urlbar.prototype.open = function(URL){
    this.history.push(URL);
    this.curr++;
 
-   var $urlbar = $('#urlbar');
-   $urlbar.find('#URL').val( URL );
-   $urlbar.find('#forward').attr('disabled', 'disabled');
-   if( this.curr > 0 ) $urlbar.find('#back').attr('disabled', '');
+   this.$urlbar.find('#URL').val( URL );
+   this.$urlbar.find('#forward').attr('disabled', 'disabled');
+   if( this.curr > 0 ) this.$urlbar.find('#back').attr('disabled', '');
 
    this.render(URL);
 };
@@ -29,12 +32,11 @@ urlbar.prototype.forward = function(){
    this.curr++;
    var URL = this.history[this.curr];
 
-   var $urlbar = $('#urlbar');
-   $urlbar.find('#URL').val( URL );
+   this.$urlbar.find('#URL').val( URL );
    if( this.history.length <= this.curr + 1 ) {
-      $urlbar.find('#forward').attr('disabled', 'disabled');
+      this.$urlbar.find('#forward').attr('disabled', 'disabled');
    }
-   if( this.curr > 0 ) $urlbar.find('#back').attr('disabled', '');
+   if( this.curr > 0 ) this.$urlbar.find('#back').attr('disabled', '');
 
    this.render(URL);
 };
@@ -44,10 +46,11 @@ urlbar.prototype.back = function(){
    this.curr--;
    var URL = this.history[this.curr];
 
-   var $urlbar = $('#urlbar');
-   $urlbar.find('#URL').val( URL );
-   $urlbar.find('#forward').attr('disabled', '');
-   if( this.curr <= 0 ) $urlbar.find('#back').attr('disabled', 'disabled');
+   this.$urlbar.find('#URL').val( URL );
+   this.$urlbar.find('#forward').attr('disabled', '');
+   if( this.curr <= 0 ){
+      this.$urlbar.find('#back').attr('disabled', 'disabled');
+   }
 
    this.render(URL);
 };
