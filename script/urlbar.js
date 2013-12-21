@@ -8,10 +8,10 @@ urlbar = function(){
 };
 
 urlbar.prototype.attach = function($element){
-   this.$urlbar  = $element;
-   this.$URL     = this.$urlbar.find('#URL');
-   this.$back    = this.$urlbar.find('#back');
-   this.$forward = this.$urlbar.find('#forward');
+   var $urlbar  = $element;
+   this.$URL     = $urlbar.find('#URL');
+   this.$back    = $urlbar.find('#back');
+   this.$forward = $urlbar.find('#forward');
 };
 
 urlbar.prototype.open = function(URL){
