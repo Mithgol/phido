@@ -21,6 +21,9 @@ urlbar.prototype.attach = function($element){
    this.$forward.on('click', function(){
       _urlbar.forward();
    });
+   this.$URL.on('keyup', null, 'enter', function(){
+      _urlbar.open( this.value );
+   });
 
 };
 
