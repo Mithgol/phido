@@ -72,12 +72,12 @@ urlbar.prototype.back = function(){
 urlbar.prototype.render = function(URL){
    try {
       var parsedURL = phiURL(URL);
-      console.log(parsedURL); // TODO: really render (after this try-catch)
    } catch(e) {
       return this.reportErrorHTML(
          _.escapeHTML(e.message)
       );
    }
+   arealist(); // TODO: really use parsedURLs to determine rendering
 };
 
 urlbar.prototype.reportErrorHTML = function(errorHTML){
