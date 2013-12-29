@@ -36,7 +36,7 @@ urlbar.prototype.open = function(URL){
 
    this.$URL.val(URL);
    this.$forward.attr('disabled', 'disabled');
-   if( this.curr > 0 ) this.$back.attr('disabled', '');
+   if( this.curr > 0 ) this.$back.removeAttr('disabled');
 
    this.render(URL);
 };
@@ -52,7 +52,7 @@ urlbar.prototype.forward = function(){
    if( this.history.length <= this.curr + 1 ) {
       this.$forward.attr('disabled', 'disabled');
    }
-   if( this.curr > 0 ) this.$back.attr('disabled', '');
+   if( this.curr > 0 ) this.$back.removeAttr('disabled');
 
    this.render(URL);
 };
@@ -63,7 +63,7 @@ urlbar.prototype.back = function(){
    var URL = this.history[this.curr];
 
    this.$URL.val(URL);
-   this.$forward.attr('disabled', '');
+   this.$forward.removeAttr('disabled');
    if( this.curr <= 0 ) this.$back.attr('disabled', 'disabled');
 
    this.render(URL);
