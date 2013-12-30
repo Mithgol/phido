@@ -1,4 +1,4 @@
-/* global $, _, phiURL, urlbar:true */
+/* global $, _, phiURL, arealist, urlbar:true */
 
 urlbar = function(){
    if (!(this instanceof urlbar)) return new urlbar();
@@ -70,12 +70,20 @@ urlbar.prototype.back = function(){
 };
 
 urlbar.prototype.render = function(URL){
+   var parsedURL;
    try {
-      var parsedURL = phiURL(URL);
+      parsedURL = phiURL(URL);
    } catch(e) {
       return this.reportErrorHTML(
          _.escapeHTML(e.message)
       );
+   }
+   if( parsedURL.scheme !== 'area' ){
+      return this.reportErrorHTML([
+         'Sorry, the URL scheme <b>',
+         parsedURL.scheme,
+         '</b> is not supported.'
+      ].join(''));
    }
    arealist(); // TODO: really use parsedURLs to determine rendering
 };
