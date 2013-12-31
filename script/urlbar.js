@@ -12,6 +12,7 @@ urlbar.prototype.attach = function($element){
    var _urlbar = this;
 
    this.$URL     = $urlbar.find('#URL');
+   this.$goToURL = $urlbar.find('#goToURL');
    this.$back    = $urlbar.find('#back');
    this.$forward = $urlbar.find('#forward');
 
@@ -23,6 +24,9 @@ urlbar.prototype.attach = function($element){
    });
    this.$URL.on('keyup', null, 'return', function(){
       _urlbar.open( this.value );
+   });
+   this.$goToURL.on('click', function(){
+      _urlbar.open( _urlbar.$URL.val() );
    });
 
 };
