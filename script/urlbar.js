@@ -84,7 +84,7 @@ urlbar.prototype.render = function(URL){
    }
    if( parsedURL.scheme !== 'area' ){
       return this.reportErrorHTML([
-         'Sorry, the URL scheme <b>',
+         'Sorry, the FGHI URL scheme <b>',
          parsedURL.scheme,
          '</b> is not supported.'
       ].join(''));
