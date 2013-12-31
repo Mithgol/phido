@@ -18,15 +18,18 @@ urlbar.prototype.attach = function($element){
 
    this.$back.on('click', function(){
       _urlbar.back();
+      this.blur();
    });
    this.$forward.on('click', function(){
       _urlbar.forward();
+      this.blur();
    });
    this.$URL.on('keyup', null, 'return', function(){
       _urlbar.open( this.value );
    });
    this.$goToURL.on('click', function(){
       _urlbar.open( _urlbar.$URL.val() );
+      this.blur();
    });
 
 };
