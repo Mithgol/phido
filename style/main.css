@@ -1,5 +1,5 @@
 ul li { list-style-image: url(../img/bullet.gif); }
-.msgnum { text-align: center; }
+.msgnum, .msgnew { text-align: center; }
 tr.inverse > td,
 tr.inverse > th,
 .table-hover > tbody > tr.inverse:hover > td,

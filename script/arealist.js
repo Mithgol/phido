@@ -17,6 +17,7 @@ if( echoNames.length > 0 ){
    '<tr class="inverse">' +
       '<th>Area title</th>' +
       '<th style="text-align: center;">Msgs</th>' +
+      '<th style="text-align: center;">New</th>' +
       '<th>Echotag</th>' +
    '</tr></table>');
    echoNames = _(echoNames).sortBy(function(value){ // stable sort
@@ -35,6 +36,7 @@ if( echoNames.length > 0 ){
       $('<tr>' +
          '<td>'+_.escapeHTML(echoDesc)+'</td>' +
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
+         '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
       '</tr>').appendTo('#areaList tbody').find('.msgnum').data({
          'echopath': beforeSpace(
