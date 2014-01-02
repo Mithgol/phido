@@ -38,7 +38,7 @@ if( echoNames.length > 0 ){
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
-      '</tr>').appendTo('#areaList tbody').find('.msgnum').data({
+      '</tr>').appendTo('#areaList tbody').data({
          'echopath': beforeSpace(
             setup.areas.group('EchoArea').first(echoName)
          )
@@ -47,7 +47,7 @@ if( echoNames.length > 0 ){
    $('#areaList .msgnum').each(function(){
       var $cell = $(this);
       phiQ.push(function(){
-         var echobase = JAM( $cell.data('echopath') );
+         var echobase = JAM( $cell.closest('tr').data('echopath') );
          echobase.readJDX(function(err){
             if( err ){
                $cell.html('FAIL');
@@ -56,6 +56,45 @@ if( echoNames.length > 0 ){
             }
             $cell.html( echobase.size() );
             phiQ.singleNext();
+         });
+      });
+   });
+   $('#areaList .msgnew').each(function(){
+      var $cell = $(this);
+      phiQ.push(function(){
+         var echobase = JAM( $cell.closest('tr').data('echopath') );
+         echobase.readJLR(function(err){
+            if( err ){
+               $cell.html('FAIL');
+               phiQ.singleNext();
+               return;
+            }
+            if( echobase.lastreads.length !== 1 ){
+               $cell.html('MUD');
+               phiQ.singleNext();
+               return;
+            }
+            echobase.readAllHeaders(function(err, data){
+               if( err ){
+                  $cell.html('FAIL');
+                  phiQ.singleNext();
+                  return;
+               }
+               var nextHeader = data.MessageHeaders.length - 1;
+               while( nextHeader > 0 ){
+                  if(
+                     data.MessageHeaders[nextHeader].MessageNumber ===
+                     echobase.lastreads[0].LastRead
+                  ){
+                     $cell.html(data.MessageHeaders.length - 1 - nextHeader);
+                     phiQ.singleNext();
+                     return;
+                  } else nextHeader--;
+               }
+               $cell.html('FAIL');
+               phiQ.singleNext();
+               return;
+            });
          });
       });
    });

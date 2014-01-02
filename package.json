@@ -10,7 +10,7 @@
 },
 "dependencies": {
    "fghi-url": "~0.5.0-pre.2",
-   "fidonet-jam": "~1.0.2",
+   "fidonet-jam": "~1.1.0",
    "simteconf": "~0.5.0",
    "underscore": "~1.5.2",
    "underscore.string": "~2.3.3"
