@@ -74,26 +74,34 @@ if( echoNames.length > 0 ){
                phiQ.singleNext();
                return;
             }
-            echobase.readAllHeaders(function(err, data){
+            echobase.readJDX(function(err){
                if( err ){
                   $cell.html('FAIL');
                   phiQ.singleNext();
                   return;
                }
-               var nextHeader = data.MessageHeaders.length - 1;
-               while( nextHeader > 0 ){
-                  if(
-                     data.MessageHeaders[nextHeader].MessageNumber ===
-                     echobase.lastreads[0].LastRead
-                  ){
-                     $cell.html(data.MessageHeaders.length - 1 - nextHeader);
+               echobase.readFixedHeaderInfoStruct(function(err, data){
+                  if( err ){
+                     $cell.html('FAIL');
                      phiQ.singleNext();
                      return;
-                  } else nextHeader--;
-               }
-               $cell.html('FAIL');
-               phiQ.singleNext();
-               return;
+                  }
+                  var nextIDX = echobase.size() - 1;
+                  while( nextIDX > 0 ){
+                     if(
+                        echobase.indexStructure[nextIDX].MessageNum0 +
+                        data.basemsgnum ===
+                        echobase.lastreads[0].LastRead
+                     ){
+                        $cell.html(echobase.size() - 1 - nextIDX);
+                        phiQ.singleNext();
+                        return;
+                     } else nextIDX--;
+                  }
+                  $cell.html('FAIL');
+                  phiQ.singleNext();
+                  return;
+               });
             });
          });
       });
