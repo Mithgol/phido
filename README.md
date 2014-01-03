@@ -12,7 +12,7 @@
 
 * PhiDo currently requires **Node.js** and **npm** for installation of dependencies. For futher versions of PhiDo the distribution of complete packages (with dependencies included) is planned.
 
-* PhiDo supports only the JAM [(Joaquim-Andrew-Mats)](http://groups.google.com/group/fido7.ru.ftn.develop/msg/e2f5486f80394418) type of Fidonet message bases.
+* PhiDo supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
 * PhiDo currently uses [HPT](http://husky.sourceforge.net/hpt.html)'s area configuration file as the description of echomail areas.
 
@@ -72,6 +72,6 @@ The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
 * The directory `awesome` contains [Font Awesome](http://fortawesome.github.io/Font-Awesome/), licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).
 
-* This product uses the JAM(mbp) API — Copyright 1993 Joaquim Homrighausen, Andrew Milner, Mats Birch, Mats Wallin. ALL RIGHTS RESERVED. (JAM may be used by any developer as long as its specifications are followed exactly. JAM may be used free-of-charge by any developer for any purpose, commercially or otherwise.)
+* This product uses the JAM(mbp) API — Copyright 1993 Joaquim Homrighausen, Andrew Milner, Mats Birch, Mats Wallin. ALL RIGHTS RESERVED. (JAM may be used by any developer as long as [its specifications](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) are followed exactly. JAM may be used free-of-charge by any developer for any purpose, commercially or otherwise.)
 
 * Node.js modules (installed in the `node_modules` directory) belong to their respective owners.
