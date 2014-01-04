@@ -43,6 +43,13 @@ The following configuration options are supported (in arbitrary order):
 
 * `UserName` — the user's name. May be borrowed from GoldED's configuration if omitted in PhiDo's.
 
+* `AreaSep` — descriptions of separators between areas in the arealist. May be borrowed from GoldED's configuration if omitted in PhiDo's. Each separator consists of the following elements (separated with one or more spaces):
+   * `AreaSep` (literally)
+   * areatag (such as `Ru.FTN.Develop` for example)
+   * `"separator text"` (in double quotes)
+   * group ID (number, currently ignored)
+   * group type (currently only `Echo` separators are displayed)
+
 ## Launching PhiDo
 
 Run `nw .` in the PhiDo's directory.
