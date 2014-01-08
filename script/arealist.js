@@ -45,7 +45,7 @@ if( echoNames.length > 0 ){
       } else {
          echoDesc = arrDesc[1];
       }
-      $('<tr>' +
+      $('<tr class="areaRow">' +
          '<td>'+_.escapeHTML(echoDesc)+'</td>' +
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +

@@ -11,4 +11,4 @@ tr.inverse > th,
 .table-hover > tbody > tr.inverse:hover > th {
    background-color: #555; color: #fff; text-shadow: 1px 1px #000;
 }
-#areaList TD { cursor: pointer; }
+#areaList tr.areaRow td { cursor: pointer; }
