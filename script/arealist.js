@@ -23,7 +23,19 @@ if( echoNames.length > 0 ){
    echoNames = _(echoNames).sortBy(function(value){ // stable sort
       return value.toLowerCase();
    });
+   var currAreaSep = 0;
    _(echoNames).each(function(echoName){
+      var $appendTarget = $('#areaList tbody');
+      while(
+         currAreaSep < setup.areaSeparators.length &&
+         setup.areaSeparators[currAreaSep].sepName.toLowerCase() <
+         echoName.toLowerCase()
+      ){
+         $('<tr><td colspan=4 class="sepDesc">' +
+            _.escapeHTML(setup.areaSeparators[currAreaSep].sepDesc) +
+         '</td></tr>').appendTo($appendTarget);
+         currAreaSep++;
+      }
       var arrDesc = /-d "([^"]+?)"/.exec(
          setup.areas.group('EchoArea').first(echoName)
       );
@@ -38,7 +50,7 @@ if( echoNames.length > 0 ){
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
-      '</tr>').appendTo('#areaList tbody').data({
+      '</tr>').appendTo($appendTarget).data({
          'echopath': beforeSpace(
             setup.areas.group('EchoArea').first(echoName)
          )

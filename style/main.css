@@ -1,5 +1,10 @@
 ul li { list-style-image: url(../img/bullet.gif); }
 .msgnum, .msgnew { text-align: center; }
+.table-hover > tbody > tr > td.sepDesc,
+.table-hover > tbody > tr > td.sepDesc {
+   background-color: #e8e8e8;
+   padding-left: 2em;
+}
 tr.inverse > td,
 tr.inverse > th,
 .table-hover > tbody > tr.inverse:hover > td,
