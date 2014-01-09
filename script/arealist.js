@@ -7,7 +7,12 @@ $('#content').html([
    'Welcome, <i class="fa fa-user"></i><b>',
       setup.UserName,
    '!</b>',
-'</div>'
+'</div><div class="row"><div class="col-xs-12">',
+   '<div style="display: flex; flex-direction: row; margin-bottom: 1em;">',
+      '<label style="flex-grow: 0; padding: 0 1em 0 0;">Search by areatag:</label>',
+      '<input type="text" style="flex-grow: 1;">',
+   '</div>',
+'</div></div>'
 ].join(''));
 var echoNames = setup.areas.group('EchoArea').names();
 if( echoNames.length > 0 ){
