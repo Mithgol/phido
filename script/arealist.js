@@ -10,7 +10,7 @@ $('#content').html([
 '</div><div class="row"><div class="col-xs-12">',
    '<div style="display: flex; flex-direction: row; margin-bottom: 1em;">',
       '<label style="flex-grow: 0; padding: 0 1em 0 0;">Search by areatag:</label>',
-      '<input type="text" style="flex-grow: 1;">',
+      '<input type="text" id="searchAreatag" style="flex-grow: 1;">',
    '</div>',
 '</div></div>'
 ].join(''));
