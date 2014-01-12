@@ -19,26 +19,27 @@ if( echoNames.length > 0 ){
    $('#content').append(
    '<table id="areaList" ' +
           'class="table table-bordered table-hover table-condensed">' +
-   '<tr class="inverse">' +
+   '<tbody><tr class="inverse">' +
       '<th>Area title</th>' +
       '<th style="text-align: center;">Msgs</th>' +
       '<th style="text-align: center;">New</th>' +
       '<th>Echotag</th>' +
-   '</tr></table>');
+   '</tr></tbody></table>');
    echoNames = _(echoNames).sortBy(function(value){ // stable sort
       return value.toLowerCase();
    });
    var currAreaSep = 0;
+   var $currTBody = $('<tbody></tbody>').appendTo('#areaList');
    _(echoNames).each(function(echoName){
-      var $appendTarget = $('#areaList tbody');
       while(
          currAreaSep < setup.areaSeparators.length &&
          setup.areaSeparators[currAreaSep].sepName.toLowerCase() <
          echoName.toLowerCase()
       ){
+         $currTBody = $('<tbody></tbody>').appendTo('#areaList');
          $('<tr><td colspan=4 class="sepDesc">' +
             _.escapeHTML(setup.areaSeparators[currAreaSep].sepDesc) +
-         '</td></tr>').appendTo($appendTarget);
+         '</td></tr>').appendTo($currTBody);
          currAreaSep++;
       }
       var arrDesc = /-d "([^"]+?)"/.exec(
@@ -55,7 +56,7 @@ if( echoNames.length > 0 ){
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
-      '</tr>').appendTo($appendTarget).data({
+      '</tr>').appendTo($currTBody).data({
          'echopath': beforeSpace(
             setup.areas.group('EchoArea').first(echoName)
          )
