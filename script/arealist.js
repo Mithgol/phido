@@ -57,6 +57,7 @@ if( echoNames.length > 0 ){
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td>'+_.escapeHTML(echoName)+'</td>' +
       '</tr>').appendTo($currTBody).data({
+         'echotag': echoName,
          'echopath': beforeSpace(
             setup.areas.group('EchoArea').first(echoName)
          )
