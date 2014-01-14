@@ -1,5 +1,16 @@
 /* global $, _, arealist:true, beforeSpace, JAM, phiQ, setup */
 
+hideSeparatorsOfInvisible = function(){
+   $('#areaList tbody').each(function(){
+      var $this = $(this);
+      if( $this.find('tr.areaRow:visible').length < 1 ){
+         $this.find('td.sepDesc').closest('tr').hide();
+      } else {
+         $this.find('td.sepDesc').closest('tr').show();
+      }
+   });
+}
+
 arealist = function(){ /* jshint indent:false */
 
 $('#content').html([
@@ -63,6 +74,7 @@ if( echoNames.length > 0 ){
          )
       });
    });
+   hideSeparatorsOfInvisible();
    $('#areaList .msgnum').each(function(){
       var $cell = $(this);
       phiQ.push(function(){
