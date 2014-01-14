@@ -1,6 +1,6 @@
 /* global $, _, arealist:true, beforeSpace, JAM, phiQ, setup */
 
-hideSeparatorsOfInvisible = function(){
+var hideSeparatorsOfInvisible = function(){
    $('#areaList tbody').each(function(){
       var $this = $(this);
       if( $this.find('tr.areaRow:visible').length < 1 ){
@@ -9,7 +9,75 @@ hideSeparatorsOfInvisible = function(){
          $this.find('td.sepDesc').closest('tr').show();
       }
    });
-}
+};
+
+var msgnumActionQueue = function(){
+   $('#areaList .msgnum').each(function(){
+      var $cell = $(this);
+      phiQ.push(function(){
+         var echobase = JAM( $cell.closest('tr').data('echopath') );
+         echobase.readJDX(function(err){
+            if( err ){
+               $cell.html('FAIL');
+               phiQ.singleNext();
+               return;
+            }
+            $cell.html( echobase.size() );
+            phiQ.singleNext();
+         });
+      });
+   });
+};
+
+var msgnewActionQueue = function(){
+   $('#areaList .msgnew').each(function(){
+      var $cell = $(this);
+      phiQ.push(function(){
+         var echobase = JAM( $cell.closest('tr').data('echopath') );
+         echobase.readJLR(function(err){
+            if( err ){
+               $cell.html('FAIL');
+               phiQ.singleNext();
+               return;
+            }
+            if( echobase.lastreads.length !== 1 ){
+               $cell.html('MUD');
+               phiQ.singleNext();
+               return;
+            }
+            echobase.readJDX(function(err){
+               if( err ){
+                  $cell.html('FAIL');
+                  phiQ.singleNext();
+                  return;
+               }
+               echobase.readFixedHeaderInfoStruct(function(err, data){
+                  if( err ){
+                     $cell.html('FAIL');
+                     phiQ.singleNext();
+                     return;
+                  }
+                  var nextIDX = echobase.size() - 1;
+                  while( nextIDX > 0 ){
+                     if(
+                        echobase.indexStructure[nextIDX].MessageNum0 +
+                        data.basemsgnum ===
+                        echobase.lastreads[0].LastRead
+                     ){
+                        $cell.html(echobase.size() - 1 - nextIDX);
+                        phiQ.singleNext();
+                        return;
+                     } else nextIDX--;
+                  }
+                  $cell.html('FAIL');
+                  phiQ.singleNext();
+                  return;
+               });
+            });
+         });
+      });
+   });
+};
 
 arealist = function(){ /* jshint indent:false */
 
@@ -20,7 +88,9 @@ $('#content').html([
    '!</b>',
 '</div><div class="row"><div class="col-xs-12">',
    '<div style="display: flex; flex-direction: row; margin-bottom: 1em;">',
-      '<label style="flex-grow: 0; padding: 0 1em 0 0;">Search by areatag:</label>',
+      '<label style="flex-grow: 0; padding: 0 1em 0 0;">',
+         'Search by areatag:',
+      '</label>',
       '<input type="text" id="searchAreatag" style="flex-grow: 1;">',
    '</div>',
 '</div></div>'
@@ -75,68 +145,8 @@ if( echoNames.length > 0 ){
       });
    });
    hideSeparatorsOfInvisible();
-   $('#areaList .msgnum').each(function(){
-      var $cell = $(this);
-      phiQ.push(function(){
-         var echobase = JAM( $cell.closest('tr').data('echopath') );
-         echobase.readJDX(function(err){
-            if( err ){
-               $cell.html('FAIL');
-               phiQ.singleNext();
-               return;
-            }
-            $cell.html( echobase.size() );
-            phiQ.singleNext();
-         });
-      });
-   });
-   $('#areaList .msgnew').each(function(){
-      var $cell = $(this);
-      phiQ.push(function(){
-         var echobase = JAM( $cell.closest('tr').data('echopath') );
-         echobase.readJLR(function(err){
-            if( err ){
-               $cell.html('FAIL');
-               phiQ.singleNext();
-               return;
-            }
-            if( echobase.lastreads.length !== 1 ){
-               $cell.html('MUD');
-               phiQ.singleNext();
-               return;
-            }
-            echobase.readJDX(function(err){
-               if( err ){
-                  $cell.html('FAIL');
-                  phiQ.singleNext();
-                  return;
-               }
-               echobase.readFixedHeaderInfoStruct(function(err, data){
-                  if( err ){
-                     $cell.html('FAIL');
-                     phiQ.singleNext();
-                     return;
-                  }
-                  var nextIDX = echobase.size() - 1;
-                  while( nextIDX > 0 ){
-                     if(
-                        echobase.indexStructure[nextIDX].MessageNum0 +
-                        data.basemsgnum ===
-                        echobase.lastreads[0].LastRead
-                     ){
-                        $cell.html(echobase.size() - 1 - nextIDX);
-                        phiQ.singleNext();
-                        return;
-                     } else nextIDX--;
-                  }
-                  $cell.html('FAIL');
-                  phiQ.singleNext();
-                  return;
-               });
-            });
-         });
-      });
-   });
+   msgnumActionQueue();
+   msgnewActionQueue();
    phiQ.singleStep();
 }
 
