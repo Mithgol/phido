@@ -79,6 +79,45 @@ var msgnewActionQueue = function(){
    });
 };
 
+var searchAreatagHandler = function(){
+   var $this = $(this);
+   if( $this.val() === $this.data('val') ) return;
+   $this.data('val', $this.val());
+
+   var toFind = $this.val().toLowerCase();
+   if( toFind === '' ){
+      $('#areaList tr.areaRow').each(function(){
+         var $this = $(this);
+         var echotag = $this.data('echotag');
+         $this.find('td.echotag').html( _.escapeHTML(echotag) );
+         $this.show();
+      });
+      hideSeparatorsOfInvisible();
+      return;
+   }
+
+   $('#areaList tr.areaRow').each(function(){
+      var $this = $(this);
+      var echotag = $this.data('echotag');
+      var foundIndex = echotag.toLowerCase().indexOf(toFind);
+      if( foundIndex < 0 ){
+         $this.find('td.echotag').html( _.escapeHTML(echotag) );
+         $this.hide();
+         return true; // continue loop
+      }
+      var before = echotag.slice(0, foundIndex);
+      var center = echotag.slice(foundIndex, foundIndex + toFind.length);
+      var after  = echotag.slice(foundIndex + toFind.length);
+      $this.find('td.echotag').html(
+         _.escapeHTML(before) +
+         '<b>' + _.escapeHTML(center) + '</b>' +
+         _.escapeHTML(after)
+      );
+      $this.show();
+   });
+   hideSeparatorsOfInvisible();
+};
+
 arealist = function(){ /* jshint indent:false */
 
 phiTitle('Arealist');
@@ -138,7 +177,7 @@ if( echoNames.length > 0 ){
          '<td>'+_.escapeHTML(echoDesc)+'</td>' +
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
-         '<td>'+_.escapeHTML(echoName)+'</td>' +
+         '<td class="echotag">'+_.escapeHTML(echoName)+'</td>' +
       '</tr>').appendTo($currTBody).data({
          'echotag': echoName,
          'echopath': beforeSpace(
@@ -150,6 +189,7 @@ if( echoNames.length > 0 ){
    msgnumActionQueue();
    msgnewActionQueue();
    phiQ.singleStep();
+   $('#searchAreatag').on('keyup', searchAreatagHandler);
 }
 
 };
