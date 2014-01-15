@@ -1,4 +1,4 @@
-/* global $, _, arealist:true, beforeSpace, JAM, phiQ, setup */
+/* global $, _, arealist:true, beforeSpace, JAM, phiQ, setup, phiTitle */
 
 var hideSeparatorsOfInvisible = function(){
    $('#areaList tbody').each(function(){
@@ -80,6 +80,8 @@ var msgnewActionQueue = function(){
 };
 
 arealist = function(){ /* jshint indent:false */
+
+phiTitle('Arealist');
 
 $('#content').html([
 '<div style="text-align: center; margin: 0 0 0.5em; padding: 0;">',
