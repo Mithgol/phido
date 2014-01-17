@@ -9,6 +9,12 @@ var hideSeparatorsOfInvisible = function(){
          $this.find('td.sepDesc').closest('tr').show();
       }
    });
+
+   if( $('#areaList tr.areaRow:visible').length < 1 ){
+      $('#areaList tbody.noAreaRows').show();
+   } else {
+      $('#areaList tbody.noAreaRows').hide();
+   }
 };
 
 var msgnumActionQueue = function(){
@@ -185,6 +191,11 @@ if( echoNames.length > 0 ){
          )
       });
    });
+   $('<tbody class="noAreaRows" style="display: none;"><tr>' +
+      '<td colspan=4 style="text-align: center;">' +
+         'Echomail not found.' +
+      '</td>' +
+   '</tr></tbody>').appendTo('#areaList');
    hideSeparatorsOfInvisible();
    msgnumActionQueue();
    msgnewActionQueue();
