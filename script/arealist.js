@@ -138,7 +138,8 @@ $('#content').html([
    '!</b>',
 '</div><div class="row"><div class="col-xs-12 form-group">',
    '<div style="display: flex; flex-direction: row; margin-bottom: 1em;">',
-      '<label style="flex-grow: 0; padding: 0.3em 1em 0 0; white-space: nowrap;">',
+      '<label style="flex-grow: 0; padding: 0.3em 1em 0 0; ',
+      'white-space: nowrap;">',
          'Search by areatag:',
       '</label>',
       '<input type="text" id="searchAreatag" ',
@@ -183,16 +184,31 @@ if( echoNames.length > 0 ){
       } else {
          echoDesc = arrDesc[1];
       }
+      var GUI = require('nw.gui');
+      var contextMenu = new GUI.Menu();
+      contextMenu.append(new GUI.MenuItem({
+         'label': 'Copy FGHI URL',
+         'click': function(){
+            require('nw.gui').Clipboard.get().set(
+               'area://' + encodeURIComponent(echoName)
+            );
+         }
+      }));
       $('<tr class="areaRow">' +
          '<td>'+_.escapeHTML(echoDesc)+'</td>' +
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="echotag">'+_.escapeHTML(echoName)+'</td>' +
-      '</tr>').appendTo($currTBody).data({
+      '</tr>').on('contextmenu', function(e){
+         var storedContextMenu = $(this).data('contextMenu');
+         storedContextMenu.popup(e.originalEvent.x, e.originalEvent.y);
+         return false;
+      }).appendTo($currTBody).data({
          'echotag': echoName,
          'echopath': beforeSpace(
             setup.areas.group('EchoArea').first(echoName)
-         )
+         ),
+         'contextMenu': contextMenu
       });
    });
    $('<tbody class="noAreaRows" style="display: none;"><tr>' +
