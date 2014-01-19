@@ -10,10 +10,13 @@ var hideSeparatorsOfInvisible = function(){
       }
    });
 
+   var $searchGroup = $('#searchAreatag').closest('.form-group');
    if( $('#areaList tr.areaRow:visible').length < 1 ){
       $('#areaList tbody.noAreaRows').show();
+      $searchGroup.addClass('has-error').removeClass('has-success');
    } else {
       $('#areaList tbody.noAreaRows').hide();
+      $searchGroup.removeClass('has-error').addClass('has-success');
    }
 };
 
@@ -133,12 +136,13 @@ $('#content').html([
    'Welcome, <i class="fa fa-user"></i><b>',
       setup.UserName,
    '!</b>',
-'</div><div class="row"><div class="col-xs-12">',
+'</div><div class="row"><div class="col-xs-12 form-group">',
    '<div style="display: flex; flex-direction: row; margin-bottom: 1em;">',
-      '<label style="flex-grow: 0; padding: 0 1em 0 0;">',
+      '<label style="flex-grow: 0; padding: 0.3em 1em 0 0; white-space: nowrap;">',
          'Search by areatag:',
       '</label>',
-      '<input type="text" id="searchAreatag" style="flex-grow: 1;">',
+      '<input type="text" id="searchAreatag" ',
+      'class="form-control" style="flex-grow: 1; margin: 0 0 0 2em;">',
    '</div>',
 '</div></div>'
 ].join(''));
