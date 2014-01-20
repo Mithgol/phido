@@ -20,6 +20,31 @@ var hideSeparatorsOfInvisible = function(){
    }
 };
 
+var contextMenuQueue = function(){
+   var GUI = require('nw.gui');
+   var nwClipboard = GUI.Clipboard.get();
+   $('#areaList .areaRow').each(function(){
+      var $row = $(this);
+      phiQ.push(function(){
+         var contextMenu = new GUI.Menu();
+         contextMenu.append(new GUI.MenuItem({
+            'label': 'Copy FGHI URL',
+            'click': function(){
+               nwClipboard.set(
+                  'area://' + encodeURIComponent( $row.data('echotag') )
+               );
+            }
+         }));
+         $row.data('contextMenu', contextMenu).on('contextmenu', function(e){
+            var storedContextMenu = $(this).data('contextMenu');
+            storedContextMenu.popup(e.originalEvent.x, e.originalEvent.y);
+            return false;
+         });
+         phiQ.singleNext();
+      });
+   });
+};
+
 var msgnumActionQueue = function(){
    $('#areaList .msgnum').each(function(){
       var $cell = $(this);
@@ -184,31 +209,16 @@ if( echoNames.length > 0 ){
       } else {
          echoDesc = arrDesc[1];
       }
-      var GUI = require('nw.gui');
-      var contextMenu = new GUI.Menu();
-      contextMenu.append(new GUI.MenuItem({
-         'label': 'Copy FGHI URL',
-         'click': function(){
-            require('nw.gui').Clipboard.get().set(
-               'area://' + encodeURIComponent(echoName)
-            );
-         }
-      }));
       $('<tr class="areaRow">' +
          '<td>'+_.escapeHTML(echoDesc)+'</td>' +
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="echotag">'+_.escapeHTML(echoName)+'</td>' +
-      '</tr>').on('contextmenu', function(e){
-         var storedContextMenu = $(this).data('contextMenu');
-         storedContextMenu.popup(e.originalEvent.x, e.originalEvent.y);
-         return false;
-      }).appendTo($currTBody).data({
+      '</tr>').appendTo($currTBody).data({
          'echotag': echoName,
          'echopath': beforeSpace(
             setup.areas.group('EchoArea').first(echoName)
-         ),
-         'contextMenu': contextMenu
+         )
       });
    });
    $('<tbody class="noAreaRows" style="display: none;"><tr>' +
@@ -217,6 +227,7 @@ if( echoNames.length > 0 ){
       '</td>' +
    '</tr></tbody>').appendTo('#areaList');
    hideSeparatorsOfInvisible();
+   contextMenuQueue();
    msgnumActionQueue();
    msgnewActionQueue();
    phiQ.singleStep();
