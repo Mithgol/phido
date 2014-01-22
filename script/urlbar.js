@@ -77,6 +77,7 @@ urlbar.prototype.back = function(){
 };
 
 urlbar.prototype.render = function(URL){
+   /* jshint indent: false */
    var parsedURL;
    try {
       parsedURL = phiURL(URL);
@@ -85,14 +86,18 @@ urlbar.prototype.render = function(URL){
          _.escapeHTML(e.message)
       );
    }
-   if( parsedURL.scheme !== 'area' ){
-      return this.reportErrorHTML([
-         'Sorry, the FGHI URL scheme <b>',
-         parsedURL.scheme,
-         '</b> is not supported.'
-      ].join(''));
+   switch( parsedURL.scheme ){
+      case 'area':
+         arealist(); // TODO: really use parsedURLs to determine rendering
+      break;
+      default:
+         return this.reportErrorHTML([
+            'Sorry, the FGHI URL scheme <b>',
+            parsedURL.scheme,
+            '</b> is not supported.'
+         ].join(''));
+      //break;
    }
-   arealist(); // TODO: really use parsedURLs to determine rendering
 };
 
 urlbar.prototype.reportErrorHTML = function(errorHTML){
