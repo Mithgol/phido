@@ -91,7 +91,7 @@ urlbar.prototype.render = function(URL){
          arealist(); // TODO: really use parsedURLs to determine rendering
       break;
       default:
-         return this.reportErrorHTML([
+         this.reportErrorHTML([
             'Sorry, the FGHI URL scheme <b>',
             parsedURL.scheme,
             '</b> is not supported.'
