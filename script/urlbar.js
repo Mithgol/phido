@@ -1,4 +1,4 @@
-/* global $, _, phiURL, arealist, urlbar:true */
+/* global $, _, phiURL, phiQ, arealist, urlbar:true */
 
 urlbar = function(){
    if (!(this instanceof urlbar)) return new urlbar();
@@ -78,6 +78,8 @@ urlbar.prototype.back = function(){
 
 urlbar.prototype.render = function(URL){
    /* jshint indent: false */
+   phiQ.stop();
+
    var parsedURL;
    try {
       parsedURL = phiURL(URL);
