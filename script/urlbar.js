@@ -96,8 +96,16 @@ urlbar.prototype.render = function(URL){
          this.reportErrorHTML([
             'Sorry, the FGHI URL scheme <b>',
             parsedURL.scheme,
-            '</b> is not supported.'
+            '</b> is not supported in PhiDo.',
+            '<p>',
+            'You may try <a href="#" id="externalOpen">opening this URL</a> ',
+            "in another application (handler), if it's registered on your system.",
+            '</p>'
          ].join(''));
+         $('#externalOpen').on('click', function(){
+            require('nw.gui').Shell.openExternal(URL);
+            return false;
+         });
       //break;
    }
 };
