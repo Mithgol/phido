@@ -1,4 +1,4 @@
-/* global $, _, phiURL, phiQ, arealist, urlbar:true */
+/* global $, _, phiURL, phiQ, renderAreaURL, urlbar:true */
 
 urlbar = function(){
    if (!(this instanceof urlbar)) return new urlbar();
@@ -90,7 +90,7 @@ urlbar.prototype.render = function(URL){
    }
    switch( parsedURL.scheme ){
       case 'area':
-         arealist(); // TODO: really use parsedURLs to determine rendering
+         renderAreaURL(URL, parsedURL);
       break;
       default:
          this.reportErrorHTML([
@@ -99,7 +99,8 @@ urlbar.prototype.render = function(URL){
             '</b> is not supported in PhiDo.',
             '<p>',
             'You may try <a href="#" id="externalOpen">opening this URL</a> ',
-            "in another application (handler), if it's registered on your system.",
+            'in another application (handler), ',
+            "if it's registered on your system.",
             '</p>'
          ].join(''));
          $('#externalOpen').on('click', function(){
