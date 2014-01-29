@@ -23,7 +23,7 @@
    "width": 600,
    "height": 400,
    "position": "center",
-   "toolbar": false,
+   "toolbar": true,
    "title": "Starting...",
    "icon": "icon/PhiDo-32x32.png"
 }
