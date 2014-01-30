@@ -1,8 +1,22 @@
-/* global $, msglist:true, phiTitle */
+/* global $, msglist:true, phiTitle, phiBar, setup */
 
 msglist = function(echotag){ /* jshint indent:false */
 
 phiTitle(echotag + ' - messages');
+var lcEchoTag = echotag.toLowerCase();
+
+var echoNames = setup.areas.group('EchoArea').names();
+var foundNames = echoNames.filter(function(echoName){
+   return echoName.toLowerCase() === lcEchoTag;
+});
+
+if( foundNames.length === 0 ){
+   return phiBar.reportErrorHTML([
+      'Sorry, the echomail area <b>',
+      echotag,
+      '</b> is not found on the system.'
+   ].join(''));
+}
 
 $('#content').html(
    'TODO: messages for the <b>' + echotag + '</b> echomail area.'
