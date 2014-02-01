@@ -1,4 +1,4 @@
-/* global $, msglist:true, phiTitle, phiBar, setup */
+/* global $, _, msglist:true, phiTitle, phiBar, setup, JAM, beforeSpace */
 
 msglist = function(echotag){ /* jshint indent:false */
 
@@ -18,9 +18,25 @@ if( foundNames.length === 0 ){
    ].join(''));
 }
 
-$('#content').html(
-   'TODO: messages for the <b>' + echotag + '</b> echomail area.'
+var echoPath = beforeSpace(
+   setup.areas.group('EchoArea').first(foundNames[0])
 );
+var echobase = JAM( echoPath );
+
+echobase.readJDX(function(err){
+   if( err ) return phiBar.reportErrorHTML([
+      _.escapeHTML('' + err)
+   ].join(''));
+
+   $('#content').html([
+      'TODO: ',
+      echobase.size(),
+      ' message(s) from the <b>',
+      echotag,
+      '</b> echomail area.'
+   ].join(''));
+});
+
 
 /*
 $('#content').html([
