@@ -35,6 +35,17 @@ echobase.readJDX(function(err){
       echotag,
       '</b> echomail area.'
    ].join(''));
+   $('#content').append([
+      '<table id="msgList" ',
+      'class="table table-bordered table-hover table-condensed">',
+      '<tbody><tr class="inverse">',
+      '<th>Num</th>',
+      '<th>Sender</th>',
+      '<th>Recipient</th>',
+      '<th>Subject</th>',
+      '<th>Date / time</th>',
+      '</tr></tbody></table>'
+   ].join(''));
 });
 
 
