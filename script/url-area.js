@@ -1,8 +1,6 @@
 /* global renderAreaURL:true, _, arealist, msglist, phiBar */
 
 renderAreaURL = function(URL, parsedURL){
-   console.log('Parsed URL:');
-   console.log(parsedURL);
    if( parsedURL.echoNames.length < 1 ){
       arealist();
    } else if ( parsedURL.echoNames.length === 1 ){
