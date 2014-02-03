@@ -21,29 +21,6 @@ var hideSeparatorsOfInvisible = function(){
    }
 };
 
-var contextMenuQueue = function(){
-   var GUI = require('nw.gui');
-   var nwClipboard = GUI.Clipboard.get();
-   $('#areaList .areaRow').each(function(){
-      var $row = $(this);
-      phiQ.push(function(){
-         var contextMenu = new GUI.Menu();
-         contextMenu.append(new GUI.MenuItem({
-            'label': 'Copy FGHI URL',
-            'click': function(){
-               nwClipboard.set( $row.data('areaURL') );
-            }
-         }));
-         $row.data('contextMenu', contextMenu).on('contextmenu', function(e){
-            var storedContextMenu = $(this).data('contextMenu');
-            storedContextMenu.popup(e.originalEvent.x, e.originalEvent.y);
-            return false;
-         });
-         phiQ.singleNext();
-      });
-   });
-};
-
 var msgnumActionQueue = function(){
    $('#areaList .msgnum').each(function(){
       var $cell = $(this);
@@ -229,7 +206,25 @@ if( echoNames.length > 0 ){
       '</td>' +
    '</tr></tbody>').appendTo('#areaList');
    hideSeparatorsOfInvisible();
-   contextMenuQueue();
+
+   $('#areaList .areaRow').each(function(){
+      var $row = $(this);
+      var GUI = require('nw.gui');
+      var nwClipboard = GUI.Clipboard.get();
+      $row.on('contextmenu', function(e){
+         var contextMenu = new GUI.Menu();
+         contextMenu.append(new GUI.MenuItem({
+            'label': 'Copy FGHI URL',
+            'click': function(){
+               nwClipboard.set( $row.data('areaURL') );
+            }
+         }));
+         $row.data('contextMenu', contextMenu);
+         $row.data('contextMenu').popup(e.originalEvent.x, e.originalEvent.y);
+         return false;
+      });
+   });
+
    msgnumActionQueue();
    msgnewActionQueue();
    phiQ.singleStep();
