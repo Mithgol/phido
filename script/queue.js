@@ -1,5 +1,11 @@
 /* global queue:true */
 
+/*
+This script uses `setTimeout(someFunc, 1)` because Node's `setImmediate`
+causes too many context switches between Node.js and WebKit and the overall
+performance is much worse.
+*/
+
 queue = function(){
    if (!(this instanceof queue)) return new queue();
 
