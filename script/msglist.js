@@ -55,10 +55,10 @@ echobase.readJDX(function(err){
       '</td>',
       '</tr><tr class="inverse">',
       '<th>Num</th>',
-      '<th>Sender</th>',
-      '<th>Recipient</th>',
+      '<th>From</th>',
+      '<th>To</th>',
       '<th>Subject</th>',
-      '<th>Date / time</th>',
+      '<th>Date / time</th>',
       '</tr></tbody></table>'
    ].join(''));
 });
