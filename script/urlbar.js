@@ -79,6 +79,9 @@ urlbar.prototype.back = function(){
 urlbar.prototype.render = function(URL){
    /* jshint indent: false */
    phiQ.stop();
+   $('#content').html(['<div style="text-align: center;">',
+      '<img src="img/loading.gif">',
+   '</div>'].join());
 
    var parsedURL;
    try {
