@@ -3,11 +3,11 @@
 msglist = function(echotag){ /* jshint indent:false */
 
 phiTitle(echotag + ' - messages');
-var lcEchoTag = echotag.toLowerCase();
+var lcEchotag = echotag.toLowerCase();
 
 var echoNames = setup.areas.group('EchoArea').names();
 var foundNames = echoNames.filter(function(echoName){
-   return echoName.toLowerCase() === lcEchoTag;
+   return echoName.toLowerCase() === lcEchotag;
 });
 
 if( foundNames.length === 0 ){
