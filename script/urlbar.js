@@ -81,7 +81,7 @@ urlbar.prototype.render = function(URL){
    phiQ.stop();
    $('#content').html(['<div style="text-align: center;">',
       '<img src="img/loading.gif">',
-   '</div>'].join());
+   '</div>'].join(''));
 
    var parsedURL;
    try {
