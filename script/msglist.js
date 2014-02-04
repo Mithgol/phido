@@ -39,14 +39,8 @@ echobase.readJDX(function(err){
       _.escapeHTML('' + err)
    ].join(''));
 
+   var baseSize = echobase.size();
    $('#content').html([
-      'TODO: ',
-      echobase.size(),
-      ' message(s) from the <b>',
-      setupEchotag,
-      '</b> echomail area.'
-   ].join(''));
-   $('#content').append([
       '<table id="msgList" ',
       'class="table table-bordered table-hover table-condensed">',
       '<tbody><tr class="inverse">',
@@ -61,6 +55,19 @@ echobase.readJDX(function(err){
       '<th>Date / time</th>',
       '</tr></tbody></table>'
    ].join(''));
+   var $currTBody = $('#msgList tbody:last');
+   var currMsg;
+   for( currMsg = 1; currMsg <= baseSize; currMsg++ ){
+      $(['<tr class="msgRow">',
+         '<td>',
+            currMsg,
+         '</td>',
+         '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
+         '<td class="msgTo"><i class="fa fa-spinner fa-spin"></i></td>',
+         '<td class="msgSubj"><i class="fa fa-spinner fa-spin"></i></td>',
+         '<td class="msgDateTime"><i class="fa fa-spinner fa-spin"></i></td>',
+      '</tr>'].join('')).appendTo($currTBody);
+   }
 });
 
 };
