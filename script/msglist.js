@@ -18,10 +18,21 @@ if( foundNames.length === 0 ){
    ].join(''));
 }
 
+var setupEchotag = foundNames[0];
 var echoPath = beforeSpace(
-   setup.areas.group('EchoArea').first(foundNames[0])
+   setup.areas.group('EchoArea').first(setupEchotag)
 );
 var echobase = JAM( echoPath );
+
+var arrDesc = /-d "([^"]+?)"/.exec(
+   setup.areas.group('EchoArea').first(setupEchotag)
+);
+var echoDesc;
+if( arrDesc === null ){
+   echoDesc = setupEchotag;
+} else {
+   echoDesc = arrDesc[1];
+}
 
 echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML([
@@ -32,13 +43,17 @@ echobase.readJDX(function(err){
       'TODO: ',
       echobase.size(),
       ' message(s) from the <b>',
-      echotag,
+      setupEchotag,
       '</b> echomail area.'
    ].join(''));
    $('#content').append([
       '<table id="msgList" ',
       'class="table table-bordered table-hover table-condensed">',
       '<tbody><tr class="inverse">',
+      '<td colspan=5 style="text-align: center;">',
+      echoDesc,
+      '</td>',
+      '</tr><tr class="inverse">',
       '<th>Num</th>',
       '<th>Sender</th>',
       '<th>Recipient</th>',
