@@ -1,6 +1,46 @@
-/* global $, _, msglist:true, phiTitle, phiBar, setup, JAM, beforeSpace */
+/* global $, _, msglist:true */
+/* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace */
 
 msglist = function(echotag){ /* jshint indent:false */
+
+var msghdrActionQueue = function(){
+   $('#msgList .msgRow').each(function(){
+      var $row = $(this);
+      phiQ.push(function(){
+         echobase.readHeader($row.data('number'), function(err, header){
+            if( err ){
+               $row.find(
+                  '.msgFrom, .msgTo, .msgSubj, .msgDateTime'
+               ).html('FAIL');
+               phiQ.singleNext();
+               return;
+            }
+            var decoded = echobase.decodeHeader(header);
+            $row.find('.msgFrom').html(_.escapeHTML(
+               decoded.from
+            ));
+            $row.find('.msgTo').html(_.escapeHTML(
+               decoded.to
+            ));
+            $row.find('.msgSubj').html(_.escapeHTML(
+               decoded.subj
+            ));
+            $row.find('.msgDateTime').html([
+               '<nobr>',
+               decoded.origTime[0], '-',
+               _(decoded.origTime[1]).pad(2, '0'), '-',
+               _(decoded.origTime[2]).pad(2, '0'),
+               '</nobr> <nobr>',
+               _(decoded.origTime[3]).pad(2, '0'), ':',
+               _(decoded.origTime[4]).pad(2, '0'), ':',
+               _(decoded.origTime[5]).pad(2, '0'),
+               '</nobr>'
+            ].join(''));
+            phiQ.singleNext();
+         });
+      });
+   });
+};
 
 phiTitle(echotag + ' - messages');
 var lcEchotag = echotag.toLowerCase();
@@ -64,11 +104,13 @@ echobase.readJDX(function(err){
          '<td class="msgTo"><i class="fa fa-spinner fa-spin"></i></td>',
          '<td class="msgSubj"><i class="fa fa-spinner fa-spin"></i></td>',
          '<td class="msgDateTime"><i class="fa fa-spinner fa-spin"></i></td>',
-      '</tr>'].join('')).appendTo($currTBody);
+      '</tr>'].join('')).data({
+         'number': currMsg
+      }).appendTo($currTBody);
    }
-   echobase.readJHR(function(err){
-      if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
-   });
+
+   msghdrActionQueue();
+   phiQ.singleStep();
 });
 
 };
