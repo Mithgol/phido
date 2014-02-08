@@ -16,17 +16,12 @@ var msghdrActionQueue = function(){
                return;
             }
             var decoded = echobase.decodeHeader(header);
-            $row.find('.msgFrom').html(_.escapeHTML(
-               decoded.from
-            ));
-            $row.find('.msgTo').html(_.escapeHTML(
-               decoded.to
-            ));
-            $row.find('.msgSubj').html(_.escapeHTML(
-               decoded.subj
-            ));
-            $row.find('.msgDateTime').html([
-               '<nobr>',
+            $row.html([
+               '<td>' + $row.data('number') + '</td>',
+               '<td class="msgFrom">' + _.escapeHTML(decoded.from) + '</td>',
+               '<td class="msgTo">' + _.escapeHTML(decoded.to) + '</td>',
+               '<td class="msgSubj">' + _.escapeHTML(decoded.subj) + '</td>',
+               '<td class="msgDateTime"><nobr>',
                decoded.origTime[0], '-',
                _(decoded.origTime[1]).pad(2, '0'), '-',
                _(decoded.origTime[2]).pad(2, '0'),
@@ -34,7 +29,7 @@ var msghdrActionQueue = function(){
                _(decoded.origTime[3]).pad(2, '0'), ':',
                _(decoded.origTime[4]).pad(2, '0'), ':',
                _(decoded.origTime[5]).pad(2, '0'),
-               '</nobr>'
+               '</nobr></td>'
             ].join(''));
             phiQ.singleNext();
          });
@@ -78,10 +73,27 @@ echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    var baseSize = echobase.size();
+   var loadingRows;
+   if( baseSize <= 500 ){
+      loadingRows = [
+         '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
+         '<td class="msgTo"><i class="fa fa-spinner fa-spin"></i></td>',
+         '<td class="msgSubj"><i class="fa fa-spinner fa-spin"></i></td>',
+         '<td class="msgDateTime"><i class="fa fa-spinner fa-spin"></i></td>'
+      ].join('');
+   } else { // do not spin in larger areas
+      loadingRows = [
+         '<td class="msgFrom"><i class="fa fa-spinner"></i></td>',
+         '<td class="msgTo"><i class="fa fa-spinner"></i></td>',
+         '<td class="msgSubj"><i class="fa fa-spinner"></i></td>',
+         '<td class="msgDateTime"><i class="fa fa-spinner"></i></td>'
+      ].join('');
+   }
+
    $('#content').html('');
    var currMsg;
    for( currMsg = 1; currMsg <= baseSize; currMsg++ ){
-      if( currMsg % 200 === 1 ){
+      if( currMsg % 500 === 1 ){
          var $currTBody = $([
             '<table ',
             'class="msgList table table-bordered table-hover table-condensed">',
@@ -102,10 +114,7 @@ echobase.readJDX(function(err){
          '<td>',
             currMsg,
          '</td>',
-         '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
-         '<td class="msgTo"><i class="fa fa-spinner fa-spin"></i></td>',
-         '<td class="msgSubj"><i class="fa fa-spinner fa-spin"></i></td>',
-         '<td class="msgDateTime"><i class="fa fa-spinner fa-spin"></i></td>',
+         loadingRows,
       '</tr>'].join('')).data({
          'number': currMsg
       }).appendTo($currTBody);
