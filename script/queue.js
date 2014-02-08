@@ -21,6 +21,10 @@ queue.prototype.push = function(task){
    this.tasks.push(task);
 };
 
+queue.prototype.unshift = function(task){
+   this.tasks.unshift(task);
+};
+
 queue.prototype.shift = function(){
    return this.tasks.shift();
 };
