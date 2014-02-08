@@ -4,7 +4,7 @@
 msglist = function(echotag){ /* jshint indent:false */
 
 var msghdrActionQueue = function(){
-   $('#msgList .msgRow').each(function(){
+   $('.msgList .msgRow').each(function(){
       var $row = $(this);
       phiQ.push(function(){
          echobase.readHeader($row.data('number'), function(err, header){
@@ -78,24 +78,26 @@ echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    var baseSize = echobase.size();
-   $('#content').html([
-      '<table id="msgList" ',
-      'class="table table-bordered table-hover table-condensed">',
-      '<tbody><tr class="inverse">',
-      '<td colspan=5 style="text-align: center;">',
-      echoDesc,
-      '</td>',
-      '</tr><tr class="inverse">',
-      '<th>Num</th>',
-      '<th>From</th>',
-      '<th>To</th>',
-      '<th>Subject</th>',
-      '<th>Date / time</th>',
-      '</tr></tbody></table>'
-   ].join(''));
-   var $currTBody = $('#msgList tbody:last');
+   $('#content').html('');
    var currMsg;
    for( currMsg = 1; currMsg <= baseSize; currMsg++ ){
+      if( currMsg % 200 === 1 ){
+         var $currTBody = $([
+            '<table ',
+            'class="msgList table table-bordered table-hover table-condensed">',
+            '<tbody><tr class="inverse">',
+            '<td colspan=5 style="text-align: center;">',
+            echoDesc,
+            '</td>',
+            '</tr><tr class="inverse">',
+            '<th>Num</th>',
+            '<th>From</th>',
+            '<th>To</th>',
+            '<th>Subject</th>',
+            '<th>Date / time</th>',
+            '</tr></tbody></table>'
+         ].join('')).appendTo('#content').find('tbody:last');
+      }
       $(['<tr class="msgRow">',
          '<td>',
             currMsg,
