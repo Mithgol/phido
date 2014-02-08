@@ -35,9 +35,7 @@ if( arrDesc === null ){
 }
 
 echobase.readJDX(function(err){
-   if( err ) return phiBar.reportErrorHTML([
-      _.escapeHTML('' + err)
-   ].join(''));
+   if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    var baseSize = echobase.size();
    $('#content').html([
@@ -68,6 +66,9 @@ echobase.readJDX(function(err){
          '<td class="msgDateTime"><i class="fa fa-spinner fa-spin"></i></td>',
       '</tr>'].join('')).appendTo($currTBody);
    }
+   echobase.readJHR(function(err){
+      if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
+   });
 });
 
 };
