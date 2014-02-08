@@ -91,12 +91,12 @@ echobase.readJDX(function(err){
    }
 
    $('#content').html('');
-   var currMsg;
+   var currMsg, $currTBody;
    for( currMsg = 1; currMsg <= baseSize; currMsg++ ){
       if( currMsg % 500 === 1 ){
-         var $currTBody = $([
-            '<table ',
-            'class="msgList table table-bordered table-hover table-condensed">',
+         $currTBody = $([
+            '<table class=',
+            '"msgList table table-bordered table-hover table-condensed">',
             '<tbody><tr class="inverse">',
             '<td colspan=5 style="text-align: center;">',
             echoDesc,
