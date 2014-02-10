@@ -10,9 +10,11 @@
 
 * PhiDo is written in HTML5 + CSS + JavaScript and requires [node-webkit](https://github.com/rogerwang/node-webkit) to run.
 
+* Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and Firefox is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
+
 * PhiDo currently requires **Node.js** and **npm** for installation of dependencies. For futher versions of PhiDo the distribution of complete packages (with dependencies included) is planned.
 
-* PhiDo supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
+* PhiDo currently supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
 * PhiDo currently uses [HPT](http://husky.sourceforge.net/hpt.html)'s area configuration file as the description of echomail areas.
 
