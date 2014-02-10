@@ -4,6 +4,8 @@
 msglist = function(echotag){ /* jshint indent:false */
 
 var fillRowFromHeader = function($msgRow, filledCallback){
+   var GUI = require('nw.gui');
+   var nwClipboard = GUI.Clipboard.get();
    echobase.readHeader($msgRow.data('number'), function(err, header){
       if( err ){
          $msgRow.find(
@@ -13,6 +15,7 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          return;
       }
       var decoded = echobase.decodeHeader(header);
+      var msgURL;
       $msgRow.html([
          '<td>' + $msgRow.data('number') + '</td>',
          '<td class="msgFrom">' + _.escapeHTML(decoded.from) + '</td>',
@@ -27,7 +30,46 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          _(decoded.origTime[4]).pad(2, '0'), ':',
          _(decoded.origTime[5]).pad(2, '0'),
          '</nobr></td>'
-      ].join('')).find('td').css('cursor', 'pointer');
+      ].join(''));
+      if( decoded.msgid ){
+         msgURL = [
+            'area://',
+            encodeURIComponent(echotag),
+            '/?msgid=',
+            encodeURIComponent(decoded.msgid),
+            '&time=',
+            encodeURIComponent(decoded.origTime[0])
+         ].join('').replace('%20', '+');
+      } else {
+         msgURL = [
+            'area://',
+            encodeURIComponent(echotag),
+            '/?time=',
+            encodeURIComponent(decoded.origTime[0]), '/',
+            encodeURIComponent(_(decoded.origTime[1]).pad(2, '0')), '/',
+            encodeURIComponent(_(decoded.origTime[2]).pad(2, '0')), 'T',
+            encodeURIComponent(_(decoded.origTime[3]).pad(2, '0')), ':',
+            encodeURIComponent(_(decoded.origTime[4]).pad(2, '0')), ':',
+            encodeURIComponent(_(decoded.origTime[5]).pad(2, '0'))
+         ].join('').replace('%20', '+');
+      }
+      $msgRow.data('msgURL', msgURL).on('click', function(){
+         phiBar.open( $(this).data('msgURL') );
+      }).on('contextmenu', function(e){
+         var contextMenu = new GUI.Menu();
+         contextMenu.append(new GUI.MenuItem({
+            'label': 'Copy FGHI URL',
+            'click': function(){
+               nwClipboard.set( $msgRow.data('msgURL') );
+            }
+         }));
+         $msgRow.data('contextMenu', contextMenu);
+         $msgRow.data('contextMenu').popup(
+            e.originalEvent.x,
+            e.originalEvent.y
+         );
+         return false;
+      }).find('td').css('cursor', 'pointer');
       filledCallback();
    });
 };
