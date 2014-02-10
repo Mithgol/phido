@@ -99,7 +99,7 @@ echobase.readJDX(function(err){
 
    var baseSize = echobase.size();
    var loadingRows;
-   if( baseSize <= 500 ){
+   if( baseSize <= 250 ){
       loadingRows = [
          '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
          '<td class="msgTo"><i class="fa fa-spinner fa-spin"></i></td>',
@@ -145,7 +145,7 @@ echobase.readJDX(function(err){
       }).appendTo($currTBody);
    }
 
-   if( baseSize <= 500 ){
+   if( baseSize <= 250 ){
       msghdrActionQueue();
    } else {
       msghdrDelayedActionQueue();
