@@ -49,7 +49,10 @@ var msghdrDelayedActionQueue = function(){
       }).on('scrollSpy:enter', function(){
          $(this).data('inscroll', true);
          phiQ.push(function(qNext){
-            if( ! $row.data('inscroll') ) return;
+            if( ! $row.data('inscroll') ){
+               qNext();
+               return;
+            }
             fillRowFromHeader($row, function(){
                $row.off('scrollSpy:exit').off('scrollSpy:enter');
                qNext();
