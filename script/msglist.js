@@ -27,7 +27,7 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          _(decoded.origTime[4]).pad(2, '0'), ':',
          _(decoded.origTime[5]).pad(2, '0'),
          '</nobr></td>'
-      ].join(''));
+      ].join('')).find('td').css('cursor', 'pointer');
       filledCallback();
    });
 };
