@@ -72,6 +72,7 @@ The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
 * The file `jq/$.js` contains [jQuery](http://jquery.com/) which is also [MIT-licensed](https://jquery.org/license/) but has its own authors.
    * The file `jq/jquery.hotkeys.js` contains [jQuery Hotkeys Plugin](https://github.com/jeresig/jquery.hotkeys) by John Resig (dual licensed under the MIT or GPL Version 2 licenses).
+   * The file `jq/scrollspy.js` contains [scrollSpy](https://github.com/thesmart/jquery-scrollspy), a jQuery plugin by John Smart (MIT-licensed).
 
 * Fonts in the `paratype` directory are published [by ParaType](http://www.paratype.com/public/) on the terms of [ParaType Free Font Licensing Agreement](http://www.paratype.com/public/pt_openlicense_eng.asp). (See the `PT Free Font License*.txt` files in the same folder.)
 
