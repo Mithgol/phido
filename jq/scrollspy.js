@@ -153,17 +153,18 @@
 		options = options || {
 			throttle: 100
 		}
+		var throttledScroll = throttle(onScroll, options.throttle || 100);
+		var readyScroll = function(){
+			$(document).ready(throttledScroll);
+		};
 
 		if (!isSpying) {
-			jWindow.on('scroll', throttle(onScroll, options.throttle || 100));
-			jWindow.on('resize', throttle(onScroll, options.throttle || 100));
+			jWindow.on('scroll', readyScroll);
+			jWindow.on('resize', readyScroll);
 			isSpying = true;
-
-			// perform a scan once, after current execution context, and after dom is ready
-			setTimeout(function() {
-				$(document).ready(onScroll);
-			}, 0);
 		}
+		// perform a scan once, after current execution context, and after dom is ready
+		setTimeout(readyScroll, 0);
 
 		return selector;
 	};
