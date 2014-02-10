@@ -3,38 +3,62 @@
 
 msglist = function(echotag){ /* jshint indent:false */
 
+var fillRowFromHeader = function($msgRow, filledCallback){
+   echobase.readHeader($msgRow.data('number'), function(err, header){
+      if( err ){
+         $msgRow.find(
+            '.msgFrom, .msgTo, .msgSubj, .msgDateTime'
+         ).html('FAIL');
+         filledCallback();
+         return;
+      }
+      var decoded = echobase.decodeHeader(header);
+      $msgRow.html([
+         '<td>' + $msgRow.data('number') + '</td>',
+         '<td class="msgFrom">' + _.escapeHTML(decoded.from) + '</td>',
+         '<td class="msgTo">' + _.escapeHTML(decoded.to) + '</td>',
+         '<td class="msgSubj">' + _.escapeHTML(decoded.subj) + '</td>',
+         '<td class="msgDateTime"><nobr>',
+         decoded.origTime[0], '-',
+         _(decoded.origTime[1]).pad(2, '0'), '-',
+         _(decoded.origTime[2]).pad(2, '0'),
+         '</nobr> <nobr>',
+         _(decoded.origTime[3]).pad(2, '0'), ':',
+         _(decoded.origTime[4]).pad(2, '0'), ':',
+         _(decoded.origTime[5]).pad(2, '0'),
+         '</nobr></td>'
+      ].join(''));
+      filledCallback();
+   });
+};
+
 var msghdrActionQueue = function(){
    $('.msgList .msgRow').each(function(){
       var $row = $(this);
       phiQ.push(function(){
-         echobase.readHeader($row.data('number'), function(err, header){
-            if( err ){
-               $row.find(
-                  '.msgFrom, .msgTo, .msgSubj, .msgDateTime'
-               ).html('FAIL');
-               phiQ.singleNext();
-               return;
-            }
-            var decoded = echobase.decodeHeader(header);
-            $row.html([
-               '<td>' + $row.data('number') + '</td>',
-               '<td class="msgFrom">' + _.escapeHTML(decoded.from) + '</td>',
-               '<td class="msgTo">' + _.escapeHTML(decoded.to) + '</td>',
-               '<td class="msgSubj">' + _.escapeHTML(decoded.subj) + '</td>',
-               '<td class="msgDateTime"><nobr>',
-               decoded.origTime[0], '-',
-               _(decoded.origTime[1]).pad(2, '0'), '-',
-               _(decoded.origTime[2]).pad(2, '0'),
-               '</nobr> <nobr>',
-               _(decoded.origTime[3]).pad(2, '0'), ':',
-               _(decoded.origTime[4]).pad(2, '0'), ':',
-               _(decoded.origTime[5]).pad(2, '0'),
-               '</nobr></td>'
-            ].join(''));
+         fillRowFromHeader($row, function(){
             phiQ.singleNext();
          });
       });
    });
+};
+
+var msghdrDelayedActionQueue = function(){
+   $('.msgList .msgRow').each(function(){
+      var $row = $(this);
+      $row.on('scrollSpy:exit', function(){
+         $(this).data('inscroll', false);
+      }).on('scrollSpy:enter', function(){
+         $(this).data('inscroll', true);
+         phiQ.push(function(){
+            if( ! $row.data('inscroll') ) return;
+            fillRowFromHeader($row, function(){
+               $row.off('scrollSpy:exit').off('scrollSpy:enter');
+               phiQ.singleNext();
+            });
+         });
+      });
+   }).scrollSpy();
 };
 
 phiTitle(echotag + ' - messages');
