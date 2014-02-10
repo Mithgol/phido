@@ -24,16 +24,16 @@ var hideSeparatorsOfInvisible = function(){
 var msgnumActionQueue = function(){
    $('#areaList .msgnum').each(function(){
       var $cell = $(this);
-      phiQ.push(function(){
+      phiQ.push(function(qNext){
          var echobase = JAM( $cell.closest('tr').data('echopath') );
          echobase.readJDX(function(err){
             if( err ){
                $cell.html('FAIL');
-               phiQ.singleNext();
+               qNext();
                return;
             }
             $cell.html( echobase.size() );
-            phiQ.singleNext();
+            qNext();
          });
       });
    });
@@ -42,29 +42,29 @@ var msgnumActionQueue = function(){
 var msgnewActionQueue = function(){
    $('#areaList .msgnew').each(function(){
       var $cell = $(this);
-      phiQ.push(function(){
+      phiQ.push(function(qNext){
          var echobase = JAM( $cell.closest('tr').data('echopath') );
          echobase.readJLR(function(err){
             if( err ){
                $cell.html('FAIL');
-               phiQ.singleNext();
+               qNext();
                return;
             }
             if( echobase.lastreads.length !== 1 ){
                $cell.html('MUD');
-               phiQ.singleNext();
+               qNext();
                return;
             }
             echobase.readJDX(function(err){
                if( err ){
                   $cell.html('FAIL');
-                  phiQ.singleNext();
+                  qNext();
                   return;
                }
                echobase.readFixedHeaderInfoStruct(function(err, data){
                   if( err ){
                      $cell.html('FAIL');
-                     phiQ.singleNext();
+                     qNext();
                      return;
                   }
                   var nextIDX = echobase.size() - 1;
@@ -75,12 +75,12 @@ var msgnewActionQueue = function(){
                         echobase.lastreads[0].LastRead
                      ){
                         $cell.html(echobase.size() - 1 - nextIDX);
-                        phiQ.singleNext();
+                        qNext();
                         return;
                      } else nextIDX--;
                   }
                   $cell.html('FAIL');
-                  phiQ.singleNext();
+                  qNext();
                   return;
                });
             });
@@ -227,7 +227,7 @@ if( echoNames.length > 0 ){
 
    msgnumActionQueue();
    msgnewActionQueue();
-   phiQ.singleStep();
+   phiQ.start();
    $('#searchAreatag').on('keyup', searchAreatagHandler);
 }
 

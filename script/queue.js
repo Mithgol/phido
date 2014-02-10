@@ -43,22 +43,10 @@ queue.prototype.step = function(){
       this.stop();
       return;
    }
-   nextTask();
-   this.next();
-};
-
-queue.prototype.singleNext = function(){
-   var here = this;
-   setTimeout(function(){
-      here.singleStep();
-   }, 1);
-};
-
-queue.prototype.singleStep = function(){
-   if( this.running ) return;
-   var nextTask = this.shift();
-   if( typeof nextTask === 'undefined' ) return;
-   nextTask();
+   var qThis = this;
+   nextTask(function(){
+      qThis.next();
+   });
 };
 
 queue.prototype.start = function(){

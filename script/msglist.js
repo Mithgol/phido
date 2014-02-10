@@ -35,10 +35,8 @@ var fillRowFromHeader = function($msgRow, filledCallback){
 var msghdrActionQueue = function(){
    $('.msgList .msgRow').each(function(){
       var $row = $(this);
-      phiQ.push(function(){
-         fillRowFromHeader($row, function(){
-            phiQ.singleNext();
-         });
+      phiQ.push(function(qNext){
+         fillRowFromHeader($row, qNext);
       });
    });
 };
@@ -50,13 +48,14 @@ var msghdrDelayedActionQueue = function(){
          $(this).data('inscroll', false);
       }).on('scrollSpy:enter', function(){
          $(this).data('inscroll', true);
-         phiQ.push(function(){
+         phiQ.push(function(qNext){
             if( ! $row.data('inscroll') ) return;
             fillRowFromHeader($row, function(){
                $row.off('scrollSpy:exit').off('scrollSpy:enter');
-               phiQ.singleNext();
+               qNext();
             });
          });
+         phiQ.start();
       });
    }).scrollSpy();
 };
@@ -144,8 +143,12 @@ echobase.readJDX(function(err){
       }).appendTo($currTBody);
    }
 
-   msghdrActionQueue();
-   phiQ.singleStep();
+   if( baseSize <= 500 ){
+      msghdrActionQueue();
+   } else {
+      msghdrDelayedActionQueue();
+   }
+   phiQ.start();
 });
 
 };
