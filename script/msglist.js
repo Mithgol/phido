@@ -54,8 +54,7 @@ var msghdrDelayedActionQueue = function(){
                $row.off('scrollSpy:exit').off('scrollSpy:enter');
                qNext();
             });
-         });
-         phiQ.start();
+         }).start();
       });
    }).scrollSpy();
 };
