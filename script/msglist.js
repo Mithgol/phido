@@ -3,6 +3,8 @@
 
 msglist = function(echotag){ /* jshint indent:false */
 
+var echobase, baseSize, loadingRows;
+
 var fillRowFromHeader = function($msgRow, filledCallback){
    var GUI = require('nw.gui');
    var nwClipboard = GUI.Clipboard.get();
@@ -74,6 +76,52 @@ var fillRowFromHeader = function($msgRow, filledCallback){
    });
 };
 
+var buildMessageTable = function(initialNum, sizeLimit, callback){
+   var currMsg, $currTBody;
+
+   var finalMode = false;
+   var finalLimit = initialNum + sizeLimit - 1;
+   if( finalLimit >= baseSize ){
+      finalMode = true;
+      finalLimit = baseSize;
+   }
+
+   $currTBody = $([
+      '<table ',
+      'class="msgList table table-bordered table-hover table-condensed">',
+      '<tbody><tr class="inverse">',
+      '<td colspan=5 style="text-align: center;">',
+      echoDesc,
+      '</td>',
+      '</tr><tr class="inverse">',
+      '<th>Num</th>',
+      '<th>From</th>',
+      '<th>To</th>',
+      '<th>Subject</th>',
+      '<th>Date / time</th>',
+      '</tr></tbody></table>'
+   ].join('')).appendTo('#content').find('tbody:last');
+
+   for( currMsg = initialNum; currMsg <= finalLimit; currMsg++ ){
+      $(['<tr class="msgRow">',
+         '<td>',
+            currMsg,
+         '</td>',
+         loadingRows,
+      '</tr>'].join('')).data({
+         'number': currMsg
+      }).appendTo($currTBody);
+   }
+
+   setTimeout(function(){
+      if( finalMode ){
+         callback();
+      } else {
+         buildMessageTable(initialNum + sizeLimit, sizeLimit, callback);
+      }
+   }, 1);
+};
+
 var msghdrActionQueue = function(){
    $('.msgList .msgRow').each(function(){
       var $row = $(this);
@@ -124,7 +172,7 @@ var setupEchotag = foundNames[0];
 var echoPath = beforeSpace(
    setup.areas.group('EchoArea').first(setupEchotag)
 );
-var echobase = JAM( echoPath );
+echobase = JAM( echoPath );
 
 var arrDesc = /-d "([^"]+?)"/.exec(
    setup.areas.group('EchoArea').first(setupEchotag)
@@ -139,8 +187,7 @@ if( arrDesc === null ){
 echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
-   var baseSize = echobase.size();
-   var loadingRows;
+   baseSize = echobase.size();
    if( baseSize <= 250 ){
       loadingRows = [
          '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
@@ -158,41 +205,14 @@ echobase.readJDX(function(err){
    }
 
    $('#content').html('');
-   var currMsg, $currTBody;
-   for( currMsg = 1; currMsg <= baseSize; currMsg++ ){
-      if( currMsg % 500 === 1 ){
-         $currTBody = $([
-            '<table class=',
-            '"msgList table table-bordered table-hover table-condensed">',
-            '<tbody><tr class="inverse">',
-            '<td colspan=5 style="text-align: center;">',
-            echoDesc,
-            '</td>',
-            '</tr><tr class="inverse">',
-            '<th>Num</th>',
-            '<th>From</th>',
-            '<th>To</th>',
-            '<th>Subject</th>',
-            '<th>Date / time</th>',
-            '</tr></tbody></table>'
-         ].join('')).appendTo('#content').find('tbody:last');
+   buildMessageTable(1, 500, function(){
+      if( baseSize <= 250 ){
+         msghdrActionQueue();
+      } else {
+         msghdrDelayedActionQueue();
       }
-      $(['<tr class="msgRow">',
-         '<td>',
-            currMsg,
-         '</td>',
-         loadingRows,
-      '</tr>'].join('')).data({
-         'number': currMsg
-      }).appendTo($currTBody);
-   }
-
-   if( baseSize <= 250 ){
-      msghdrActionQueue();
-   } else {
-      msghdrDelayedActionQueue();
-   }
-   phiQ.start();
+      phiQ.start();
+   });
 });
 
 };
