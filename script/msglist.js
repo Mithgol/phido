@@ -113,13 +113,14 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       }).appendTo($currTBody);
    }
 
-   setTimeout(function(){
+   phiQ.push(function(qNext){
       if( finalMode ){
          callback();
       } else {
          buildMessageTable(initialNum + sizeLimit, sizeLimit, callback);
       }
-   }, 1);
+      qNext();
+   }).start();
 };
 
 var msghdrActionQueue = function(){
