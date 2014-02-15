@@ -1,10 +1,39 @@
-/* global queue:true */
+/* global window, queue:true */
 
 /*
-This script uses `setTimeout(someFunc, 1)` because Node's `setImmediate`
+This script used `setTimeout(someFunc, 1)` because Node's `setImmediate`
 causes too many context switches between Node.js and WebKit and the overall
 performance is much worse.
+
+Then it started using http://dbaron.org/log/20100309-faster-timeouts because
+it provided faster timeouts.
 */
+(function(window){
+   var timeouts = [];
+   var messageName = 'zero-timeout-message';
+
+   // Like setTimeout, but only takes a function argument.  There's
+   // no time argument (always zero) and no arguments (you have to
+   // use a closure).
+   function setZeroTimeout(fn){
+      timeouts.push(fn);
+      window.postMessage(messageName, '*');
+   }
+
+   function handleMessage(event) {
+      if (event.source === window && event.data === messageName) {
+         event.stopPropagation();
+         if( timeouts.length > 0 ){
+            var fn = timeouts.shift();
+            fn();
+         }
+      }
+   }
+
+   window.addEventListener('message', handleMessage, true);
+
+   window.setZeroTimeout = setZeroTimeout;
+})(window);
 
 queue = function(){
    if (!(this instanceof queue)) return new queue();
@@ -34,9 +63,9 @@ queue.prototype.shift = function(){
 
 queue.prototype.next = function(){
    var here = this;
-   setTimeout(function(){
+   window.setZeroTimeout(function(){
       here.step();
-   }, 1);
+   });
    return this;
 };
 
