@@ -148,7 +148,10 @@ var msghdrDelayedActionQueue = function($table){
                return;
             }
             fillRowFromHeader($row, function(){
-               $table.off('scrollSpy:exit').off('scrollSpy:enter');
+               $row.addClass('filledFromHeader');
+               if( $table.find('.msgRow:not(.filledFromHeader)').length < 1 ){
+                  $table.off('scrollSpy:exit').off('scrollSpy:enter');
+               }
                qNext();
             });
          });
