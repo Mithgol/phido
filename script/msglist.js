@@ -132,24 +132,26 @@ var msghdrActionQueue = function(){
 };
 
 var msghdrDelayedActionQueue = function(){
-   $('.msgList .msgRow').each(function(){
-      var $row = $(this);
-      $row.on('scrollSpy:exit', function(){
+   $('.msgList').each(function(){
+      var $table = $(this);
+      $table.on('scrollSpy:exit', function(){
          $(this).data('inscroll', false);
       }).on('scrollSpy:enter', function(){
-         $(this).data('inscroll', true);
-         phiQ.push(function(qNext){
-            if( ! $row.data('inscroll') ){
-               qNext();
-               return;
-            }
-            fillRowFromHeader($row, function(){
-               $row.off('scrollSpy:exit').off('scrollSpy:enter');
-               qNext();
-            });
-         }).start();
-      });
-   }).scrollSpy();
+         $(this).data('inscroll', true).find('.msgRow').each(function(){
+            var $row = $(this);
+            phiQ.push(function(qNext){
+               if( ! $table.data('inscroll') ){
+                  qNext();
+                  return;
+               }
+               fillRowFromHeader($row, function(){
+                  $table.off('scrollSpy:exit').off('scrollSpy:enter');
+                  qNext();
+               });
+            }).start();
+         });
+      }).scrollSpy();
+   });
 };
 
 phiTitle(echotag + ' - messages');
