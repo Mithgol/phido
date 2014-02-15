@@ -114,6 +114,9 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
    }
 
    phiQ.push(function(qNext){
+      if( sizeLimit <= baseSize ){
+         msghdrDelayedActionQueue( $currTBody.closest('.msgList') );
+      }
       if( finalMode ){
          callback();
       } else {
@@ -130,29 +133,28 @@ var msghdrActionQueue = function(){
          fillRowFromHeader($row, qNext);
       });
    });
+   phiQ.start();
 };
 
-var msghdrDelayedActionQueue = function(){
-   $('.msgList').each(function(){
-      var $table = $(this);
-      $table.on('scrollSpy:exit', function(){
-         $(this).data('inscroll', false);
-      }).on('scrollSpy:enter', function(){
-         $(this).data('inscroll', true).find('.msgRow').each(function(){
-            var $row = $(this);
-            phiQ.push(function(qNext){
-               if( ! $table.data('inscroll') ){
-                  qNext();
-                  return;
-               }
-               fillRowFromHeader($row, function(){
-                  $table.off('scrollSpy:exit').off('scrollSpy:enter');
-                  qNext();
-               });
-            }).start();
+var msghdrDelayedActionQueue = function($table){
+   $table.on('scrollSpy:exit', function(){
+      $(this).data('inscroll', false);
+   }).on('scrollSpy:enter', function(){
+      $(this).data('inscroll', true).find('.msgRow').each(function(){
+         var $row = $(this);
+         phiQ.push(function(qNext){
+            if( ! $table.data('inscroll') ){
+               qNext();
+               return;
+            }
+            fillRowFromHeader($row, function(){
+               $table.off('scrollSpy:exit').off('scrollSpy:enter');
+               qNext();
+            });
          });
-      }).scrollSpy();
-   });
+      });
+      phiQ.start();
+   }).scrollSpy();
 };
 
 phiTitle(echotag + ' - messages');
@@ -191,7 +193,8 @@ echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    baseSize = echobase.size();
-   if( baseSize <= 250 ){
+   var baseSizeLimit = 250;
+   if( baseSize <= baseSizeLimit ){
       loadingRows = [
          '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
          '<td class="msgTo"><i class="fa fa-spinner fa-spin"></i></td>',
@@ -208,13 +211,8 @@ echobase.readJDX(function(err){
    }
 
    $('#content').html('');
-   buildMessageTable(1, 250, function(){
-      if( baseSize <= 250 ){
-         msghdrActionQueue();
-      } else {
-         msghdrDelayedActionQueue();
-      }
-      phiQ.start();
+   buildMessageTable(1, baseSizeLimit, function(){
+      if( baseSize <= baseSizeLimit ) msghdrActionQueue();
    });
 });
 
