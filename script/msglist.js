@@ -205,7 +205,7 @@ echobase.readJDX(function(err){
    }
 
    $('#content').html('');
-   buildMessageTable(1, 500, function(){
+   buildMessageTable(1, 250, function(){
       if( baseSize <= 250 ){
          msghdrActionQueue();
       } else {
