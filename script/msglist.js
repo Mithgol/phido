@@ -1,13 +1,34 @@
 /* global $, _, msglist:true */
 /* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace */
 
+var msgContextMenuHandler = function(e){
+   var $msgRow = $(this);
+   var GUI = require('nw.gui');
+   var nwClipboard = GUI.Clipboard.get();
+   var contextMenu = new GUI.Menu();
+   contextMenu.append(new GUI.MenuItem({
+      'label': 'Copy FGHI URL',
+      'click': function(){
+         nwClipboard.set( $msgRow.data('msgURL') );
+      }
+   }));
+   $msgRow.data('contextMenu', contextMenu);
+   $msgRow.data('contextMenu').popup(
+      e.originalEvent.x,
+      e.originalEvent.y
+   );
+   return false;
+};
+
+var msgClickHandler = function(){
+   phiBar.open( $(this).data('msgURL') );
+};
+
 msglist = function(echotag){ /* jshint indent:false */
 
 var echobase, baseSize, loadingRows;
 
 var fillRowFromHeader = function($msgRow, filledCallback){
-   var GUI = require('nw.gui');
-   var nwClipboard = GUI.Clipboard.get();
    echobase.readHeader($msgRow.data('number'), function(err, header){
       if( err ){
          $msgRow.find(
@@ -55,23 +76,9 @@ var fillRowFromHeader = function($msgRow, filledCallback){
             encodeURIComponent(_(decoded.origTime[5]).pad(2, '0'))
          ].join('').replace('%20', '+');
       }
-      $msgRow.data('msgURL', msgURL).on('click', function(){
-         phiBar.open( $(this).data('msgURL') );
-      }).on('contextmenu', function(e){
-         var contextMenu = new GUI.Menu();
-         contextMenu.append(new GUI.MenuItem({
-            'label': 'Copy FGHI URL',
-            'click': function(){
-               nwClipboard.set( $msgRow.data('msgURL') );
-            }
-         }));
-         $msgRow.data('contextMenu', contextMenu);
-         $msgRow.data('contextMenu').popup(
-            e.originalEvent.x,
-            e.originalEvent.y
-         );
-         return false;
-      }).find('td').css('cursor', 'pointer');
+      $msgRow.data('msgURL', msgURL).on('click', msgClickHandler).css({
+         'cursor': 'pointer'
+      }).on('contextmenu', msgContextMenuHandler);
       filledCallback();
    });
 };
