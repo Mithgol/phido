@@ -26,6 +26,8 @@ phiQ = queue();
 JAM = require('fidonet-jam');
 phiURL = require('fghi-url');
 phiBar = urlbar();
+GUI = require('nw.gui');
+nwClipboard = GUI.Clipboard.get();
 
 beforeSpace = function(inString){
    if( inString.indexOf(' ') === -1 ){

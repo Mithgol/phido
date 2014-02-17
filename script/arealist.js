@@ -1,5 +1,5 @@
 /* global $, _, arealist:true */
-/* global beforeSpace, JAM, phiQ, phiBar, setup, phiTitle */
+/* global beforeSpace, JAM, phiQ, phiBar, setup, phiTitle, GUI, nwClipboard */
 
 var hideSeparatorsOfInvisible = function(){
    $('#areaList tbody').each(function(){
@@ -209,8 +209,6 @@ if( echoNames.length > 0 ){
 
    $('#areaList .areaRow').each(function(){
       var $row = $(this);
-      var GUI = require('nw.gui');
-      var nwClipboard = GUI.Clipboard.get();
       $row.on('contextmenu', function(e){
          var contextMenu = new GUI.Menu();
          contextMenu.append(new GUI.MenuItem({

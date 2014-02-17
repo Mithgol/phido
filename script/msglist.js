@@ -1,10 +1,8 @@
 /* global $, _, msglist:true */
-/* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace */
+/* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, GUI, nwClipboard */
 
 var msgContextMenuHandler = function(e){
    var $msgRow = $(this);
-   var GUI = require('nw.gui');
-   var nwClipboard = GUI.Clipboard.get();
    var contextMenu = new GUI.Menu();
    contextMenu.append(new GUI.MenuItem({
       'label': 'Copy FGHI URL',
