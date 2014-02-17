@@ -201,7 +201,7 @@ echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    baseSize = echobase.size();
-   var baseSizeLimit = 250;
+   var baseSizeLimit = 200;
    if( baseSize <= baseSizeLimit ){
       loadingRows = [
          '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
