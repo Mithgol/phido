@@ -52,6 +52,8 @@ The following configuration options are supported (in arbitrary order):
    * group ID (number, currently ignored)
    * group type (currently only `Echo` separators are displayed)
 
+An alpha version of PhiDo, meant for testing, may display developer's toolbar at the top of its window. You may change `"toolbar": true` to `"toolbar": false` in `package.json` to hide the toolbar.
+
 ## Launching PhiDo
 
 Run `nw .` in the PhiDo's directory.
