@@ -12,3 +12,4 @@ tr.inverse > th,
    background-color: #555; color: #fff; text-shadow: 1px 1px #000;
 }
 #areaList tr.areaRow td { cursor: pointer; }
+.unreadMsg { font-weight: bold; }

@@ -52,6 +52,9 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          _(decoded.origTime[5]).pad(2, '0'),
          '</nobr></td>'
       ].join(''));
+      if( header.TimesRead < 1 ){
+         $msgRow.addClass('unreadMsg');
+      }
       if( decoded.msgid ){
          msgURL = [
             'area://',
