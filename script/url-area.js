@@ -5,6 +5,15 @@ renderAreaURL = function(URL, parsedURL){
       arealist();
    } else if ( parsedURL.echoNames.length === 1 ){
       msglist( parsedURL.echoNames[0][0] );
+   } else if ( parsedURL.objectPath.length > 0 ){
+      phiBar.reportErrorHTML([
+         'Sorry, opening files embedded in echomail ',
+         'is not (yet) supported in PhiDo.',
+         '<p>The address <b>',
+         _.escapeHTML(URL),
+         '</b> could not be opened.',
+         '</p>'
+      ].join(''));
    } else {
       phiBar.reportErrorHTML([
          'Sorry, opening multiple echomail areas at once ',
