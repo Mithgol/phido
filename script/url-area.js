@@ -1,11 +1,7 @@
 /* global renderAreaURL:true, _, arealist, msglist, phiBar */
 
 renderAreaURL = function(URL, parsedURL){
-   if( parsedURL.echoNames.length < 1 ){
-      arealist();
-   } else if ( parsedURL.echoNames.length === 1 ){
-      msglist( parsedURL.echoNames[0][0] );
-   } else if ( parsedURL.objectPath.length > 0 ){
+   if ( parsedURL.objectPath.length > 0 ){
       phiBar.reportErrorHTML([
          'Sorry, opening files embedded in echomail ',
          'is not (yet) supported in PhiDo.',
@@ -14,6 +10,10 @@ renderAreaURL = function(URL, parsedURL){
          '</b> could not be opened.',
          '</p>'
       ].join(''));
+   } else if( parsedURL.echoNames.length < 1 ){
+      arealist();
+   } else if ( parsedURL.echoNames.length === 1 ){
+      msglist( parsedURL.echoNames[0][0] );
    } else {
       phiBar.reportErrorHTML([
          'Sorry, opening multiple echomail areas at once ',
