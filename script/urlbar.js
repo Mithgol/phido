@@ -76,11 +76,16 @@ urlbar.prototype.back = function(){
    this.render(URL);
 };
 
+urlbar.prototype.loadingMsg = function(someHTML){
+   $('#loadingMessage').html(someHTML);
+};
+
 urlbar.prototype.render = function(URL){
    /* jshint indent: false */
    phiQ.stop();
    $('#content').html(['<div style="text-align: center;">',
-      '<img src="img/loading.gif">',
+      '<img src="img/loading.gif"><br>',
+      '<span id="loadingMessage"></span>',
    '</div>'].join(''));
 
    var parsedURL;
