@@ -6,6 +6,8 @@
 
 * Its name sounds like the Russian “Фидо” that means “Fido” (as in “Fidonet”).
 
+**Note:**   the application is currently in an early phase of its development and thus does not have even minimal feature completeness.
+
 ## Requirements
 
 * PhiDo is written in HTML5 + CSS + JavaScript and requires [node-webkit](https://github.com/rogerwang/node-webkit) to run.
