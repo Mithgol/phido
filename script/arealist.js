@@ -44,46 +44,15 @@ var msgnewActionQueue = function(){
       var $cell = $(this);
       phiQ.push(function(qNext){
          var echobase = JAM( $cell.closest('tr').data('echopath') );
-         echobase.readJLR(function(err){
+         echobase.indexLastRead(setup.UserName, function(err, idx){
             if( err ){
                $cell.html('FAIL');
                qNext();
                return;
             }
-            if( echobase.lastreads.length !== 1 ){
-               $cell.html('MUD');
-               qNext();
-               return;
-            }
-            echobase.readJDX(function(err){
-               if( err ){
-                  $cell.html('FAIL');
-                  qNext();
-                  return;
-               }
-               echobase.readFixedHeaderInfoStruct(function(err, data){
-                  if( err ){
-                     $cell.html('FAIL');
-                     qNext();
-                     return;
-                  }
-                  var nextIDX = echobase.size() - 1;
-                  while( nextIDX > 0 ){
-                     if(
-                        echobase.indexStructure[nextIDX].MessageNum0 +
-                        data.basemsgnum ===
-                        echobase.lastreads[0].LastRead
-                     ){
-                        $cell.html(echobase.size() - 1 - nextIDX);
-                        qNext();
-                        return;
-                     } else nextIDX--;
-                  }
-                  $cell.html('FAIL');
-                  qNext();
-                  return;
-               });
-            });
+            $cell.html(echobase.size() - 1 - idx);
+            qNext();
+            return;
          });
       });
    });
