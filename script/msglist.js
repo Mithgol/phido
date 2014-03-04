@@ -84,6 +84,28 @@ var fillRowFromHeader = function($msgRow, filledCallback){
    });
 };
 
+var lastreadHighlightRow = function($lrRow, callback){
+   var $firstTD = $lrRow.find('td:first');
+   $firstTD.html([
+      '<span style="white-space: nowrap;">',
+      $lrRow.data('number'),
+      ' \u25C4</span>'
+   ].join(''));
+   $.scrollTo($lrRow, {
+      'duration': 1000,
+      'over': { 'top': -0.5 },
+      'onAfter': function(){
+         $lrRow.animate({
+            'background-color': $.Color('#88ffcc')
+         }, 500, function(){
+            $lrRow.animate({
+               'background-color': $.Color('white')
+            }, 500, callback);
+         });
+      }
+   });
+};
+
 var buildMessageTable = function(initialNum, sizeLimit, callback){
    var currMsg, $currTBody;
 
@@ -140,6 +162,13 @@ var msghdrActionQueue = function(){
       phiQ.push(function(qNext){
          fillRowFromHeader($row, qNext);
       });
+   }).each(function(){
+      var $row = $(this);
+      if( $row.data('number') === numLastRead ){
+         phiQ.push(function(qNext){
+            lastreadHighlightRow($row, qNext);
+         });
+      }
    });
    phiQ.start();
 };
