@@ -24,7 +24,7 @@ var msgClickHandler = function(){
 
 msglist = function(echotag){ /* jshint indent:false */
 
-var echobase, baseSize, loadingRows;
+var echobase, baseSize, loadingRows, numLastRead;
 
 var fillRowFromHeader = function($msgRow, filledCallback){
    echobase.readHeader($msgRow.data('number'), function(err, header){
@@ -221,9 +221,17 @@ echobase.readJDX(function(err){
       ].join('');
    }
 
-   $('#content').html('');
-   buildMessageTable(1, baseSizeLimit, function(){
-      if( baseSize <= baseSizeLimit ) msghdrActionQueue();
+   phiBar.loadingMsg("Looking for the last read message's number…");
+   echobase.indexLastRead(setup.UserName, function(err, idx){
+      $('#content').html('');
+      if( err ){
+         numLastRead = null;
+      } else {
+         numLastRead = idx + 1;
+      }
+      buildMessageTable(1, baseSizeLimit, function(){
+         if( baseSize <= baseSizeLimit ) msghdrActionQueue();
+      });
    });
 });
 
