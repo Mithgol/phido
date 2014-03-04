@@ -76,7 +76,8 @@ After that you may run `npm test` (in the directory of PhiDo). Only the JS 
 
 The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
-* The file `jq/$.js` contains [jQuery](http://jquery.com/) which is also [MIT-licensed](https://jquery.org/license/) but has its own authors.
+* The file `jq/$.js` contains [jQuery](http://jquery.com/) which is also [MIT-licensed](https://jquery.org/license/) but has its own authors (jQuery Foundation and other contributors).
+   * The file `jq/jquery.color.min.js` contains [jQuery Color](https://github.com/jquery/jquery-color) plugin by jQuery Foundation and other contributors, [MIT-licensed](https://jquery.org/license/).
    * The file `jq/jquery.hotkeys.js` contains [jQuery Hotkeys Plugin](https://github.com/jeresig/jquery.hotkeys) by John Resig (dual licensed under the MIT or GPL Version 2 licenses).
    * The file `jq/scrollspy.js` contains [scrollSpy](https://github.com/thesmart/jquery-scrollspy), a jQuery plugin by John Smart (MIT-licensed).
    * The file `jq/jquery.scrollTo.min.js` contains [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo), a jQuery plugin by Ariel Flesler (MIT-licensed).
