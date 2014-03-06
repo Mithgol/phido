@@ -132,8 +132,9 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       '</tr></tbody></table>'
    ].join('')).appendTo('#content').find('tbody:last');
 
+   var $rowLastRead = null;
    for( currMsg = initialNum; currMsg <= finalLimit; currMsg++ ){
-      $(['<tr class="msgRow">',
+      var $currRow = $(['<tr class="msgRow">',
          '<td>',
             currMsg,
          '</td>',
@@ -141,11 +142,20 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       '</tr>'].join('')).data({
          'number': currMsg
       }).appendTo($currTBody);
+
+      if( currMsg === numLastRead ) $rowLastRead = $currRow;
    }
 
    phiQ.push(function(qNext){
       if( sizeLimit <= baseSize ){
-         msghdrDelayedActionQueue( $currTBody.closest('.msgList') );
+         if( $rowLastRead === null ){
+            msghdrDelayedActionQueue( $currTBody.closest('.msgList') );
+         } else {
+            msghdrImmediateActionQueue( $currTBody.closest('.msgList') );
+            phiQ.push(function(qNext){
+               lastreadHighlightRow($rowLastRead, qNext);
+            });
+         }
       }
       if( finalMode ){
          callback();
@@ -195,6 +205,15 @@ var msghdrDelayedActionQueue = function($table){
       });
       phiQ.start();
    }).scrollSpy();
+};
+
+var msghdrImmediateActionQueue = function($table){
+   $table.find('.msgRow').each(function(){
+      var $row = $(this);
+      phiQ.push(function(qNext){
+         fillRowFromHeader($row, qNext);
+      });
+   });
 };
 
 phiTitle(echotag + ' - messages');
