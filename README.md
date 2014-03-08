@@ -20,6 +20,8 @@
 
 * PhiDo currently uses [HPT](http://husky.sourceforge.net/hpt.html)'s area configuration file as the description of echomail areas.
 
+* PhiDo does not currently create any lock files, not does it lock files in use. Users themselves have to prevent their echoprocessors (tossers) from running when PhiDo is active.
+
 ## Installing PhiDo
 
 1. Make sure that **Node.js** and **npm** are installed. (Follow the “[Installation](https://github.com/joyent/node/wiki/Installation)” article in the Node's wiki. You may prefer [installing without building](https://github.com/joyent/node/wiki/Installation#installing-without-building), especially on Windows.)
