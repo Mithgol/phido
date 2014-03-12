@@ -20,7 +20,7 @@
 
 * PhiDo currently uses [HPT](http://husky.sourceforge.net/hpt.html)'s area configuration file as the description of echomail areas.
 
-* PhiDo does not currently create any lock files, not does it lock files in use. Users themselves have to prevent their echoprocessors (tossers) from running when PhiDo is active.
+* PhiDo does not currently create any lock files, not does it lock files in use. Users themselves have to prevent their echoprocessors (tossers) or mail editors from running when PhiDo is active.
 
 ## Installing PhiDo
 
