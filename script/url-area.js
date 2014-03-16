@@ -1,4 +1,4 @@
-/* global renderAreaURL:true, _, arealist, msglist, phiBar */
+/* global renderAreaURL:true, _, arealist, msglist, singleMessage, phiBar */
 
 renderAreaURL = function(URL, parsedURL){
    if ( parsedURL.objectPath.length > 0 ){
@@ -28,5 +28,16 @@ renderAreaURL = function(URL, parsedURL){
       return;
    }
    // parsedURL.echoNames.length === 1
+   var foundMSGID = false;
+   for( var i = 0; i < parsedURL.optionalParams.length; i++ ){
+      if( parsedURL.optionalParams[i].name === 'msgid' ){
+         foundMSGID = true;
+         break;
+      }
+   }
+   if( foundMSGID ){
+      singleMessage(parsedURL.echoNames[0][0], parsedURL);
+      return;
+   }
    msglist( parsedURL.echoNames[0][0] );
 };
