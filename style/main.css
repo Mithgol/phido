@@ -13,3 +13,4 @@ tr.inverse > th,
 }
 #areaList tr.areaRow td { cursor: pointer; }
 .unreadMsg { font-weight: bold; }
+.msgNum { text-align: right; }

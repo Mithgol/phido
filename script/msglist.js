@@ -38,7 +38,7 @@ var fillRowFromHeader = function($msgRow, filledCallback){
       var decoded = echobase.decodeHeader(header);
       var msgURL;
       $msgRow.html([
-         '<td>' + $msgRow.data('number') + '</td>',
+         '<td class="msgNum">' + $msgRow.data('number') + '</td>',
          '<td class="msgFrom">' + _.escapeHTML(decoded.from) + '</td>',
          '<td class="msgTo">' + _.escapeHTML(decoded.to) + '</td>',
          '<td class="msgSubj">' + _.escapeHTML(decoded.subj) + '</td>',
@@ -87,9 +87,9 @@ var fillRowFromHeader = function($msgRow, filledCallback){
 var lastreadHighlightRow = function($lrRow, callback){
    var $firstTD = $lrRow.find('td:first');
    $firstTD.html([
-      '<span style="white-space: nowrap;">',
+      '<span style="white-space: nowrap;">\u25BA ',
       $lrRow.data('number'),
-      ' \u25C4</span>'
+      '</span>'
    ].join(''));
    $.scrollTo($lrRow, {
       'duration': 1000,
@@ -124,7 +124,7 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       echoDesc,
       '</td>',
       '</tr><tr class="inverse">',
-      '<th>Num</th>',
+      '<th style="text-align: right;">Num</th>',
       '<th>From</th>',
       '<th>To</th>',
       '<th>Subject</th>',
