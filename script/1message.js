@@ -44,15 +44,19 @@ var arrMSGID = parsedURL.optionalParams.filter(function(param){
    return param.value;
 });
 
+var outputSingleMessage = function(MSGID){
+   $('#content').append(
+      '<p>Stub MSGID output: ' + MSGID + '</p>'
+   );
+};
+
 echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
-   $('#content').html(
-      'Stub function looking for the following MSGID(s):<br>'+
-      arrMSGID.map(function(MSGID){
-         return _.escapeHTML(MSGID);
-      }).join('<br>')
-   );
+   $('#content').empty();
+   arrMSGID.forEach(function(MSGID){
+      outputSingleMessage(MSGID);
+   });
 });
 
 };
