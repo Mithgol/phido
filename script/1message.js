@@ -44,20 +44,26 @@ var arrMSGID = parsedURL.optionalParams.filter(function(param){
    return param.value;
 });
 
-var outputSingleMessage = function(MSGID, callback){
+var outputSingleMessage = function(number, callback){
    $('#content').append(
-      '<p>Stub MSGID output: ' + MSGID + '</p>'
+      '<p>Stub message output: ' + number + '</p>'
    );
    callback();
 };
 
-echobase.readJDX(function(err){
+echobase.numbersForMSGID(arrMSGID, function(err, numbers){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    $('#content').empty();
-   arrMSGID.forEach(function(MSGID){
+   if( numbers.length < 1 ){
+      $('#content').html(
+         'Empty! [' + arrMSGID.join(', ') + '] not found!'
+      );
+      return;
+   }
+   numbers.forEach(function(number){
       phiQ.push(function(qNext){
-         outputSingleMessage(MSGID, qNext);
+         outputSingleMessage(number, qNext);
       });
    });
    phiQ.start();
