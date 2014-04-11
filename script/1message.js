@@ -1,6 +1,6 @@
 /* global $, _, singleMessage:true */
-/* global phiTitle, phiBar, setup, JAM, beforeSpace */
-/* will be used: phiQ, GUI, nwClipboard */
+/* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace */
+/* will be used: GUI, nwClipboard */
 
 singleMessage = function(echotag, parsedURL){ /* jshint indent:false */
 
@@ -44,10 +44,11 @@ var arrMSGID = parsedURL.optionalParams.filter(function(param){
    return param.value;
 });
 
-var outputSingleMessage = function(MSGID){
+var outputSingleMessage = function(MSGID, callback){
    $('#content').append(
       '<p>Stub MSGID output: ' + MSGID + '</p>'
    );
+   callback();
 };
 
 echobase.readJDX(function(err){
@@ -55,8 +56,11 @@ echobase.readJDX(function(err){
 
    $('#content').empty();
    arrMSGID.forEach(function(MSGID){
-      outputSingleMessage(MSGID);
+      phiQ.push(function(qNext){
+         outputSingleMessage(MSGID, qNext);
+      });
    });
+   phiQ.start();
 });
 
 };
