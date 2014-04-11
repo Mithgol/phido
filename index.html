@@ -27,6 +27,9 @@ _.mixin(_.str.exports());
 <script>
 phiQ = queue();
 JAM = require('fidonet-jam');
+FidoHTML = require('fidohtml')({
+   dataMode: true
+});
 phiURL = require('fghi-url');
 phiBar = urlbar();
 GUI = require('nw.gui');
