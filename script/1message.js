@@ -44,10 +44,71 @@ var arrMSGID = parsedURL.optionalParams.filter(function(param){
    return param.value;
 });
 
+var outputMessageText = function($message, header, callback){
+   // TODO use this:
+   void $message;
+   void header;
+   void callback;
+};
+
 var outputSingleMessage = function(header, callback){
-   $('#content').append(
-      '<p>Stub message output: ' + header.MessageIndex + '</p>'
-   );
+   var decoded = echobase.decodeHeader(header);
+   var $curr = $(['<table class="table table-bordered table-condensed">',
+      '<tr>',
+         '<th class="inverse">Msg</th>',
+         '<td colspan=3>',
+            header.MessageIndex + ' of ' + echobase.size(),
+         '</td>',
+      '</tr>',
+      '<tr>',
+         '<th class="inverse">From</th>',
+         '<td>' + (decoded.from     ||'') + '</td>',
+         '<td>' + (decoded.origAddr ||'') + '</td>',
+         '<td>',
+            '<nobr>',
+               decoded.origTime[0], '-',
+               _(decoded.origTime[1]).pad(2, '0'), '-',
+               _(decoded.origTime[2]).pad(2, '0'),
+            '</nobr> <nobr>',
+               _(decoded.origTime[3]).pad(2, '0'), ':',
+               _(decoded.origTime[4]).pad(2, '0'), ':',
+               _(decoded.origTime[5]).pad(2, '0'),
+            '</nobr>',
+         '</td>',
+      '</tr>',
+      '<tr>',
+         '<th class="inverse">To</th>',
+         '<td>' + (decoded.to     ||'') + '</td>',
+         '<td>' + (decoded.toAddr ||'') + '</td>',
+         '<td>',
+            '<nobr>',
+               decoded.procTime[0], '-',
+               _(decoded.procTime[1]).pad(2, '0'), '-',
+               _(decoded.procTime[2]).pad(2, '0'),
+            '</nobr> <nobr>',
+               _(decoded.procTime[3]).pad(2, '0'), ':',
+               _(decoded.procTime[4]).pad(2, '0'), ':',
+               _(decoded.procTime[5]).pad(2, '0'),
+            '</nobr>',
+         '</td>',
+      '</tr>',
+      '<tr>',
+         '<th class="inverse">Subj</th>',
+         '<td colspan=3>',
+            decoded.subj || '',
+         '</td>',
+      '</tr>',
+      '<tr>',
+         '<td colspan=4>',
+            '<p style="text-align: center;">',
+               '<i class="fa fa-spinner fa-spin"></i>',
+            '</p>',
+         '</td>',
+      '</tr>',
+   '</table>'].join('')).appendTo('#content');
+   phiQ.push(function(qNext){
+      outputMessageText($curr, header, qNext);
+   });
    callback();
 };
 
