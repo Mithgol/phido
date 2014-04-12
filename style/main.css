@@ -8,7 +8,11 @@ ul li { list-style-image: url(../img/bullet.gif); }
 tr.inverse > td,
 tr.inverse > th,
 .table-hover > tbody > tr.inverse:hover > td,
-.table-hover > tbody > tr.inverse:hover > th {
+.table-hover > tbody > tr.inverse:hover > th,
+tr > td.inverse,
+tr > th.inverse,
+.table-hover > tbody > tr:hover > td.inverse,
+.table-hover > tbody > tr:hover > th.inverse {
    background-color: #555; color: #fff; text-shadow: 1px 1px #000;
 }
 #areaList tr.areaRow td { cursor: pointer; }
