@@ -1,5 +1,5 @@
 /* global $, _, singleMessage:true */
-/* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace */
+/* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace, FidoHTML */
 /* will be used: GUI, nwClipboard */
 
 singleMessage = function(echotag, parsedURL){ /* jshint indent:false */
@@ -45,10 +45,12 @@ var arrMSGID = parsedURL.optionalParams.filter(function(param){
 });
 
 var outputMessageText = function($message, header, callback){
-   // TODO use this:
-   void $message;
-   void header;
-   void callback;
+   echobase.decodeMessage(header, function(error, messageText){
+      $message.find('.messageText').html(
+         FidoHTML.fromText(messageText)
+      );
+      callback();
+   });
 };
 
 var outputSingleMessage = function(header, callback){
@@ -109,7 +111,7 @@ var outputSingleMessage = function(header, callback){
          '</td>',
       '</tr>',
       '<tr>',
-         '<td colspan=5>',
+         '<td colspan=5 class="messageText">',
             '<p style="text-align: center;">',
                '<i class="fa fa-spinner fa-spin"></i>',
             '</p>',
