@@ -53,6 +53,7 @@ var outputMessageText = function($message, header, callback){
 
 var outputSingleMessage = function(header, callback){
    var decoded = echobase.decodeHeader(header);
+   header.decoded = decoded;
    var $curr = $(['<table class="table table-bordered table-condensed">',
       '<tr>',
          '<th class="inverse">Msg</th>',
@@ -63,7 +64,9 @@ var outputSingleMessage = function(header, callback){
       '<tr>',
          '<th class="inverse">From</th>',
          '<td>' + (decoded.from     ||'') + '</td>',
-         '<td>' + (decoded.origAddr ||'') + '</td>',
+         '<td>',
+            decoded.origAddr || '<i class="fa fa-spinner fa-spin"></i>',
+         '</td>',
          '<td>',
             '<nobr>',
                decoded.origTime[0], '-',
