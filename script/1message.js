@@ -56,6 +56,11 @@ var outputSingleMessage = function(header, callback){
    header.decoded = decoded;
    var $curr = $(['<table class="table table-bordered table-condensed">',
       '<tr>',
+         '<th rowspan=4 class="avatar">',
+            '<div style="width: 140px;">',
+               '&nbsp;',
+            '</div>',
+         '</th>',
          '<th class="inverse">Msg</th>',
          '<td colspan=3>',
             header.MessageIndex + ' of ' + echobase.size(),
@@ -63,8 +68,10 @@ var outputSingleMessage = function(header, callback){
       '</tr>',
       '<tr>',
          '<th class="inverse">From</th>',
-         '<td>' + (decoded.from     ||'') + '</td>',
-         '<td>',
+         '<td width="100%">',
+            decoded.from || '',
+         '</td>',
+         '<td width=1>',
             decoded.origAddr || '<i class="fa fa-spinner fa-spin"></i>',
          '</td>',
          '<td>',
@@ -72,7 +79,7 @@ var outputSingleMessage = function(header, callback){
                decoded.origTime[0], '-',
                _(decoded.origTime[1]).pad(2, '0'), '-',
                _(decoded.origTime[2]).pad(2, '0'),
-            '</nobr> <nobr>',
+            ' ',
                _(decoded.origTime[3]).pad(2, '0'), ':',
                _(decoded.origTime[4]).pad(2, '0'), ':',
                _(decoded.origTime[5]).pad(2, '0'),
@@ -82,13 +89,13 @@ var outputSingleMessage = function(header, callback){
       '<tr>',
          '<th class="inverse">To</th>',
          '<td>' + (decoded.to     ||'') + '</td>',
-         '<td>' + (decoded.toAddr ||'') + '</td>',
+         '<td width=1>' + (decoded.toAddr ||'') + '</td>',
          '<td>',
             '<nobr>',
                decoded.procTime[0], '-',
                _(decoded.procTime[1]).pad(2, '0'), '-',
                _(decoded.procTime[2]).pad(2, '0'),
-            '</nobr> <nobr>',
+            ' ',
                _(decoded.procTime[3]).pad(2, '0'), ':',
                _(decoded.procTime[4]).pad(2, '0'), ':',
                _(decoded.procTime[5]).pad(2, '0'),
@@ -102,13 +109,21 @@ var outputSingleMessage = function(header, callback){
          '</td>',
       '</tr>',
       '<tr>',
-         '<td colspan=4>',
+         '<td colspan=5>',
             '<p style="text-align: center;">',
                '<i class="fa fa-spinner fa-spin"></i>',
             '</p>',
          '</td>',
       '</tr>',
    '</table>'].join('')).appendTo('#content');
+   $curr.find('.avatar').each(function(){
+      var $avatar = $(this);
+      var height = $avatar.height();
+      $avatar.find('div').width( height+1 );
+      $avatar.css('background-image', 'url(' +
+         'https://secure.gravatar.com/avatar/?f=y&d=mm&s=' + height +
+      ')');
+   });
    phiQ.push(function(qNext){
       outputMessageText($curr, header, qNext);
    });

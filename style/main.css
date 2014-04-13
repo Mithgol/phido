@@ -18,3 +18,10 @@ tr > th.inverse,
 #areaList tr.areaRow td { cursor: pointer; }
 .unreadMsg { font-weight: bold; }
 .msgNum { text-align: right; }
+.avatar {
+   background-size:     contain;
+   background-repeat:   no-repeat;
+   background-position: center center;
+   padding: 0;
+}
+.avatar div { margin: 0; padding: 0; border: 0; }
