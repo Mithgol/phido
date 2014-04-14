@@ -47,7 +47,7 @@ var arrMSGID = parsedURL.optionalParams.filter(function(param){
 var outputMessageText = function($message, header, callback){
    echobase.decodeMessage(header, function(error, messageText){
       $message.find('.messageText').html(
-         FidoHTML.fromText(error || messageText)
+         error ? _.escapeHTML('' + error) : FidoHTML.fromText(messageText)
       );
       callback();
    });
