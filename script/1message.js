@@ -6,9 +6,7 @@ singleMessage = function(echotag, parsedURL){ /* jshint indent:false */
 
 var echobase;
 
-phiTitle(echotag + ' - message');
 var lcEchotag = echotag.toLowerCase();
-
 var echoNames = setup.areas.group('EchoArea').names();
 var foundNames = echoNames.filter(function(echoName){
    return echoName.toLowerCase() === lcEchotag;
@@ -34,8 +32,10 @@ var arrDesc = /-d "([^"]+?)"/.exec(
 var echoDesc;
 if( arrDesc === null ){
    echoDesc = setupEchotag;
+   phiTitle(echotag + ' - message');
 } else {
    echoDesc = arrDesc[1];
+   phiTitle(echoDesc + ' [' + echotag + '] messages');
 }
 
 var arrMSGID = parsedURL.optionalParams.filter(function(param){
