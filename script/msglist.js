@@ -216,9 +216,7 @@ var msghdrImmediateActionQueue = function($table){
    });
 };
 
-phiTitle(echotag + ' - messages');
 var lcEchotag = echotag.toLowerCase();
-
 var echoNames = setup.areas.group('EchoArea').names();
 var foundNames = echoNames.filter(function(echoName){
    return echoName.toLowerCase() === lcEchotag;
@@ -244,8 +242,10 @@ var arrDesc = /-d "([^"]+?)"/.exec(
 var echoDesc;
 if( arrDesc === null ){
    echoDesc = setupEchotag;
+   phiTitle(echotag + ' - messages');
 } else {
    echoDesc = arrDesc[1];
+   phiTitle(echoDesc + ' [' + echotag + '] messages');
 }
 
 echobase.readJDX(function(err){
