@@ -58,7 +58,7 @@ var outputSingleMessage = function(header, callback){
    header.decoded = decoded;
    var $curr = $(['<table class="table table-bordered table-condensed">',
       '<tr>',
-         '<th rowspan=4 class="avatar">',
+         '<th rowspan=4 class="avatar inverse">',
             '<div style="width: 140px;">',
                '&nbsp;',
             '</div>',
