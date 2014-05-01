@@ -54,12 +54,13 @@ var outputMessageText = function($message, header, callback){
 };
 
 var outputSingleMessage = function(header, callback){
+   var defaultAvatarSize = 140;
    var decoded = echobase.decodeHeader(header);
    header.decoded = decoded;
    var $curr = $(['<table class="table table-bordered table-condensed">',
       '<tr>',
-         '<th rowspan=4 class="avatar inverse">',
-            '<div style="width: 140px;">',
+         '<th rowspan=4 class="avatar inverse" width=1>',
+            '<div style="width: '+defaultAvatarSize+'px;">',
                '&nbsp;',
             '</div>',
          '</th>',
@@ -120,11 +121,24 @@ var outputSingleMessage = function(header, callback){
    '</table>'].join('')).appendTo('#content');
    $curr.find('.avatar').each(function(){
       var $avatar = $(this);
+
+      var avatarSize;
       var height = $avatar.height();
-      $avatar.find('div').width( height+1 );
-      $avatar.css('background-image', 'url(' +
-         'https://secure.gravatar.com/avatar/?f=y&d=mm&s=' + height +
-      ')');
+      if ( height + 1 < defaultAvatarSize ){
+         avatarSize = height + 1;
+      } else {
+         avatarSize = defaultAvatarSize;
+      }
+      $avatar.find('div').width( avatarSize );
+
+      var avatars = echobase.getAvatarsForHeader(header, ['https', 'http'], {
+         size: avatarSize
+      });
+      if( avatars.length < 1 ) avatars = [
+         'https://secure.gravatar.com/avatar/?f=y&d=mm&s=' + avatarSize
+      ];
+
+      $avatar.css('background-image', 'url(' + avatars[0] + ')');
    });
    phiQ.push(function(qNext){
       outputMessageText($curr, header, qNext);
