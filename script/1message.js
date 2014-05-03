@@ -74,8 +74,8 @@ var outputSingleMessage = function(header, callback){
          '<td width="100%">',
             decoded.from || '',
          '</td>',
-         '<td width=1>',
-            decoded.origAddr || '<i class="fa fa-spinner fa-spin"></i>',
+         '<td width=1 class="origAddr">',
+            '<i class="fa fa-spinner fa-spin"></i>',
          '</td>',
          '<td>',
             '<nobr>',
@@ -119,26 +119,38 @@ var outputSingleMessage = function(header, callback){
          '</td>',
       '</tr>',
    '</table>'].join('')).appendTo('#content');
-   $curr.find('.avatar').each(function(){
-      var $avatar = $(this);
 
-      var avatarSize;
-      var height = $avatar.height();
-      if ( height + 1 < defaultAvatarSize ){
-         avatarSize = height + 1;
+   echobase.getOrigAddr(header, function(err, origAddr){
+      if( err ){
+         $curr.find('.origAddr').html('ERROR');
+         origAddr = void 0;
       } else {
-         avatarSize = defaultAvatarSize;
+         $curr.find('.origAddr').html( _.escapeHTML(origAddr) );
       }
-      $avatar.find('div').width( avatarSize );
 
-      var avatars = echobase.getAvatarsForHeader(header, ['https', 'http'], {
-         size: avatarSize
+      $curr.find('.avatar').each(function(){
+         var $avatar = $(this);
+
+         var avatarSize;
+         var height = $avatar.height();
+         if ( height + 1 < defaultAvatarSize ){
+            avatarSize = height + 1;
+         } else {
+            avatarSize = defaultAvatarSize;
+         }
+         $avatar.find('div').width( avatarSize );
+
+         var avatars = echobase.getAvatarsForHeader(
+            header, ['https', 'http'], {
+               size: avatarSize,
+               origAddr: origAddr
+         });
+         if( avatars.length < 1 ) avatars = [
+            'https://secure.gravatar.com/avatar/?f=y&d=mm&s=' + avatarSize
+         ];
+
+         $avatar.css('background-image', 'url(' + avatars[0] + ')');
       });
-      if( avatars.length < 1 ) avatars = [
-         'https://secure.gravatar.com/avatar/?f=y&d=mm&s=' + avatarSize
-      ];
-
-      $avatar.css('background-image', 'url(' + avatars[0] + ')');
    });
    phiQ.push(function(qNext){
       outputMessageText($curr, header, qNext);
