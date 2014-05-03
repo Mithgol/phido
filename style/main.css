@@ -25,3 +25,5 @@ tr > th.inverse,
    padding: 0;
 }
 .avatar div { margin: 0; padding: 0; border: 0; }
+.messageRelations { margin: 0; padding: 0; border: 0; float: left; }
+.messageRelations .parent, .messageRelations .nextSibling { white-space: nowrap; }

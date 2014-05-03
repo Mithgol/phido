@@ -53,6 +53,84 @@ var outputMessageText = function($message, header, callback){
    });
 };
 
+var outputMessageAvatarAndOrigin = function(
+   $message, header, defaultAvatarSize, callback
+){
+   echobase.getOrigAddr(header, function(err, origAddr){
+      if( err ){
+         $message.find('.origAddr').html('ERROR');
+         origAddr = void 0;
+      } else {
+         $message.find('.origAddr').html( _.escapeHTML(origAddr) );
+      }
+
+      $message.find('.avatar').each(function(){
+         var $avatar = $(this);
+
+         var avatarSize;
+         var height = $avatar.height();
+         if ( height + 1 < defaultAvatarSize ){
+            avatarSize = height + 1;
+         } else {
+            avatarSize = defaultAvatarSize;
+         }
+         $avatar.find('div').width( avatarSize );
+
+         var avatars = echobase.getAvatarsForHeader(
+            header, ['https', 'http'], {
+               size: avatarSize,
+               origAddr: origAddr
+         });
+         if( avatars.length < 1 ) avatars = [
+            'https://secure.gravatar.com/avatar/?f=y&d=mm&s=' + avatarSize
+         ];
+
+         $avatar.css('background-image', 'url(' + avatars[0] + ')');
+      });
+
+      callback();
+   });
+};
+
+var outputMessageRelations = function($message, header, callback){
+   echobase.getParentNumber(header.MessageIndex, function(err, parentNum){
+      if( err ) parentNum = 'ERROR';
+      if( parentNum !== null ){
+         $message.find('.messageRelations .parent').html([
+            '<span class="label label-primary">Parent:</span> ',
+            parentNum,
+            ' '
+         ].join(''));
+         $message.find('.messageRelations').show();
+      }
+      echobase.getNextChildNumber(header.MessageIndex, function(err, ncNum){
+         if( err ) ncNum = 'ERROR';
+         if( ncNum !== null ){
+            $message.find('.messageRelations .nextSibling').html([
+               ' <span class="label label-primary">Next sibling:</span> ',
+               ncNum
+            ].join(''));
+            $message.find('.messageRelations').show();
+         }
+         echobase.getChildrenNumbers(header.MessageIndex, function(
+            err, arrChildrenNum
+         ){
+            if( err ) arrChildrenNum = ['ERROR'];
+            if( arrChildrenNum.length > 0 ){
+               $message.find('.messageRelations .children').html([
+                  ' <span class="label label-primary">Children:</span> ',
+                  arrChildrenNum.join(' '),
+                  ' '
+               ].join(''));
+               $message.find('.messageRelations').show();
+            }
+
+            callback();
+         });
+      });
+   });
+};
+
 var outputSingleMessage = function(header, callback){
    var defaultAvatarSize = 140;
    var decoded = echobase.decodeHeader(header);
@@ -67,6 +145,11 @@ var outputSingleMessage = function(header, callback){
          '<th class="inverse">Msg</th>',
          '<td colspan=3>',
             header.MessageIndex + ' of ' + echobase.size(),
+            '<div class="messageRelations" style="display: none;">',
+               '<span class="parent"></span>',
+               '<span class="children"></span>',
+               '<span class="nextSibling"></span>',
+            '</div>',
          '</td>',
       '</tr>',
       '<tr>',
@@ -120,40 +203,12 @@ var outputSingleMessage = function(header, callback){
       '</tr>',
    '</table>'].join('')).appendTo('#content');
 
-   echobase.getOrigAddr(header, function(err, origAddr){
-      if( err ){
-         $curr.find('.origAddr').html('ERROR');
-         origAddr = void 0;
-      } else {
-         $curr.find('.origAddr').html( _.escapeHTML(origAddr) );
-      }
-
-      $curr.find('.avatar').each(function(){
-         var $avatar = $(this);
-
-         var avatarSize;
-         var height = $avatar.height();
-         if ( height + 1 < defaultAvatarSize ){
-            avatarSize = height + 1;
-         } else {
-            avatarSize = defaultAvatarSize;
-         }
-         $avatar.find('div').width( avatarSize );
-
-         var avatars = echobase.getAvatarsForHeader(
-            header, ['https', 'http'], {
-               size: avatarSize,
-               origAddr: origAddr
-         });
-         if( avatars.length < 1 ) avatars = [
-            'https://secure.gravatar.com/avatar/?f=y&d=mm&s=' + avatarSize
-         ];
-
-         $avatar.css('background-image', 'url(' + avatars[0] + ')');
-      });
-   });
    phiQ.push(function(qNext){
       outputMessageText($curr, header, qNext);
+   }).push(function(qNext){
+      outputMessageRelations($curr, header, qNext);
+   }).push(function(qNext){
+      outputMessageAvatarAndOrigin($curr, header, defaultAvatarSize, qNext);
    });
    callback();
 };
