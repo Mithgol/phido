@@ -1,4 +1,4 @@
-/* global $, _, singleMessage:true */
+/* global $, _, window, singleMessage:true */
 /* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace, FidoHTML */
 /* will be used: GUI, nwClipboard */
 
@@ -65,6 +65,7 @@ var outputMessageAvatarAndOrigin = function(
       }
 
       $message.find('.avatar').each(function(){
+         /* jshint bitwise: false */
          var $avatar = $(this);
 
          var avatarSize;
