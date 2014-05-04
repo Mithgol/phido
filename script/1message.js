@@ -76,6 +76,12 @@ var outputMessageAvatarAndOrigin = function(
          }
          $avatar.find('div').width( avatarSize );
 
+         // before this, `avatarSize` is DOM-dimensional;
+         // now it becomes pixel-dimesional (for gravatar URLs):
+         if( window.devicePixelRatio ){
+            avatarSize = (avatarSize * window.devicePixelRatio) |0;
+         }
+
          var avatars = echobase.getAvatarsForHeader(
             header, ['https', 'http'], {
                size: avatarSize,
