@@ -105,8 +105,9 @@ var outputMessageRelations = function($message, header, callback){
       if( parentNum !== null ){
          $message.find('.messageRelations .parent').html([
             '<span class="label label-primary">Parent:</span> ',
+            '<span class="relNumber">',
             parentNum,
-            ' '
+            '</span> '
          ].join(''));
          $message.find('.messageRelations').show();
       }
@@ -115,7 +116,9 @@ var outputMessageRelations = function($message, header, callback){
          if( ncNum !== null ){
             $message.find('.messageRelations .nextSibling').html([
                ' <span class="label label-primary">Next sibling:</span> ',
-               ncNum
+               '<span class="relNumber">',
+               ncNum,
+               '</span>'
             ].join(''));
             $message.find('.messageRelations').show();
          }
@@ -126,8 +129,9 @@ var outputMessageRelations = function($message, header, callback){
             if( arrChildrenNum.length > 0 ){
                $message.find('.messageRelations .children').html([
                   ' <span class="label label-primary">Children:</span> ',
-                  arrChildrenNum.join(' '),
-                  ' '
+                  '<span class="relNumber">',
+                  arrChildrenNum.join('</span> <span class="relNumber">'),
+                  '</span> '
                ].join(''));
                $message.find('.messageRelations').show();
             }
