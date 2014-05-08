@@ -1,5 +1,6 @@
 /* global $, _, window, singleMessage:true */
 /* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace, FidoHTML */
+/* global generateAreaURL */
 /* will be used: GUI, nwClipboard */
 
 singleMessage = function(echotag, parsedURL){ /* jshint indent:false */
@@ -135,6 +136,27 @@ var outputMessageRelations = function($message, header, callback){
                ].join(''));
                $message.find('.messageRelations').show();
             }
+
+            $message.find('.relNumber').each(function(){
+               /* jshint bitwise: false */
+               var $this = $(this);
+               var relNumber = +$this.html();
+
+               phiQ.push(function(qNext){
+                  echobase.readHeader(relNumber, function(err, header){
+                     if( err ) return qNext();
+
+                     var decoded = echobase.decodeHeader(header);
+                     var msgURL = generateAreaURL(echotag, decoded);
+                     $this.wrapInner([
+                        '<a href="#" data-url="' + msgURL + '">',
+                        '</a>'
+                     ].join(''));
+
+                     qNext();
+                  });
+               });
+            });
 
             callback();
          });

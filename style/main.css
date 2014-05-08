@@ -16,6 +16,7 @@ tr > th.inverse,
    background-color: #555; color: #fff; text-shadow: 1px 1px #000;
 }
 #areaList tr.areaRow td { cursor: pointer; }
+A[data-url] { cursor: pointer; }
 .unreadMsg { font-weight: bold; }
 .msgNum { text-align: right; }
 .avatar {
@@ -25,5 +26,5 @@ tr > th.inverse,
    padding: 0;
 }
 .avatar div { margin: 0; padding: 0; border: 0; }
-.messageRelations { margin: 0; padding: 0; border: 0; float: left; }
+.messageRelations { margin: 0; padding: 0; border: 0; }
 .messageRelations .parent, .messageRelations .nextSibling { white-space: nowrap; }

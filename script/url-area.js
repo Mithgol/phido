@@ -1,4 +1,5 @@
-/* global renderAreaURL:true, _, arealist, msglist, singleMessage, phiBar */
+/* global renderAreaURL:true, generateAreaURL:true */
+/* global _, arealist, msglist, singleMessage, phiBar */
 
 renderAreaURL = function(URL, parsedURL){
    if ( parsedURL.objectPath.length > 0 ){
@@ -40,4 +41,28 @@ renderAreaURL = function(URL, parsedURL){
       return;
    }
    msglist( parsedURL.echoNames[0][0] );
+};
+
+generateAreaURL = function(echotag, decoded){
+   /* jshint indent:false */
+   if( decoded.msgid ) return [
+      'area://',
+      encodeURIComponent(echotag),
+      '/?msgid=',
+      encodeURIComponent(decoded.msgid),
+      '&time=',
+      encodeURIComponent(decoded.origTime[0])
+   ].join('').replace('%20', '+');
+
+   return [
+      'area://',
+      encodeURIComponent(echotag),
+      '/?time=',
+      encodeURIComponent(decoded.origTime[0]), '/',
+      encodeURIComponent(_(decoded.origTime[1]).pad(2, '0')), '/',
+      encodeURIComponent(_(decoded.origTime[2]).pad(2, '0')), 'T',
+      encodeURIComponent(_(decoded.origTime[3]).pad(2, '0')), ':',
+      encodeURIComponent(_(decoded.origTime[4]).pad(2, '0')), ':',
+      encodeURIComponent(_(decoded.origTime[5]).pad(2, '0'))
+   ].join('').replace('%20', '+');
 };

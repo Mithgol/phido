@@ -1,5 +1,6 @@
 /* global $, _, msglist:true */
-/* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, GUI, nwClipboard */
+/* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, generateAreaURL */
+/* global GUI, nwClipboard */
 
 var msgContextMenuHandler = function(e){
    var $msgRow = $(this);
@@ -55,28 +56,7 @@ var fillRowFromHeader = function($msgRow, filledCallback){
       if( header.TimesRead < 1 ){
          $msgRow.addClass('unreadMsg');
       }
-      if( decoded.msgid ){
-         msgURL = [
-            'area://',
-            encodeURIComponent(echotag),
-            '/?msgid=',
-            encodeURIComponent(decoded.msgid),
-            '&time=',
-            encodeURIComponent(decoded.origTime[0])
-         ].join('').replace('%20', '+');
-      } else {
-         msgURL = [
-            'area://',
-            encodeURIComponent(echotag),
-            '/?time=',
-            encodeURIComponent(decoded.origTime[0]), '/',
-            encodeURIComponent(_(decoded.origTime[1]).pad(2, '0')), '/',
-            encodeURIComponent(_(decoded.origTime[2]).pad(2, '0')), 'T',
-            encodeURIComponent(_(decoded.origTime[3]).pad(2, '0')), ':',
-            encodeURIComponent(_(decoded.origTime[4]).pad(2, '0')), ':',
-            encodeURIComponent(_(decoded.origTime[5]).pad(2, '0'))
-         ].join('').replace('%20', '+');
-      }
+      msgURL = generateAreaURL(echotag, decoded);
       $msgRow.data('msgURL', msgURL).on('click', msgClickHandler).css({
          'cursor': 'pointer'
       }).on('contextmenu', msgContextMenuHandler);
