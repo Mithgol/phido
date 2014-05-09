@@ -149,7 +149,7 @@ var outputMessageRelations = function($message, header, callback){
                      var decoded = echobase.decodeHeader(header);
                      var msgURL = generateAreaURL(echotag, decoded);
                      $this.wrapInner([
-                        '<a href="#" data-url="' + msgURL + '">',
+                        '<a href="#" data-href="' + msgURL + '">',
                         '</a>'
                      ].join(''));
 
