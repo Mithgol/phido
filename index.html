@@ -46,7 +46,48 @@ beforeSpace = function(inString){
 <script>
 $(function(){
 initSetup();
-$('#content').css('text-align', 'left');
+$('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
+   var supportedSchemes = ['area'];
+   var safeSchemes = [
+      'http',
+      'https',
+      'ftp',
+      'mailto',
+      'ed2k',
+      'facetime',
+      'feed',
+      'geo',
+      'irc',
+      'ircs',
+      'magnet',
+      'news',
+      'nntp',
+      'sip',
+      'sips',
+      'skype',
+      'sms',
+      'ssh',
+      'tel',
+      'telnet',
+      'tftp',
+      'xmpp'
+   ];
+
+   var $this = $(this);
+   var URL = $this.data('href');
+
+   var separatorPosition = URL.indexOf(':');
+   if( separatorPosition < 0 ) return false;
+
+   var schemeLC = URL.slice(0, separatorPosition).toLowerCase();
+   if( supportedSchemes.indexOf(schemeLC) >= 0 ){
+      phiBar.open(URL);
+   } else if( safeSchemes.indexOf(schemeLC) >= 0 ){
+      GUI.Shell.openExternal(URL);
+   }
+
+   return false;
+});
 phiBar.attach( $('#urlbar') );
 phiBar.open('area://');
 });
