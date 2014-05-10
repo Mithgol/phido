@@ -1,27 +1,5 @@
 /* global $, _, msglist:true */
 /* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, generateAreaURL */
-/* global GUI, nwClipboard */
-
-var msgContextMenuHandler = function(e){
-   var $msgRow = $(this);
-   var contextMenu = new GUI.Menu();
-   contextMenu.append(new GUI.MenuItem({
-      'label': 'Copy FGHI URL',
-      'click': function(){
-         nwClipboard.set( $msgRow.data('msgURL') );
-      }
-   }));
-   $msgRow.data('contextMenu', contextMenu);
-   $msgRow.data('contextMenu').popup(
-      e.originalEvent.x,
-      e.originalEvent.y
-   );
-   return false;
-};
-
-var msgClickHandler = function(){
-   phiBar.open( $(this).data('msgURL') );
-};
 
 msglist = function(echotag){ /* jshint indent:false */
 
@@ -37,7 +15,6 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          return;
       }
       var decoded = echobase.decodeHeader(header);
-      var msgURL;
       $msgRow.html([
          '<td class="msgNum">' + $msgRow.data('number') + '</td>',
          '<td class="msgFrom">' + _.escapeHTML(decoded.from) + '</td>',
@@ -53,15 +30,12 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          _(decoded.origTime[5]).pad(2, '0'),
          '</nobr></td>'
       ].join(''));
-      if( header.TimesRead < 1 ){
-         $msgRow.addClass('unreadMsg');
-      }
-      msgURL = generateAreaURL(echotag, decoded);
-      $msgRow.data('msgURL', msgURL).on(
-         'click', msgClickHandler
-      ).on(
-         'contextmenu', msgContextMenuHandler
-      );
+      if( header.TimesRead < 1 ) $msgRow.addClass('unreadMsg');
+
+      $msgRow.data(
+         'msgURL', generateAreaURL(echotag, decoded)
+      ).addClass('hasMsgURL');
+
       filledCallback();
    });
 };

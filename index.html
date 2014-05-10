@@ -87,6 +87,25 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    }
 
    return false;
+}).on('click', '.hasMsgURL', function(){
+   phiBar.open( $(this).data('msgURL') );
+}).on('contextmenu', '.hasMsgURL', function(e){
+   var $this = $(this);
+   var URL = $this.data('msgURL');
+
+   var contextMenu = new GUI.Menu();
+   contextMenu.append(new GUI.MenuItem({
+      'label': 'Copy FGHI URL',
+      'click': function(){
+         nwClipboard.set( URL );
+      }
+   }));
+   $this.data('contextMenu', contextMenu);
+   $this.data('contextMenu').popup(
+      e.originalEvent.x,
+      e.originalEvent.y
+   );
+   return false;
 });
 phiBar.attach( $('#urlbar') );
 phiBar.open('area://');
