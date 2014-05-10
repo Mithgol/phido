@@ -63,8 +63,6 @@ var lastreadHighlightRow = function($lrRow, callback){
 };
 
 var buildMessageTable = function(initialNum, sizeLimit, callback){
-   var currMsg, $currTBody;
-
    var finalMode = false;
    var finalLimit = initialNum + sizeLimit - 1;
    if( finalLimit >= baseSize ){
@@ -72,7 +70,7 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       finalLimit = baseSize;
    }
 
-   $currTBody = $([
+   var $currTable = $([
       '<table ',
       'class="msgList table table-bordered table-hover table-condensed">',
       '<tbody><tr class="inverse">',
@@ -86,10 +84,11 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       '<th>Subject</th>',
       '<th>Date / time</th>',
       '</tr></tbody></table>'
-   ].join('')).appendTo('#content').find('tbody:last');
+   ].join(''));
+   var $currTBody = $currTable.find('tbody');
 
    var $rowLastRead = null;
-   for( currMsg = initialNum; currMsg <= finalLimit; currMsg++ ){
+   for( var currMsg = initialNum; currMsg <= finalLimit; currMsg++ ){
       var $currRow = $(['<tr class="msgRow">',
          '<td>',
             currMsg,
@@ -101,6 +100,7 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
 
       if( currMsg === numLastRead ) $rowLastRead = $currRow;
    }
+   $currTable.appendTo('#content');
 
    phiQ.push(function(qNext){
       if( sizeLimit <= baseSize ){
