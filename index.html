@@ -87,11 +87,11 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    }
 
    return false;
-}).on('click', '.hasMsgURL', function(){
-   phiBar.open( $(this).data('msgURL') );
-}).on('contextmenu', '.hasMsgURL', function(e){
+}).on('click', '.hasURL', function(){
+   phiBar.open( $(this).data('URL') );
+}).on('contextmenu', '.hasURL', function(e){
    var $this = $(this);
-   var URL = $this.data('msgURL');
+   var URL = $this.data('URL');
 
    var contextMenu = new GUI.Menu();
    contextMenu.append(new GUI.MenuItem({

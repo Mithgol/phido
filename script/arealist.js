@@ -1,5 +1,5 @@
 /* global $, _, arealist:true */
-/* global beforeSpace, JAM, phiQ, phiBar, setup, phiTitle, GUI, nwClipboard */
+/* global beforeSpace, JAM, phiQ, setup, phiTitle */
 
 var hideSeparatorsOfInvisible = function(){
    $('#areaList tbody').each(function(){
@@ -161,13 +161,11 @@ if( echoNames.length > 0 ){
          '<td class="echotag">'+_.escapeHTML(echoName)+'</td>' +
       '</tr>').data({
          'echotag':  echoName,
-         'areaURL':  'area://' + encodeURIComponent(echoName),
+         'URL':  'area://' + encodeURIComponent(echoName),
          'echopath': beforeSpace(
             setup.areas.group('EchoArea').first(echoName)
          )
-      }).on('click', function(){
-         phiBar.open( $(this).data('areaURL') );
-      }).appendTo($currTBody);
+      }).addClass('hasURL').appendTo($currTBody);
    });
    $('<tbody class="noAreaRows" style="display: none;"><tr>' +
       '<td colspan=4 style="text-align: center;">' +
@@ -175,22 +173,6 @@ if( echoNames.length > 0 ){
       '</td>' +
    '</tr></tbody>').appendTo('#areaList');
    hideSeparatorsOfInvisible();
-
-   $('#areaList .areaRow').each(function(){
-      var $row = $(this);
-      $row.on('contextmenu', function(e){
-         var contextMenu = new GUI.Menu();
-         contextMenu.append(new GUI.MenuItem({
-            'label': 'Copy FGHI URL',
-            'click': function(){
-               nwClipboard.set( $row.data('areaURL') );
-            }
-         }));
-         $row.data('contextMenu', contextMenu);
-         $row.data('contextMenu').popup(e.originalEvent.x, e.originalEvent.y);
-         return false;
-      });
-   });
 
    msgnumActionQueue();
    msgnewActionQueue();

@@ -33,8 +33,8 @@ var fillRowFromHeader = function($msgRow, filledCallback){
       if( header.TimesRead < 1 ) $msgRow.addClass('unreadMsg');
 
       $msgRow.data(
-         'msgURL', generateAreaURL(echotag, decoded)
-      ).addClass('hasMsgURL');
+         'URL', generateAreaURL(echotag, decoded)
+      ).addClass('hasURL');
 
       filledCallback();
    });
