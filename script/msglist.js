@@ -57,9 +57,11 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          $msgRow.addClass('unreadMsg');
       }
       msgURL = generateAreaURL(echotag, decoded);
-      $msgRow.data('msgURL', msgURL).on('click', msgClickHandler).css({
-         'cursor': 'pointer'
-      }).on('contextmenu', msgContextMenuHandler);
+      $msgRow.data('msgURL', msgURL).on(
+         'click', msgClickHandler
+      ).on(
+         'contextmenu', msgContextMenuHandler
+      );
       filledCallback();
    });
 };

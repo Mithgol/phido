@@ -19,6 +19,7 @@ tr > th.inverse,
 A[data-url] { cursor: pointer; }
 .unreadMsg { font-weight: bold; }
 .msgNum { text-align: right; }
+.msgList .msgRow { cursor: pointer; }
 .avatar {
    background-size:     contain;
    background-repeat:   no-repeat;
