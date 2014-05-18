@@ -131,7 +131,7 @@ var outputMessageRelations = function($message, header, callback){
                $message.find('.messageRelations .children').html([
                   ' <span class="label label-primary">Children:</span> ',
                   '<span class="relNumber">',
-                  arrChildrenNum.join('</span> <span class="relNumber">'),
+                  arrChildrenNum.join('</span>, <span class="relNumber">'),
                   '</span> '
                ].join(''));
                $message.find('.messageRelations').show();
