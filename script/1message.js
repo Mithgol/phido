@@ -207,7 +207,8 @@ var outputSingleMessage = function(header, callback){
       '</tr>',
       '<tr>',
          '<th class="inverse">To</th>',
-         '<td>' + (decoded.to     ||'') + '</td>',
+         // decoded.to is traditionally ignored outside of netmail:
+         '<td></td>', //'<td>' + (decoded.to     ||'') + '</td>',
          '<td width=1>' + (decoded.toAddr ||'') + '</td>',
          '<td>',
             '<nobr>',
