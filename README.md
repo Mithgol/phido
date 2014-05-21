@@ -58,6 +58,8 @@ The following configuration options are supported (in arbitrary order):
    * group ID (number, currently ignored)
    * group type (currently only `Echo` separators are displayed)
 
+* `ZIPNodelist` — path to a ZIP-packed nodelist.
+
 An alpha version of PhiDo, meant for testing, may display developer's toolbar at the top of its window. You may change `"toolbar": true` to `"toolbar": false` in `package.json` to hide the toolbar.
 
 ## Launching PhiDo
