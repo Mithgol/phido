@@ -4,6 +4,8 @@ setup = {};
 
 initSetup = function(){
    var simteconf = require('simteconf');
+   var nodelist = require('nodelist');
+
    var phiConf = simteconf('phido.conf', {
       skipNames: ['//', '#']
    });
@@ -48,4 +50,11 @@ initSetup = function(){
          'EchoArea'
       ]
    });
+   // Read nodelist from ZIP:
+   try {
+      var ZIPNodelist = phiConf.last('ZIPNodelist');
+      setup.nodelist = nodelist(ZIPNodelist, { zip: true });
+   } catch(e) {
+      setup.nodelist = null;
+   }
 };
