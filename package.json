@@ -11,9 +11,9 @@
 "dependencies": {
    "fghi-url": "~0.5.0-pre.4",
    "fidohtml": "~0.5.0",
-   "fidonet-jam": "~3.6.0",
-   "nodelist": "~1.0.0",
-   "simteconf": "~0.5.1",
+   "fidonet-jam": "~3.6.2",
+   "nodelist": "~1.1.0",
+   "simteconf": "~0.5.2",
    "underscore": "~1.5.2",
    "underscore.string": "~2.3.3"
 },
