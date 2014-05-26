@@ -62,7 +62,18 @@ var outputMessageAvatarAndOrigin = function(
          $message.find('.origAddr').html('ERROR');
          origAddr = void 0;
       } else {
-         $message.find('.origAddr').html( _.escapeHTML(origAddr) );
+         var origAddrHTML = _.escapeHTML(origAddr);
+         if( setup.nodelist !== null ){
+            var nodeAddr = origAddr;
+            if( nodeAddr.indexOf('.') >= 0 ){
+               nodeAddr = nodeAddr.slice( 0, nodeAddr.indexOf('.') );
+            }
+            var fields = setup.nodelist.getFieldsForAddr(nodeAddr);
+            if( fields !== null ){
+               origAddrHTML += ' (' + _.escapeHTML(fields.location) + ')';
+            }
+         }
+         $message.find('.origAddr').html(origAddrHTML);
       }
 
       $message.find('.avatar').each(function(){
@@ -187,13 +198,13 @@ var outputSingleMessage = function(header, callback){
       '</tr>',
       '<tr>',
          '<th class="inverse">From</th>',
-         '<td width="100%">',
+         '<td>',
             decoded.from || '',
          '</td>',
-         '<td width=1 class="origAddr">',
+         '<td class="origAddr">',
             '<i class="fa fa-spinner fa-spin"></i>',
          '</td>',
-         '<td>',
+         '<td width=1>',
             '<nobr>',
                decoded.origTime[0], '-',
                _(decoded.origTime[1]).pad(2, '0'), '-',
@@ -207,10 +218,10 @@ var outputSingleMessage = function(header, callback){
       '</tr>',
       '<tr>',
          '<th class="inverse">To</th>',
-         // decoded.to is traditionally ignored outside of netmail:
-         '<td></td>', //'<td>' + (decoded.to     ||'') + '</td>',
-         '<td width=1>' + (decoded.toAddr ||'') + '</td>',
-         '<td>',
+         '<td>' + (decoded.to     ||'') + '</td>',
+         // decoded.toAddr is traditionally ignored outside of netmail:
+         '<td></td>', //'<td>' + (decoded.toAddr ||'') + '</td>',
+         '<td width=1>',
             '<nobr>',
                decoded.procTime[0], '-',
                _(decoded.procTime[1]).pad(2, '0'), '-',
