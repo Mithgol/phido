@@ -70,9 +70,13 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       finalLimit = baseSize;
    }
 
+   var multipleTables = sizeLimit < baseSize;
+
    var currTableStart = [
       '<table ',
-      'class="msgList table table-bordered table-hover table-condensed">',
+      'class="msgList table table-bordered table-hover table-condensed"',
+      multipleTables ? ' style="table-layout: fixed;"' : '',
+      '>',
       '<tbody><tr class="inverse">',
       '<td colspan=5 style="text-align: center;">',
       echoDesc,
@@ -113,7 +117,7 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
    $currTable.appendTo('#content');
 
    phiQ.push(function(qNext){
-      if( sizeLimit <= baseSize ){
+      if( multipleTables ){
          if( !foundLastRead ){
             msghdrDelayedActionQueue( $currTable );
          } else {
@@ -157,6 +161,7 @@ var msghdrDelayedActionQueue = function($table){
                qNext();
                return;
             }
+            $table.css('table-layout', 'auto');
             fillRowFromHeader($row, function(){
                $row.addClass('filledFromHeader');
                if( $table.find('.msgRow:not(.filledFromHeader)').length < 1 ){
@@ -171,7 +176,7 @@ var msghdrDelayedActionQueue = function($table){
 };
 
 var msghdrImmediateActionQueue = function($table){
-   $table.find('.msgRow').each(function(){
+   $table.css('table-layout', 'auto').find('.msgRow').each(function(){
       var $row = $(this);
       phiQ.push(function(qNext){
          fillRowFromHeader($row, qNext);
