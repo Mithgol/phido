@@ -109,11 +109,7 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       ].join('');
    }
 
-   var $currTable = $([
-      currTableStart,
-      currTBody,
-      currTableEnd
-   ].join(''));
+   var $currTable = $( currTableStart + currTBody + currTableEnd );
    $currTable.appendTo('#content');
 
    phiQ.push(function(qNext){
