@@ -6,7 +6,7 @@ msglist = function(echotag){ /* jshint indent:false */
 var echobase, baseSize, loadingRows, numLastRead;
 
 var fillRowFromHeader = function($msgRow, filledCallback){
-   echobase.readHeader($msgRow.data('number'), function(err, header){
+   echobase.readHeader(+$msgRow.data('number'), function(err, header){
       if( err ){
          $msgRow.find(
             '.msgFrom, .msgTo, .msgSubj, .msgDateTime'
@@ -15,12 +15,11 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          return;
       }
       var decoded = echobase.decodeHeader(header);
-      $msgRow.html([
-         '<td class="msgNum">' + $msgRow.data('number') + '</td>',
-         '<td class="msgFrom">' + _.escapeHTML(decoded.from) + '</td>',
-         '<td class="msgTo">' + _.escapeHTML(decoded.to) + '</td>',
-         '<td class="msgSubj">' + _.escapeHTML(decoded.subj) + '</td>',
-         '<td class="msgDateTime"><nobr>',
+      $msgRow.find('.msgFrom').html( _.escapeHTML(decoded.from) );
+      $msgRow.find('.msgTo').html(   _.escapeHTML(decoded.to)   );
+      $msgRow.find('.msgSubj').html( _.escapeHTML(decoded.subj) );
+      $msgRow.find('.msgDateTime').html([
+         '<nobr>',
          decoded.origTime[0], '-',
          _(decoded.origTime[1]).pad(2, '0'), '-',
          _(decoded.origTime[2]).pad(2, '0'),
@@ -28,7 +27,7 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          _(decoded.origTime[3]).pad(2, '0'), ':',
          _(decoded.origTime[4]).pad(2, '0'), ':',
          _(decoded.origTime[5]).pad(2, '0'),
-         '</nobr></td>'
+         '</nobr>'
       ].join(''));
       if( header.TimesRead < 1 ) $msgRow.addClass('unreadMsg');
 
@@ -40,7 +39,8 @@ var fillRowFromHeader = function($msgRow, filledCallback){
    });
 };
 
-var lastreadHighlightRow = function($lrRow, callback){
+var lastreadHighlightRow = function(callback){
+   var $lrRow = $('.lastreadrow');
    var $firstTD = $lrRow.find('td:first');
    $firstTD.html([
       '<span style="white-space: nowrap;">\u25BA ',
@@ -70,7 +70,7 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       finalLimit = baseSize;
    }
 
-   var $currTable = $([
+   var currTableStart = [
       '<table ',
       'class="msgList table table-bordered table-hover table-condensed">',
       '<tbody><tr class="inverse">',
@@ -83,34 +83,42 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       '<th>To</th>',
       '<th>Subject</th>',
       '<th>Date / time</th>',
-      '</tr></tbody></table>'
-   ].join(''));
-   var $currTBody = $currTable.find('tbody');
+      '</tr>'
+   ].join('');
+   var currTableEnd = '</tbody></table>';
+   var currTBody = '';
 
-   var $rowLastRead = null;
+   var foundLastRead = false;
    for( var currMsg = initialNum; currMsg <= finalLimit; currMsg++ ){
-      var $currRow = $(['<tr class="msgRow">',
+      var classNamesTR = 'msgRow';
+      if( currMsg === numLastRead ){
+         foundLastRead = true;
+         classNamesTR += ' lastreadrow';
+      }
+      currTBody += [
+         '<tr class="' + classNamesTR + '" data-number="' + currMsg + '">',
          '<td>',
             currMsg,
          '</td>',
          loadingRows,
-      '</tr>'].join('')).data({
-         'number': currMsg
-      }).appendTo($currTBody);
-
-      if( currMsg === numLastRead ) $rowLastRead = $currRow;
+         '</tr>'
+      ].join('');
    }
+
+   var $currTable = $([
+      currTableStart,
+      currTBody,
+      currTableEnd
+   ].join(''));
    $currTable.appendTo('#content');
 
    phiQ.push(function(qNext){
       if( sizeLimit <= baseSize ){
-         if( $rowLastRead === null ){
-            msghdrDelayedActionQueue( $currTBody.closest('.msgList') );
+         if( !foundLastRead ){
+            msghdrDelayedActionQueue( $currTable );
          } else {
-            msghdrImmediateActionQueue( $currTBody.closest('.msgList') );
-            phiQ.push(function(qNext){
-               lastreadHighlightRow($rowLastRead, qNext);
-            });
+            msghdrImmediateActionQueue( $currTable );
+            phiQ.push( lastreadHighlightRow );
          }
       }
       if( finalMode ){
@@ -130,10 +138,9 @@ var msghdrActionQueue = function(){
       });
    }).each(function(){
       var $row = $(this);
-      if( $row.data('number') === numLastRead ){
-         phiQ.push(function(qNext){
-            lastreadHighlightRow($row, qNext);
-         });
+      if( +$row.data('number') === numLastRead ){
+         $row.addClass('lastreadrow');
+         phiQ.push( lastreadHighlightRow );
       }
    });
    phiQ.start();
@@ -208,7 +215,7 @@ echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    baseSize = echobase.size();
-   var baseSizeLimit = 200;
+   var baseSizeLimit = 100;
    if( baseSize <= baseSizeLimit ){
       loadingRows = [
          '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
