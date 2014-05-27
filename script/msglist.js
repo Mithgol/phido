@@ -220,7 +220,8 @@ echobase.readJDX(function(err){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
    baseSize = echobase.size();
-   var baseSizeLimit = 100;
+   var baseSizeLimit  = 100;
+   var largeSizeLimit = 50 * baseSizeLimit;
    if( baseSize <= baseSizeLimit ){
       loadingRows = [
          '<td class="msgFrom"><i class="fa fa-spinner fa-spin"></i></td>',
@@ -228,12 +229,19 @@ echobase.readJDX(function(err){
          '<td class="msgSubj"><i class="fa fa-spinner fa-spin"></i></td>',
          '<td class="msgDateTime"><i class="fa fa-spinner fa-spin"></i></td>'
       ].join('');
-   } else { // do not spin in larger areas
+   } else if( baseSize <= largeSizeLimit ){ // do not spin in larger areas
       loadingRows = [
          '<td class="msgFrom"><i class="fa fa-spinner"></i></td>',
          '<td class="msgTo"><i class="fa fa-spinner"></i></td>',
          '<td class="msgSubj"><i class="fa fa-spinner"></i></td>',
          '<td class="msgDateTime"><i class="fa fa-spinner"></i></td>'
+      ].join('');
+   } else { // do not even populate cells when areas are even larger
+      loadingRows = [
+         '<td class="msgFrom"></td>',
+         '<td class="msgTo"></td>',
+         '<td class="msgSubj"></td>',
+         '<td class="msgDateTime"></td>'
       ].join('');
    }
 
