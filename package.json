@@ -15,7 +15,8 @@
    "nodelist": "~1.1.0",
    "simteconf": "~0.5.2",
    "underscore": "~1.5.2",
-   "underscore.string": "~2.3.3"
+   "underscore.string": "~2.3.3",
+   "uue": "~1.0.0"
 },
 "scripts": {
    "test": "jshint --verbose script/"
