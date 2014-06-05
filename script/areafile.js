@@ -1,5 +1,5 @@
 /* global areaFile:true */
-/* global $, _, phiBar, phiTitle, phiQ, setup, beforeSpace, JAM, UUE */
+/* global $, _, phiBar, phiTitle, phiQ, setup, beforeSpace, JAM, MIME, UUE */
 
 var fileScanNextMessage = function(filename, echobase, msgNum, callback){
    if( msgNum < 1 ){
@@ -33,7 +33,34 @@ var fileScanNextMessage = function(filename, echobase, msgNum, callback){
                   nextMessageProcessed();
                   return;
                }
-               $('#content').html('File decoded!!'); // TODO improve
+               var mimeType = MIME.lookup(filename);
+               if([
+                  'image/jpeg',
+                  'image/png',
+                  'image/gif',
+                  'image/svg+xml'
+               ].indexOf(mimeType) >= 0 ){
+                  var dataURL = 'data:' + mimeType + ';base64,' +
+                     decodedFile.toString('base64');
+                  if( mimeType === 'image/svg+xml' ){
+                     $('#content').html([
+                        '<img src="',
+                        dataURL,
+                        '" style="width: 100%;">'
+                     ].join(''));
+                  } else {
+                     $('#content').html([
+                        '<img src="',
+                        dataURL,
+                        '" style="max-width: 100%;">'
+                     ].join(''));
+                  }
+               } else {
+                  $('#content').html(
+                     "File is found and decoded!!" +
+                     "<p>Sorry, you can't (yet) save it.</p>"
+                  );
+               }
                nextMessageProcessed();
             });
             qNext();
