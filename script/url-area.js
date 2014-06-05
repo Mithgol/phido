@@ -1,16 +1,9 @@
 /* global renderAreaURL:true, generateAreaURL:true */
-/* global _, arealist, msglist, singleMessage, phiBar */
+/* global _, arealist, msglist, singleMessage, areaFile, phiBar */
 
 renderAreaURL = function(URL, parsedURL){
    if ( parsedURL.objectPath.length > 0 ){
-      phiBar.reportErrorHTML([
-         'Sorry, opening files embedded in echomail ',
-         'is not (yet) supported in PhiDo.',
-         '<p>The address <b>',
-         _.escapeHTML(URL),
-         '</b> could not be opened.',
-         '</p>'
-      ].join(''));
+      areaFile(URL, parsedURL);
       return;
    }
    if( parsedURL.echoNames.length > 1 ){
