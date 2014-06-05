@@ -2,6 +2,10 @@
 /* global _, arealist, msglist, singleMessage, areaFile, phiBar */
 
 renderAreaURL = function(URL, parsedURL){
+   if( parsedURL.echoNames.length < 1 ){
+      arealist();
+      return;
+   }
    if ( parsedURL.objectPath.length > 0 ){
       areaFile(URL, parsedURL);
       return;
@@ -15,10 +19,6 @@ renderAreaURL = function(URL, parsedURL){
          '</b> could not be opened.',
          '</p>'
       ].join(''));
-      return;
-   }
-   if( parsedURL.echoNames.length < 1 ){
-      arealist();
       return;
    }
    // parsedURL.echoNames.length === 1
