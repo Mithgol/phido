@@ -47,7 +47,9 @@ var fileScanNextMessage = function(filename, echobase, msgNum, callback){
                         '<img src="',
                         dataURL,
                         '" style="width: 100%;">'
-                     ].join(''));
+                     ].join('')).find('img').each(function(){
+                        $(this).data('buffer', decodedFile);
+                     });
                   } else {
                      $('#content').html([
                         '<img src="',
