@@ -11,10 +11,10 @@
 "dependencies": {
    "fghi-url": "~0.5.0-pre.4",
    "fidohtml": "~0.5.0",
-   "fidonet-jam": "~3.6.2",
+   "fidonet-jam": "~3.7.2",
    "mime": "~1.2.11",
    "nodelist": "~1.1.0",
-   "simteconf": "~0.5.2",
+   "simteconf": "~0.6.1",
    "underscore": "~1.5.2",
    "underscore.string": "~2.3.3",
    "uue": "~1.0.0"
