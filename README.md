@@ -51,6 +51,8 @@ The following configuration options are supported (in arbitrary order):
 
 * `UserName` — the user's name. May be borrowed from GoldED's configuration if omitted in PhiDo's.
 
+* `ViewKludges` — if `Yes` (case-insensitive), Fidonet kludges (hidden lines) are displayed. This setting may be borrowed from GoldED's configuration if omitted in PhiDo's, but it affects unknown kludges as well (while in GoldED unknown kludges are controlled by a separate `ViewHidden` setting).
+
 * `AreaSep` — descriptions of separators between areas in the arealist. May be borrowed from GoldED's configuration if omitted in PhiDo's. Each separator consists of the following elements (separated with one or more spaces):
    * `AreaSep` (literally)
    * areatag (such as `Ru.FTN.Develop` for example)

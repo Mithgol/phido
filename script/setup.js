@@ -17,6 +17,9 @@ initSetup = function(){
    });
    setup.UserName =
       phiConf.first('UserName') || confGED.first('UserName') || 'anonymous';
+   setup.viewKludges = (
+      phiConf.first('ViewKludge') || confGED.first('ViewKludge') || 'Yes'
+   ).toLowerCase() === 'yes';
    setup.areaSeparators = (
       phiConf.all('AreaSep') || confGED.all('AreaSep') || []
    ).filter(function(areaSep){
