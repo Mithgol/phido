@@ -17,7 +17,7 @@
    "simteconf": "~0.6.1",
    "underscore": "~1.5.2",
    "underscore.string": "~2.3.3",
-   "uue": "~1.0.0"
+   "uue": "~1.2.0"
 },
 "scripts": {
    "test": "jshint --verbose script/"
