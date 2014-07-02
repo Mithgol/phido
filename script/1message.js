@@ -47,9 +47,25 @@ var arrMSGID = parsedURL.optionalParams.filter(function(param){
 
 var outputMessageText = function($message, header, callback){
    echobase.decodeMessage(header, function(error, messageText){
-      $message.find('.messageText').html(
-         error ? _.escapeHTML('' + error) : FidoHTML.fromText(messageText)
-      );
+      var $messageText = $message.find('.messageText');
+      if( error ){
+         $messageText.html( _.escapeHTML('' + error) );
+         return callback();
+      }
+      $messageText.html( FidoHTML.fromText(messageText) );
+      if( setup.viewKludges ){
+         $messageText.prepend(
+            '<div class="kludges">' +
+            FidoHTML.fromText(
+               echobase.decodeKludges(header).split(
+                  '\n'
+               ).map(function(kludge){
+                  return '\u263A' + kludge;
+               }).join('\n')
+            ) +
+            '</p>'
+         );
+      }
       callback();
    });
 };
