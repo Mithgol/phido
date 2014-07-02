@@ -8,7 +8,7 @@
 
 **Note:**   the application is currently in an early phase of its development and thus does not have even minimal feature completeness. However, it already supports some [FGHI URLs](https://github.com/Mithgol/FGHI-URL) and [Fidonet avatars](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt).
 
-[![(FGHI URL)](http://img.shields.io/badge/FGHI-URL-57ab1e.svg)](https://github.com/Mithgol/FGHI-URL) [![(Fidonet avatars)](http://img.shields.io/badge/Fidonet-avatars-57ab1e.svg)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
+[![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg)](https://github.com/Mithgol/FGHI-URL) [![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
 
 ## Requirements
 
