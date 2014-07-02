@@ -1,6 +1,6 @@
 {
 "name": "phido",
-"version": "0.0.1",
+"version": "0.0.2",
 "description": "Fidonet browser with a GUI.",
 "keywords": ["Fidonet", "Fido", "GUI"],
 "author": { "name": "Mithgol the Webmaster" },
