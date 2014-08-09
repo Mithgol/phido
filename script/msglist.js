@@ -146,27 +146,32 @@ var msghdrActionQueue = function(){
    phiQ.start();
 };
 
+var msghdrDelayedActionMsgRowProcessor = function(){
+   var $row = $(this);
+   var $table = $row.closest('table');
+   phiQ.push(function(qNext){
+      if( ! $table.data('inscroll') ){
+         qNext();
+         return;
+      }
+      $table.css('table-layout', 'auto');
+      fillRowFromHeader($row, function(){
+         $row.addClass('filledFromHeader');
+         if( $table.find('.msgRow:not(.filledFromHeader)').length < 1 ){
+            $table.off('scrollSpy:exit').off('scrollSpy:enter');
+         }
+         qNext();
+      });
+   });
+};
+
 var msghdrDelayedActionQueue = function($table){
    $table.on('scrollSpy:exit', function(){
       $(this).data('inscroll', false);
    }).on('scrollSpy:enter', function(){
-      $(this).data('inscroll', true).find('.msgRow').each(function(){
-         var $row = $(this);
-         phiQ.push(function(qNext){
-            if( ! $table.data('inscroll') ){
-               qNext();
-               return;
-            }
-            $table.css('table-layout', 'auto');
-            fillRowFromHeader($row, function(){
-               $row.addClass('filledFromHeader');
-               if( $table.find('.msgRow:not(.filledFromHeader)').length < 1 ){
-                  $table.off('scrollSpy:exit').off('scrollSpy:enter');
-               }
-               qNext();
-            });
-         });
-      });
+      $(this).data('inscroll', true).find('.msgRow').each(
+         msghdrDelayedActionMsgRowProcessor
+      );
       phiQ.start();
    }).scrollSpy();
 };
