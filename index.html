@@ -109,6 +109,13 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
       e.originalEvent.y
    );
    return false;
+}).on('scrollSpy:exit', '.catchScrollEvents', function(){
+   $(this).data('inscroll', false);
+}).on('scrollSpy:enter', '.catchScrollEvents', function(){
+   $(this).data('inscroll', true).find('.msgRow').each(
+      msghdrDelayedActionMsgRowProcessor
+   );
+   phiQ.start();
 });
 phiBar.attach( $('#urlbar') );
 phiBar.open('area://');

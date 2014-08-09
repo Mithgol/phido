@@ -1,4 +1,4 @@
-/* global $, _, msglist:true */
+/* global $, _, window, msglist:true */
 /* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, generateAreaURL */
 
 msglist = function(echotag){ /* jshint indent:false */
@@ -146,7 +146,7 @@ var msghdrActionQueue = function(){
    phiQ.start();
 };
 
-var msghdrDelayedActionMsgRowProcessor = function(){
+window.msghdrDelayedActionMsgRowProcessor = function(){
    var $row = $(this);
    var $table = $row.closest('table');
    phiQ.push(function(qNext){
@@ -166,14 +166,7 @@ var msghdrDelayedActionMsgRowProcessor = function(){
 };
 
 var msghdrDelayedActionQueue = function($table){
-   $table.on('scrollSpy:exit', function(){
-      $(this).data('inscroll', false);
-   }).on('scrollSpy:enter', function(){
-      $(this).data('inscroll', true).find('.msgRow').each(
-         msghdrDelayedActionMsgRowProcessor
-      );
-      phiQ.start();
-   }).scrollSpy();
+   $table.addClass('catchScrollEvents').scrollSpy();
 };
 
 var msghdrImmediateActionQueue = function($table){
