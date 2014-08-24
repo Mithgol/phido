@@ -68,7 +68,9 @@ An alpha version of PhiDo, meant for testing, may display developer's toolbar
 
 Run `nw .` in the PhiDo's directory.
 
-**Note:** if node-webkit resides in another directory and you won't add that directory to your system's `PATH` variable's value, then you should use a verbose (absolute or relative) path to the node-webkit's executable. (On Windows you may use the `start.bat` file as an example and edit it according to your circumstances.)
+**Note 1:** if node-webkit resides in another directory and you won't add that directory to your system's `PATH` variable's value, then you should use a verbose (absolute or relative) path to the node-webkit's executable. (On Windows you may use the `start.bat` file as an example and edit it according to your circumstances.)
+
+**Note 2:** on Mac OS X the node-webkit's executable is called `node-webkit` instead of `nw` (hence `node-webkit .` to launch PhiDo).
 
 ## Testing PhiDo
 
