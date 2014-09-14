@@ -10,7 +10,7 @@
 },
 "dependencies": {
    "fghi-url": "~0.5.0-pre.5",
-   "fidohtml": "~0.6.3",
+   "fidohtml": "~0.7.0",
    "fidonet-jam": "~3.8.2",
    "mime": "~1.2.11",
    "nodelist": "~1.1.2",
