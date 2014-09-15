@@ -30,3 +30,7 @@ A[data-url] { cursor: pointer; }
 .messageRelations { margin: 0; padding: 0; border: 0; }
 .messageRelations .parent, .messageRelations .nextSibling { white-space: nowrap; }
 .kludges { color: #777; }
+
+.originLine { color: #0055aa; }
+.tearline { color: #46a0a0; }
+.tagline { color: #a05500; }
