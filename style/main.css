@@ -31,6 +31,8 @@ A[data-url] { cursor: pointer; }
 .messageRelations .parent, .messageRelations .nextSibling { white-space: nowrap; }
 .kludges { color: #777; }
 
+.imageUUE IMG { max-width: 100%; }
+
 .originLine { color: #85144b; } /* http://clrs.cc/ maroon */
 .tearline { color: #3d9970; } /* http://clrs.cc/ olive */
 .tagline { color: #ff851b; } /* http://clrs.cc/ orange */
