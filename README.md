@@ -13,7 +13,7 @@
 
 ## Requirements
 
-* PhiDo is written in HTML5 + CSS + JavaScript and requires [node-webkit](https://github.com/rogerwang/node-webkit) to run.
+* PhiDo is written in HTML5 + CSS + JavaScript and requires [node-webkit](https://github.com/rogerwang/node-webkit) to run. Node-webkit v0.10.x is recommended.
 
 * Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and Firefox is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
@@ -31,7 +31,7 @@
 
 2. Download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory. Then run `npm install --production` in that directory.
 
-3. Download [node-webkit](https://github.com/rogerwang/node-webkit). Either unpack it to the PhiDo's directory or put in some other directory. In the latter case, add the node-webkit's directory to your system's `PATH` variable's value (unless you plan to use the verbose node-webkit's path when you launch PhiDo).
+3. Download [node-webkit](https://github.com/rogerwang/node-webkit) (the recommended version which is mentioned [above](#requirements)). Either unpack it to the PhiDo's directory or put in some other directory. In the latter case, add the node-webkit's directory to your system's `PATH` variable's value (unless you plan to use the verbose node-webkit's path when you launch PhiDo).
 
 ### Setting up
 
