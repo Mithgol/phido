@@ -32,6 +32,7 @@ A[data-url] { cursor: pointer; }
 .kludges { color: #777; }
 
 .imageUUE IMG { max-width: 100%; }
+blockquote.fidoQuote { margin-bottom: 0; }
 
 .originLine { color: #85144b; } /* http://clrs.cc/ maroon */
 .tearline { color: #3d9970; } /* http://clrs.cc/ olive */
