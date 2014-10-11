@@ -63,6 +63,8 @@ The following configuration options are supported (in arbitrary order):
 
 * `ZIPNodelist` — path to a ZIP-packed nodelist.
 
+* `MaximizeWindow` — if `Yes` (case-insensitive), the PhiDo's window is maximized after PhiDo starts.
+
 An alpha version of PhiDo, meant for testing, may display developer's toolbar at the top of its window. You may change `"toolbar": true` to `"toolbar": false` in `package.json` to hide the toolbar.
 
 ## Launching PhiDo

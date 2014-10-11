@@ -49,6 +49,8 @@ beforeSpace = function(inString){
 <script>
 $(function(){
 initSetup();
+if( setup.maximizeWindow ) GUI.Window.get().maximize();
+
 $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    var supportedSchemes = ['area'];
    var safeSchemes = [

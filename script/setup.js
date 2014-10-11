@@ -15,6 +15,9 @@ initSetup = function(){
       encoding: encodingGED,
       skipNames: ['//', '#', '-'+'-']
    });
+   setup.maximizeWindow = (
+      phiConf.first('MaximizeWindow') || 'no'
+   ).toLowerCase().indexOf('yes') === 0; // starts with `yes`
    setup.UserName =
       phiConf.first('UserName') || confGED.first('UserName') || 'anonymous';
    setup.viewKludges = (

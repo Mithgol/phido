@@ -3,3 +3,4 @@ ConfigGoldED \Fido\Soft\GoldEd\gedcyg.cfg
 EncodingHPT cp866
 AreasHPT \Fido\Soft\HPToss\areas.cfg
 ZIPNodelist \Fido\Nodelist\nodelist.zip
+MaximizeWindow Yes
