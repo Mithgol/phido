@@ -120,9 +120,57 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    );
    phiQ.start();
 });
-var paramsCLI = GUI.App.argv;
-phiBar.attach( $('#urlbar') );
-phiBar.open('area://');
+
+// this block must be the last because it mixes sync default execution path
+// with async optional GoldED integration:
+var openStartingURL = function(){
+   var defaultStartingURL = 'area://';
+   var paramsCLI = GUI.App.argv;
+   phiBar.attach( $('#urlbar') );
+
+   var msgFileName = paramsCLI.find(function(param){
+      return param.indexOf('--file=') === 0; // starts with
+   });
+   if( typeof msgFileName === 'undefined'){
+      return phiBar.open(defaultStartingURL);
+   } else msgFileName = msgFileName.slice( '--file='.length );
+
+   var msgArea = paramsCLI.find(function(param){
+      return param.indexOf('--area=') === 0; // starts with
+   });
+   if( typeof msgArea === 'undefined'){
+      return phiBar.open(defaultStartingURL);
+   } else msgArea = msgArea.slice( '--area='.length );
+   if( /^\s*$/.test(msgArea) ) return phiBar.open(defaultStartingURL);
+
+   require('fs').readFile(
+      msgFileName,
+      { encoding: 'binary' },
+      function(err, message){
+         if( err ) return phiBar.open(defaultStartingURL);
+
+         var lineMSGID = message.split('\r\n').find(function(msgLine){
+            return msgLine.indexOf('\x01MSGID:') === 0; // starts with
+         });
+         if( typeof lineMSGID === 'undefined'){
+            return phiBar.open(defaultStartingURL);
+         } else lineMSGID = lineMSGID.slice( '\x01MSGID:'.length ).replace(
+            /^\s*/g, ''
+         );
+         if( lineMSGID.length < 1 ) return phiBar.open(defaultStartingURL);
+
+         phiBar.open([
+            'area://',
+            encodeURIComponent(msgArea),
+            '/?msgid=',
+            encodeURIComponent(lineMSGID)
+         ].join('').replace('%20', '+'));
+      }
+   );
+});
+openStartingURL();
+
+// no more blocks here, see openStartingURL's description above
 });
 </script>
 </head>
