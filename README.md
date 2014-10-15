@@ -6,7 +6,7 @@
 
 * Its name sounds like the Russian “Фидо” that means “Fido” (as in “Fidonet”).
 
-**Note:**   the application is currently in an early phase of its development and thus does not have even minimal feature completeness. However, it already supports [Fidonet Unicode substrings](https://github.com/Mithgol/fiunis), some [FGHI URLs](https://github.com/Mithgol/FGHI-URL) and some [Fidonet avatars](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt).
+The application is currently in an early phase of its development and thus does not have even minimal feature completeness. However, it already supports [Fidonet Unicode substrings](https://github.com/Mithgol/fiunis), some [FGHI URLs](https://github.com/Mithgol/FGHI-URL) and some [Fidonet avatars](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt).
 
 [![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg)](https://github.com/Mithgol/FGHI-URL) [![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
 [![(Fidonet Unicode substrings)](https://img.shields.io/badge/Fidonet-Unicode%20substrings-57ab1e.svg)](https://github.com/Mithgol/fiunis)
@@ -74,6 +74,32 @@ Run `nw .` in the PhiDo's directory.
 **Note 1:** if node-webkit resides in another directory and you won't add that directory to your system's `PATH` variable's value, then you should use a verbose (absolute or relative) path to the node-webkit's executable. (On Windows you may use the `start.bat` file as an example and edit it according to your circumstances.)
 
 **Note 2:** on Mac OS X the node-webkit's executable is called `node-webkit` instead of `nw` (hence `node-webkit .` to launch PhiDo).
+
+### Launching PhiDo from GoldED
+
+PhiDo can be used as an advanced external viewer of echomail messages for any version of GoldED (for example, for GoldED+ or GoldED-NSF). It is useful because PhiDo has the following features that are not present in GoldED:
+
+* FGHI URLs become hyperlinks (GoldED-NSF also has this feature, but GoldED+ does not have it)
+
+* Raster images (PNG, JPEG, GIF) and vector images (SVG) are automatically decoded from UUE and displayed instead of UUE
+
+* Unicode support
+
+* User's picture (avatar) in a message's header
+
+Two lines have to be added to configuration files of GoldED to enable launching of PhiDo.
+
+An additional line in the main GoldED's configuration file (usually called `golded.cfg` or `gedcyg.cfg`) defines a new external utility (15th in this example):
+
+    ExternUtil 15 start "" \path\to\node-webkit\nw d:\path\to\PhiDo\phido "--file=@file" "--area=@cecho"
+
+Substitute `d:\path\to\PhiDo\` and `\path\to\node-webkit\` with your real paths leading to PhiDo and its underlying node-webkit engine. (On Windows the PhiDo's path has to start from the corresponding drive's letter because of a known node-webkit's [issue](https://github.com/rogerwang/node-webkit/issues/2413).)
+
+An additional line in the GoldED's hotkey configuration file (usually `GoldKeys.cfg`) defines a hotkey for the utility (`F12` in this example):
+
+    F12 ExternUtil15
+
+Afterward press F12 to launch PhiDo from GoldED. If the message that you view in GoldED has a MSGID (it usually has; see [FTS-0009.001](http://ftsc.org/docs/fts-0009.001) for details), PhiDo shows the same message; otherwise PhiDo displays the list of available echomail areas.
 
 ## Testing PhiDo
 
