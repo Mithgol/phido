@@ -99,7 +99,7 @@ An additional line in the GoldED's hotkey configuration file (usually `GoldKeys.
 
     F12 ExternUtil15
 
-Afterward press F12 to launch PhiDo from GoldED. If the message that you view in GoldED has a MSGID (it usually has; see [FTS-0009.001](http://ftsc.org/docs/fts-0009.001) for details), PhiDo shows the same message; otherwise PhiDo displays the list of available echomail areas.
+Afterwards press F12 to launch PhiDo from GoldED. If the message that you view in GoldED has a MSGID (it usually has; see [FTS-0009.001](http://ftsc.org/docs/fts-0009.001) for details), PhiDo shows the same message; otherwise PhiDo displays the list of available echomail areas.
 
 ## Testing PhiDo
 
