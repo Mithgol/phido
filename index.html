@@ -149,7 +149,7 @@ var openStartingURL = function(){
       function(err, message){
          if( err ) return phiBar.open(defaultStartingURL);
 
-         var lineMSGID = message.split('\r\n').find(function(msgLine){
+         var lineMSGID = message.split( /(?:\r|\n)/ ).find(function(msgLine){
             return msgLine.indexOf('\x01MSGID:') === 0; // starts with
          });
          if( typeof lineMSGID === 'undefined'){
