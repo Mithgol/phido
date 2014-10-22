@@ -20,6 +20,7 @@ A[data-url] { cursor: pointer; }
 .unreadMsg { font-weight: bold; }
 .msgNum { text-align: right; }
 .msgList .msgRow { cursor: pointer; }
+
 .avatar {
    background-size:     contain;
    background-repeat:   no-repeat;
@@ -27,6 +28,12 @@ A[data-url] { cursor: pointer; }
    padding: 0;
 }
 .avatar div { margin: 0; padding: 0; border: 0; }
+.messageNavigation {
+   display: flex;
+   align-items: center;
+}
+.messageNavigation .inner { margin-left: 5px; margin-right: 5px; }
+.messageNavigation span { margin-bottom: 1px; }
 .messageRelations { margin: 0; padding: 0; border: 0; }
 .messageRelations .parent, .messageRelations .nextSibling { white-space: nowrap; }
 .kludges { color: #777; }
