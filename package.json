@@ -11,7 +11,7 @@
 "dependencies": {
    "array.prototype.find": "~1.0.0",
    "fghi-url": "~0.5.0-pre.5",
-   "fidohtml": "~0.9.0",
+   "fidohtml": "~0.10.0",
    "fidonet-jam": "~3.8.2",
    "mime": "~1.2.11",
    "nodelist": "~1.1.2",
