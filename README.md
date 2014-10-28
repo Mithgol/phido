@@ -6,10 +6,23 @@
 
 * Its name sounds like the Russian “Фидо” that means “Fido” (as in “Fidonet”).
 
-The application is currently in an early phase of its development and thus does not have even minimal feature completeness. However, it already supports [Fidonet Unicode substrings](https://github.com/Mithgol/fiunis), some [FGHI URLs](https://github.com/Mithgol/FGHI-URL) and some [Fidonet avatars](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt).
+## Features
 
-[![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg)](https://github.com/Mithgol/FGHI-URL) [![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
 [![(Fidonet Unicode substrings)](https://img.shields.io/badge/Fidonet-Unicode%20substrings-57ab1e.svg)](https://github.com/Mithgol/fiunis)
+[![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
+[![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg)](https://github.com/Mithgol/FGHI-URL)
+
+The application is currently in an early phase of its development and thus does not have even minimal feature completeness.
+
+However, it already supports the following features:
+
+* [Fidonet Unicode substrings](https://github.com/Mithgol/fiunis)
+
+* pictures displayed instead of their [UUE codes](http://en.wikipedia.org/wiki/Uuencoding)
+
+* some [Fidonet avatars](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
+
+* some [FGHI URLs](https://github.com/Mithgol/FGHI-URL)
 
 ## Requirements
 
@@ -17,7 +30,7 @@ The application is currently in an early phase of its development and thus d
 
 * Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and Firefox is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
-* PhiDo currently requires **Node.js** and **npm** for installation of dependencies. For futher versions of PhiDo the distribution of complete packages (with dependencies included) is planned.
+* PhiDo currently requires **Node.js** and **npm** for installation of dependencies. Some future stable versions of PhiDo may be distributed as complete packages (with dependencies included).
 
 * PhiDo currently supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
