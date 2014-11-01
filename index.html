@@ -112,6 +112,12 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
       e.originalEvent.y
    );
    return false;
+}).on('click', '.messageNavigation button', function(){
+   var $this = $(this);
+   if(!( $this.data('location') )){
+      $this.html('<i class="fa fa-spinner fa-spin"></i>');
+      return false;
+   }
 }).on('scrollSpy:exit', '.catchScrollEvents', function(){
    $(this).data('inscroll', false);
 }).on('scrollSpy:enter', '.catchScrollEvents', function(){
