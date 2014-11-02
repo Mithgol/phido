@@ -195,6 +195,16 @@ var outputSingleMessage = function(header, callback){
    var defaultAvatarSize = 140;
    var decoded = echobase.decodeHeader(header);
    header.decoded = decoded;
+   var thisMessageNumber = header.MessageIndex;
+   var finalMessageNumber = echobase.size();
+
+   var disabledBecauseFirst = '';
+   if( thisMessageNumber === 1 ) disabledBecauseFirst = ' disabled';
+   var disabledBecauseLast = '';
+   if( thisMessageNumber === finalMessageNumber ){
+      disabledBecauseLast = ' disabled';
+   }
+
    var $curr = $(['<table class="table table-bordered table-condensed">',
       '<tr>',
          '<th rowspan=4 class="avatar inverse" width=1>',
@@ -205,19 +215,27 @@ var outputSingleMessage = function(header, callback){
          '<th class="inverse">Msg</th>',
          '<td colspan=3>',
             '<div class="messageNavigation">',
-               '<button type="button" class="btn btn-default btn-xs">',
+               '<button type="button" class="btn btn-default btn-xs"',
+                  disabledBecauseFirst,
+               '>',
                   '<i class="fa fa-fast-backward"></i>',
                '</button>',
-               '<button type="button" class="btn btn-default btn-xs inner">',
+               '<button type="button" class="btn btn-default btn-xs inner"',
+                  disabledBecauseFirst,
+               '>',
                   '<i class="fa fa-step-backward"></i>',
                '</button>',
                '<span>',
-                  header.MessageIndex + ' of ' + echobase.size(),
+                  thisMessageNumber + ' of ' + finalMessageNumber,
                '</span>',
-               '<button type="button" class="btn btn-default btn-xs inner">',
+               '<button type="button" class="btn btn-default btn-xs inner"',
+                  disabledBecauseLast,
+               '>',
                   '<i class="fa fa-step-forward"></i>',
                '</button>',
-               '<button type="button" class="btn btn-default btn-xs">',
+               '<button type="button" class="btn btn-default btn-xs"',
+                  disabledBecauseLast,
+               '>',
                   '<i class="fa fa-fast-forward"></i>',
                '</button>',
             '</div>',
