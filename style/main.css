@@ -1,4 +1,8 @@
 ul li { list-style-image: url(../img/bullet.gif); }
+code {
+   color: inherit;
+   background-color: inherit;
+}
 .msgnum, .msgnew { text-align: center; }
 .table-hover > tbody > tr > td.sepDesc,
 .table-hover > tbody > tr > td.sepDesc {
