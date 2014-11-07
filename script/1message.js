@@ -308,6 +308,7 @@ var outputSingleMessage = function(header, callback){
    callback();
 };
 
+phiBar.loadingMsg("Looking through messages' headers…");
 echobase.headersForMSGID(arrMSGID, function(err, headers){
    if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
 
