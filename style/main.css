@@ -1,8 +1,4 @@
 ul li { list-style-image: url(../img/bullet.gif); }
-code {
-   color: inherit;
-   background-color: inherit;
-}
 .msgnum, .msgnew { text-align: center; }
 .table-hover > tbody > tr > td.sepDesc,
 .table-hover > tbody > tr > td.sepDesc {
@@ -44,6 +40,12 @@ A[data-url] { cursor: pointer; }
 
 .imageUUE IMG { max-width: 100%; }
 blockquote.fidoQuote, blockquote.fidoQuoteOuter { margin-bottom: 0; }
+.monospaceBlock { line-height: 1; }
+.monospaceBlock code {
+   color: inherit;
+   background-color: inherit;
+   padding: 0;
+}
 
 .originLine { color: #85144b; } /* http://clrs.cc/ maroon */
 .tearline { color: #3d9970; } /* http://clrs.cc/ olive */
