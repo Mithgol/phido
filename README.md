@@ -67,7 +67,7 @@ The following configuration options are supported (in arbitrary order):
 
 * `ViewKludges` — if `Yes` (case-insensitive), Fidonet kludges (hidden lines) are displayed. This setting may be borrowed from GoldED's configuration if omitted in PhiDo's, but it affects unknown kludges as well (while in GoldED unknown kludges are controlled by a separate `ViewHidden` setting).
 
-* `StyleCodes` — may have one of the following values (borrowed from GoldED's configuration if omitted in PhiDo's):
+* `StyleCodes` — may have one of the following values (not case-sensitive; borrowed from GoldED's configuration if omitted in PhiDo's) that control the processing of style codes:
    * `Yes` (default) — style codes affect the style of words surrounded by them. There are four types of style codes: `*asterisks*`, `_underscores_`, `#hashes#` or `/slashes/` around words.
    * `Hide` — same as above, but the style codes themselves are not displayed.
    * `No` — style codes are ignored (treated as any other characters).
