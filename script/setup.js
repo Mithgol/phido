@@ -17,7 +17,7 @@ initSetup = function(){
    });
    setup.styleCodes = (
       phiConf.first('StyleCodes') || confGED.first('StyleCodes') || 'Yes'
-   ).toLowerCase();
+   );
    setup.maximizeWindow = (
       phiConf.first('MaximizeWindow') || 'no'
    ).toLowerCase().indexOf('yes') === 0; // starts with `yes`
