@@ -48,7 +48,9 @@ However, it already supports the following features:
 
 ### Setting up
 
-Copy `phido.conf-example` to `phido.conf` and edit in your favourite text editor.
+PhiDo uses the configuration given in the file `phido.conf` in PhiDo's directory (in the same directory where PhiDo's `package.json` resides).
+
+You may use `phido.conf-example` as an example. (Or even copy `phido.conf-example` to `phido.conf` and edit in your favourite text editor.)
 
 The following configuration options are supported (in arbitrary order):
 
