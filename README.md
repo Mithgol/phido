@@ -54,7 +54,11 @@ You may use `phido.conf-example` as an example. (Or even copy `phido.conf-exa
 
 The following configuration options are supported (in arbitrary order):
 
-* `ConfigGoldED` — path to the configuration file of GoldED (or GoldED+, or GoldED-NSF). This setting allows to use PhiDo alongside the popular Fidonet mail editor (GoldED) when the former uses some settings of the latter.
+* `ConfigGoldED` — path to the configuration file of GoldED (or [GoldED+](http://golded-plus.sf.net), or GoldED-NSF). This setting is not necessary, but it allows to use PhiDo alongside the popular Fidonet mail editor (GoldED) when the former uses some settings of the latter. The following settings (also individually mentioned below) are used:
+   * `UserName`
+   * `ViewKludges`
+   * `StyleCodes`
+   * `AreaSep`
 
 * `EncodingGoldED` — the encoding of non-ASCII characters in the GoldED config file. By default, `utf8` is used. You may use any encoding provided by the [`iconv-lite`](https://github.com/ashtuchkin/iconv-lite) module.
 
