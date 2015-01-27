@@ -8,9 +8,9 @@
 
 ## Features
 
-[![(Fidonet Unicode substrings)](https://img.shields.io/badge/Fidonet-Unicode%20substrings-57ab1e.svg)](https://github.com/Mithgol/fiunis)
-[![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
-[![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg)](https://github.com/Mithgol/FGHI-URL)
+[![(Fidonet Unicode substrings)](https://img.shields.io/badge/Fidonet-Unicode%20substrings-57ab1e.svg?style=plastic)](https://github.com/Mithgol/fiunis)
+[![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg?style=plastic)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
+[![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg?style=plastic)](https://github.com/Mithgol/FGHI-URL)
 
 The application is currently in an early phase of its development and thus does not have even minimal feature completeness.
 
@@ -127,7 +127,7 @@ Afterwards press F12 to launch PhiDo from GoldED. If the message that you v
 
 ## Testing PhiDo
 
-[![(build testing status)](https://travis-ci.org/Mithgol/phido.svg?branch=master)](https://travis-ci.org/Mithgol/phido)
+[![(build testing status)](https://img.shields.io/travis/Mithgol/phido/master.svg?style=plastic)](https://travis-ci.org/Mithgol/phido)
 
 It is necessary to install [JSHint](http://jshint.com/) for testing.
 
