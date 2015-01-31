@@ -25,6 +25,13 @@ var setupEchotag = foundNames[0];
 var echoPath = beforeSpace(
    setup.areas.group('EchoArea').first(setupEchotag)
 );
+if( echoPath.toLowerCase() === 'passthrough' ){
+   return phiBar.reportErrorHTML([
+      'Sorry, the echomail area <b>',
+      echotag,
+      '</b> is passthrough.'
+   ].join(''));
+}
 echobase = JAM( echoPath );
 
 var arrDesc = /-d "([^"]+?)"/.exec(
