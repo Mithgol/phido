@@ -97,7 +97,7 @@ An alpha version of PhiDo, meant for testing, may display developer's toolbar
 
 Examples of the area configuration file of HPT are available in its own CVS repository on SourceForge [in English](http://husky.cvs.sf.net/viewvc/husky/hpt/config/areas) and [in Russian](http://husky.cvs.sf.net/viewvc/husky/hpt/config/areas.ru). Text lines of these examples are commented out (by `#` characters in the lines' beginnings) but your real configuration lines must be uncommented.
 
-An example of GoldED configuration file is [available](http://golded-plus.cvs.sourceforge.net/viewvc/golded-plus/golded%2B/etc/golded.conf?revision=1.1&view=markup) in the CVS of GoldED+. It contains a lot of configuration directives; only the most basic of them are understood by PhiDo.
+An example of GoldED configuration file is [available](http://golded-plus.cvs.sourceforge.net/viewvc/golded-plus/golded%2B/etc/golded.conf?revision=1.1&view=markup) in the CVS of GoldED+. It contains a lot of configuration directives; only the most basic of them are understood by PhiDo (and they already appear in `phido.conf-example` anyway).
 
 ## Launching PhiDo
 
