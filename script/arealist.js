@@ -25,7 +25,13 @@ var msgnumActionQueue = function(){
    $('#areaList .msgnum').each(function(){
       var $cell = $(this);
       phiQ.push(function(qNext){
-         var echobase = JAM( $cell.closest('tr').data('echopath') );
+         var echopath = $cell.closest('tr').data('echopath');
+         if( echopath.toLowerCase() === 'passthrough' ){
+            $cell.html('PASS');
+            qNext();
+            return;
+         }
+         var echobase = JAM( echopath );
          echobase.readJDX(function(err){
             if( err ){
                $cell.html('FAIL');
@@ -43,7 +49,13 @@ var msgnewActionQueue = function(){
    $('#areaList .msgnew').each(function(){
       var $cell = $(this);
       phiQ.push(function(qNext){
-         var echobase = JAM( $cell.closest('tr').data('echopath') );
+         var echopath = $cell.closest('tr').data('echopath');
+         if( echopath.toLowerCase() === 'passthrough' ){
+            $cell.html('THROUGH');
+            qNext();
+            return;
+         }
+         var echobase = JAM( echopath );
          echobase.indexLastRead(setup.UserName, function(err, idx){
             if( err ){
                $cell.html('FAIL');
