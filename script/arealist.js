@@ -1,6 +1,8 @@
 /* global $, _, arealist:true */
 /* global beforeSpace, JAM, phiQ, setup, phiTitle */
 
+var async = require('async');
+
 var hideSeparatorsOfInvisible = function(){
    $('#areaList tbody').each(function(){
       var $this = $(this);
@@ -21,50 +23,43 @@ var hideSeparatorsOfInvisible = function(){
    }
 };
 
-var msgnumActionQueue = function(){
+var msgNumNewActionQueue = function(){
    $('#areaList .msgnum').each(function(){
-      var $cell = $(this);
+      var $msgnum = $(this);
+      var $tr = $msgnum.closest('tr');
+      var $msgnew = $tr.find('.msgnew');
       phiQ.push(function(qNext){
-         var echopath = $cell.closest('tr').data('echopath');
+         var echopath = $tr.data('echopath');
          if( echopath.toLowerCase() === 'passthrough' ){
-            $cell.html('PASS');
+            $msgnum.html('PASS-');
+            $msgnew.html('THROUGH');
             qNext();
             return;
          }
          var echobase = JAM( echopath );
-         echobase.readJDX(function(err){
-            if( err ){
-               $cell.html('FAIL');
-               qNext();
-               return;
+         async.series([
+            function(callback){
+               echobase.readJDX(function(err){
+                  if( err ){
+                     $msgnum.html('FAIL');
+                     return callback();
+                  }
+                  $msgnum.html( echobase.size() );
+                  return callback();
+               });
+            },
+            function(callback){
+               echobase.indexLastRead(setup.UserName, function(err, idx){
+                  if( err ){
+                     $msgnew.html('FAIL');
+                     return callback();
+                  }
+                  $msgnew.html(echobase.size() - 1 - idx);
+                  return callback();
+               });
             }
-            $cell.html( echobase.size() );
+         ], function(){
             qNext();
-         });
-      });
-   });
-};
-
-var msgnewActionQueue = function(){
-   $('#areaList .msgnew').each(function(){
-      var $cell = $(this);
-      phiQ.push(function(qNext){
-         var echopath = $cell.closest('tr').data('echopath');
-         if( echopath.toLowerCase() === 'passthrough' ){
-            $cell.html('THROUGH');
-            qNext();
-            return;
-         }
-         var echobase = JAM( echopath );
-         echobase.indexLastRead(setup.UserName, function(err, idx){
-            if( err ){
-               $cell.html('FAIL');
-               qNext();
-               return;
-            }
-            $cell.html(echobase.size() - 1 - idx);
-            qNext();
-            return;
          });
       });
    });
@@ -186,8 +181,7 @@ if( echoNames.length > 0 ){
    '</tr></tbody>').appendTo('#areaList');
    hideSeparatorsOfInvisible();
 
-   msgnumActionQueue();
-   msgnewActionQueue();
+   msgNumNewActionQueue();
    phiQ.start();
    $('#searchAreatag').on('keyup', searchAreatagHandler);
 }
