@@ -18,7 +18,7 @@
    "nodelist": "~1.1.2",
    "simteconf": "~0.6.8",
    "underscore": "~1.7.0",
-   "underscore.string": "~2.4.0",
+   "underscore.string": "~3.0.3",
    "uue": "~2.0.0"
 },
 "scripts": {
