@@ -17,9 +17,9 @@
    "mime": "~1.3.4",
    "nodelist": "~1.1.2",
    "simteconf": "~0.6.8",
-   "underscore": "~1.7.0",
+   "underscore": "~1.8.2",
    "underscore.string": "~3.0.3",
-   "uue": "~2.0.0"
+   "uue": "~2.1.0"
 },
 "scripts": {
    "test": "jshint --verbose script/"
