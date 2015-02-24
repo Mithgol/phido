@@ -16,6 +16,7 @@
    "fidonet-jam": "~3.8.2",
    "mime": "~1.3.4",
    "nodelist": "~1.1.2",
+   "nw": "~0.12.0-alpha3",
    "simteconf": "~0.6.8",
    "underscore": "~1.8.2",
    "underscore.string": "~3.0.3",
