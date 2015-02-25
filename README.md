@@ -30,7 +30,7 @@ However, it already supports the following features:
 
 * Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and some other browser (such as Firefox) is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
-* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system.
+* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system. A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 * PhiDo currently supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
@@ -40,7 +40,7 @@ However, it already supports the following features:
 
 ## Installing PhiDo
 
-1. Make sure that **Node.js** and **npm** are installed. (Follow the “[Installation](https://github.com/joyent/node/wiki/Installation)” article in the Node's wiki.)
+1. Make sure that **Node.js** and **npm** are installed. (For example, follow the “[Installation](https://github.com/joyent/node/wiki/Installation)” article in the Node's wiki.) A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 2. Download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory where you want it to be installed.
 
@@ -143,7 +143,7 @@ If you install PhiDo on a portable drive (such as [a USB flash drive](http
 
 * It is also possible to run PhiDo on a 64-bit Windows if PhiDo was originally installed on a 32-bit Windows, but not vice versa.
 
-* Node.js and npm have to be installed on the target system (otherwise the `npm start` command won't be available).
+* Node.js and npm have to be installed on the target system (otherwise the `npm start` command won't be available). A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 ## Testing PhiDo
 
