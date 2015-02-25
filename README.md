@@ -26,9 +26,9 @@ However, it already supports the following features:
 
 ## Requirements
 
-* PhiDo is written in HTML5 + CSS + JavaScript and requires [node-webkit](https://github.com/rogerwang/node-webkit) to run. Node-webkit v0.10.x is recommended.
+* PhiDo is written in HTML5 + CSS + JavaScript and uses the latest [nw.js](https://github.com/nwjs/nw.js) engine to run. A system supported by nw.js (such as Windows, or Linux, or Mac OS X) is required.
 
-* Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and Firefox is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
+* Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and some other browser (such as Firefox) is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
 * PhiDo currently requires **Node.js** and **npm** for installation of dependencies. Some future stable versions of PhiDo may be distributed as complete packages (with dependencies included).
 
@@ -42,9 +42,9 @@ However, it already supports the following features:
 
 1. Make sure that **Node.js** and **npm** are installed. (Follow the “[Installation](https://github.com/joyent/node/wiki/Installation)” article in the Node's wiki.)
 
-2. Download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory. Then run `npm install --production` in that directory (an Internet connection is necessary).
+2. Download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory where you want it to be installed.
 
-3. Download [node-webkit](https://github.com/rogerwang/node-webkit) (the recommended version which is mentioned [above](#requirements)). Either unpack it to the PhiDo's directory or put in some other directory. In the latter case, add the node-webkit's directory to your system's `PATH` variable's value (unless you plan to use the verbose node-webkit's path when you launch PhiDo).
+3. Run `npm install --production` in that directory (an Internet connection is necessary).
 
 You should create a configuration file for the installed PhiDo before you launch it.
 
@@ -101,11 +101,7 @@ An example of GoldED configuration file is [available](http://golded-plus.cvs.so
 
 ## Launching PhiDo
 
-Run `nw .` in the PhiDo's directory.
-
-**Note 1:** if node-webkit resides in another directory and you won't add that directory to your system's `PATH` variable's value, then you should use a verbose (absolute or relative) path to the node-webkit's executable. (On Windows you may use the `start.bat` file as an example and edit it according to your circumstances.)
-
-**Note 2:** on Mac OS X the node-webkit's executable is called `node-webkit` instead of `nw` (hence `node-webkit .` to launch PhiDo).
+Run `npm start` in the PhiDo's directory.
 
 ### Launching PhiDo from GoldED
 
@@ -123,11 +119,15 @@ Two lines have to be added to configuration files of GoldED to enable launchin
 
 An additional line in the main GoldED's configuration file (usually called `golded.cfg` or `gedcyg.cfg`) defines a new external utility (15th in this example):
 
-    ExternUtil 15 start "" \path\to\node-webkit\nw d:\path\to\PhiDo\phido "--file=@file" "--area=@cecho"
+    ExternUtil 15 start "" \path\to\PhiDo\node_modules\nw\nwjs\nw d:\path\to\PhiDo "--file=@file" "--area=@cecho"
 
-Substitute `d:\path\to\PhiDo\` and `\path\to\node-webkit\` with your real paths leading to PhiDo and its underlying node-webkit engine. (On Windows the PhiDo's path has to start from the corresponding drive's letter because of a known node-webkit's [issue](https://github.com/rogerwang/node-webkit/issues/2413).)
+Substitute `\path\to\PhiDo` and `d:\path\to\PhiDo` with the real path that leads to PhiDo on your system.
 
-An additional line in the GoldED's hotkey configuration file (usually `GoldKeys.cfg`) defines a hotkey for the utility (`F12` in this example):
+* If on Windows, substitute `d:\path\to\PhiDo` with the real path that leads to PhiDo on your system **and** starts from the corresponding drive's letter (it is necessary because of a known [problem](https://github.com/nwjs/nw.js/issues/2413) in the engine).
+
+* If not on Windows, `/` instead of `\` is likely to be used in your paths. The `start` command is also not available; use your system's method of starting `nw` in a new window.
+
+An additional line in the GoldED's hotkey configuration file (usually `goldkeys.cfg`) defines a hotkey for the utility (`F12` in this example):
 
     F12 ExternUtil15
 

@@ -23,6 +23,7 @@
    "uue": "~2.1.0"
 },
 "scripts": {
+   "start": "nw",
    "test": "jshint --verbose script/"
 },
 "main": "index.html",
