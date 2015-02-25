@@ -12,7 +12,7 @@
 [![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg?style=plastic)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
 [![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg?style=plastic)](https://github.com/Mithgol/FGHI-URL)
 
-The application is currently in an early phase of its development and thus does not have even minimal feature completeness.
+The application is currently in an early phase of its development and thus does not have the desired level of feature completeness.
 
 However, it already supports the following features:
 
@@ -30,7 +30,7 @@ However, it already supports the following features:
 
 * Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and some other browser (such as Firefox) is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
-* PhiDo currently requires **Node.js** and **npm** for installation of dependencies. Some future stable versions of PhiDo may be distributed as complete packages (with dependencies included).
+* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system.
 
 * PhiDo currently supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
@@ -132,6 +132,18 @@ An additional line in the GoldED's hotkey configuration file (usually `goldkeys.
     F12 ExternUtil15
 
 Afterwards press F12 to launch PhiDo from GoldED. If the message that you view in GoldED has a MSGID (it usually has; see [FTS-0009.001](http://ftsc.org/docs/fts-0009.001) for details), PhiDo shows the same message; otherwise PhiDo displays the list of available echomail areas.
+
+## Limits of portability
+
+If you install PhiDo on a portable drive (such as [a USB flash drive](https://en.wikipedia.org/wiki/USB_flash_drive)), you may move it to a different system and run PhiDo there if the following requirements are met:
+
+* The platform has to be the same (i.e. move from Linux to Linux, or from Windows to Windows, or from Mac OS X to Max OS X).
+
+* The architecture has to be the same (i.e. move from a 32-bit system to 32-bit or from 64-bit system to 64-bit).
+
+* It is also possible to run PhiDo on a 64-bit Windows if PhiDo was originally installed on a 32-bit Windows, but not vice versa.
+
+* Node.js and npm have to be installed on the target system (otherwise the `npm start` command won't be available).
 
 ## Testing PhiDo
 
