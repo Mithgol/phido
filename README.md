@@ -127,7 +127,9 @@ An example of GoldED configuration file is [available](http://golded-plus.cvs.so
 
 ### Launching PhiDo from GoldED
 
-PhiDo can be used as an advanced external viewer of echomail messages for any version of GoldED (for example, for GoldED+ or GoldED-NSF). It is useful because PhiDo has the following features that are not present in GoldED:
+PhiDo can be configured and used as an advanced external viewer of echomail messages for any version of GoldED (for example, for GoldED+ or GoldED-NSF).
+
+It is useful because PhiDo has the following features that are not present in GoldED:
 
 * FGHI URLs become hyperlinks (GoldED-NSF also has this feature, but GoldED+ does not have it)
 
