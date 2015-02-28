@@ -72,7 +72,7 @@ If you install PhiDo in a directory on a portable drive (such as [a USB f
 
 * It is also possible to run PhiDo on a 64-bit Windows if PhiDo was originally installed on a 32-bit Windows, but not vice versa.
 
-* Node.js and npm have to be installed on the target system (otherwise the `npm start` command won't be available). A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
+* Node.js has to be installed on the target system. A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 ## Configuration options
 
