@@ -139,7 +139,7 @@ PhiDo can be used as an advanced external viewer of echomail messages for any v
 
 Two lines have to be added to configuration files of GoldED to enable launching of PhiDo.
 
-Th first additional line has to be added in the main GoldED's configuration file (usually called `golded.cfg` or `gedcyg.cfg`); this line defines a new external utility (15th in this example).
+The first additional line has to be added in the main GoldED's configuration file (usually called `golded.cfg` or `gedcyg.cfg`); this line defines a new external utility (15th in this example).
 
 To launch a global installation of PhiDo, use the following line:
 
