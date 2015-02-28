@@ -1,1 +1,1 @@
-@start "" ..\node-webkit\nw .
+node phido

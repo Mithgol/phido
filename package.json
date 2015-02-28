@@ -1,7 +1,7 @@
 {
 "name": "phido",
 "bin": "./phido.js",
-"version": "0.0.2",
+"version": "0.1.0",
 "description": "Fidonet browser with a GUI.",
 "keywords": ["Fidonet", "Fido", "GUI"],
 "author": { "name": "Mithgol the Webmaster" },
@@ -24,7 +24,6 @@
    "uue": "~2.1.0"
 },
 "scripts": {
-   "start": "nw",
    "test": "jshint --verbose script/"
 },
 "main": "index.html",

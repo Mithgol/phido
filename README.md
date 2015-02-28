@@ -30,7 +30,7 @@ However, it already supports the following features:
 
 * Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and some other browser (such as Firefox) is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
-* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system. A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
+* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system. (For example, follow the “[Installation](https://github.com/joyent/node/wiki/Installation)” article in the Node's wiki.) A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 * PhiDo currently supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
@@ -40,13 +40,39 @@ However, it already supports the following features:
 
 ## Installing PhiDo
 
-1. Make sure that **Node.js** and **npm** are installed. (For example, follow the “[Installation](https://github.com/joyent/node/wiki/Installation)” article in the Node's wiki.) A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
+[![(npm package version)](https://nodei.co/npm/phido.png?downloads=true&downloadRank=true)](https://npmjs.org/package/phido)
 
-2. Download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory where you want it to be installed.
+### Global installation
 
-3. Run `npm install --production` in that directory (an Internet connection is necessary).
+* Latest packaged version: `npm install -g phido`
 
-You should create a configuration file for the installed PhiDo before you launch it.
+* Latest githubbed version: `npm install -g https://github.com/Mithgol/phido/tarball/master`
+
+The application becomes installed globally (for example, in `node_modules/phido` subdirectory in your Node's directory) and appears in your `PATH`.
+
+You may use `phido` command to run the application.
+
+You should create a configuration file for the installed PhiDo (in its directory) before you launch it.
+
+### Local installation
+
+Instead of the above, download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory. Then run `npm install --production` in that directory.
+
+Unlike the global installation (`npm -g`), the application does not appear in the `PATH`, and thus you'll have to run it directly from the application's directory. You'll also have to use `node phido` instead of `phido`. (On Windows you may use `start.bat` as the launcher.)
+
+You should create a configuration file for the installed PhiDo (in its directory) before you launch it.
+
+#### Portability of a local installation
+
+If you install PhiDo in a directory on a portable drive (such as [a USB flash drive](https://en.wikipedia.org/wiki/USB_flash_drive)), you may move it to a different system and run PhiDo there if the following requirements are met:
+
+* The platform has to be the same (i.e. move from Linux to Linux, or from Windows to Windows, or from Mac OS X to Max OS X).
+
+* The architecture has to be the same (i.e. move from a 32-bit system to 32-bit or from 64-bit system to 64-bit).
+
+* It is also possible to run PhiDo on a 64-bit Windows if PhiDo was originally installed on a 32-bit Windows, but not vice versa.
+
+* Node.js and npm have to be installed on the target system (otherwise the `npm start` command won't be available). A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 ## Configuration options
 
@@ -99,10 +125,6 @@ Examples of the area configuration file of HPT are available in its own CVS 
 
 An example of GoldED configuration file is [available](http://golded-plus.cvs.sourceforge.net/viewvc/golded-plus/golded%2B/etc/golded.conf?revision=1.1&view=markup) in the CVS of GoldED+. It contains a lot of configuration directives; only the most basic of them are understood by PhiDo (and they already appear in `phido.conf-example` anyway).
 
-## Launching PhiDo
-
-Run `npm start` in the PhiDo's directory.
-
 ### Launching PhiDo from GoldED
 
 PhiDo can be used as an advanced external viewer of echomail messages for any version of GoldED (for example, for GoldED+ or GoldED-NSF). It is useful because PhiDo has the following features that are not present in GoldED:
@@ -117,33 +139,25 @@ PhiDo can be used as an advanced external viewer of echomail messages for any v
 
 Two lines have to be added to configuration files of GoldED to enable launching of PhiDo.
 
-An additional line in the main GoldED's configuration file (usually called `golded.cfg` or `gedcyg.cfg`) defines a new external utility (15th in this example):
+Th first additional line has to be added in the main GoldED's configuration file (usually called `golded.cfg` or `gedcyg.cfg`); this line defines a new external utility (15th in this example).
 
-    ExternUtil 15 start "" \path\to\PhiDo\node_modules\nw\nwjs\nw d:\path\to\PhiDo "--file=@file" "--area=@cecho"
+To launch a global installation of PhiDo, use the following line:
 
-Substitute `\path\to\PhiDo` and `d:\path\to\PhiDo` with the real path that leads to PhiDo on your system.
+    ExternUtil 15 phido "--file=@file" "--area=@cecho"
 
-* If on Windows, substitute `d:\path\to\PhiDo` with the real path that leads to PhiDo on your system **and** starts from the corresponding drive's letter (it is necessary because of a known [problem](https://github.com/nwjs/nw.js/issues/2413) in the engine).
+To launch a local installation of PhiDo, use the following line:
 
-* If not on Windows, `/` instead of `\` is likely to be used in your paths. The `start` command is also not available; use your system's method of starting `nw` in a new window.
+    ExternUtil 15 node \path\to\PhiDo\phido "--file=@file" "--area=@cecho"
 
-An additional line in the GoldED's hotkey configuration file (usually `goldkeys.cfg`) defines a hotkey for the utility (`F12` in this example):
+* Substitute `\path\to\PhiDo` with the real path that leads to PhiDo on your system.
+
+* If not on Windows, `/` instead of `\` is likely to be used in your paths.
+
+The second additional line has to be added in the GoldED's hotkey configuration file (usually `goldkeys.cfg`); this line defines a hotkey for the utility (`F12` in this example):
 
     F12 ExternUtil15
 
 Afterwards press F12 to launch PhiDo from GoldED. If the message that you view in GoldED has a MSGID (it usually has; see [FTS-0009.001](http://ftsc.org/docs/fts-0009.001) for details), PhiDo shows the same message; otherwise PhiDo displays the list of available echomail areas.
-
-## Limits of portability
-
-If you install PhiDo on a portable drive (such as [a USB flash drive](https://en.wikipedia.org/wiki/USB_flash_drive)), you may move it to a different system and run PhiDo there if the following requirements are met:
-
-* The platform has to be the same (i.e. move from Linux to Linux, or from Windows to Windows, or from Mac OS X to Max OS X).
-
-* The architecture has to be the same (i.e. move from a 32-bit system to 32-bit or from 64-bit system to 64-bit).
-
-* It is also possible to run PhiDo on a 64-bit Windows if PhiDo was originally installed on a 32-bit Windows, but not vice versa.
-
-* Node.js and npm have to be installed on the target system (otherwise the `npm start` command won't be available). A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 ## Testing PhiDo
 
