@@ -40,7 +40,7 @@ However, it already supports the following features:
 
 ## Installing PhiDo
 
-[![(npm package version)](https://nodei.co/npm/phido.png?downloads=true&downloadRank=true)](https://npmjs.org/package/phido)
+[![(npm package version)](https://nodei.co/npm/phido.png?downloads=true&downloadRank=true)](https://npmjs.org/package/phido) [![(a histogram of downloads)](https://nodei.co/npm-dl/phido.png?months=3&height=3)](https://npmjs.org/package/phido)
 
 ### Global installation
 
