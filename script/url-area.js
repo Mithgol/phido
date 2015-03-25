@@ -6,7 +6,7 @@ renderAreaURL = function(URL, parsedURL){
       arealist();
       return;
    }
-   if ( parsedURL.objectPath.length > 0 ){
+   if( parsedURL.objectPath.length > 0 ){
       areaFile(URL, parsedURL);
       return;
    }
