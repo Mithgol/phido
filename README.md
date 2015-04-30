@@ -60,7 +60,7 @@ You should create a configuration file for the installed PhiDo (in its dire
 
 Instead of the above, download the [ZIP-packed](https://github.com/Mithgol/phido/archive/master.zip) source code of PhiDo and unpack it to some directory. Then run `npm install --production` in that directory.
 
-Unlike the global installation (`npm -g`), the application does not appear in the `PATH`, and thus you'll have to run it directly from the application's directory. You'll also have to use `node phido` instead of `phido`. (On Windows you may use `start.bat` as the launcher.)
+Unlike the global installation (`npm -g`), the application does not appear in the `PATH`, and thus you'll have to run it directly from the application's directory. You'll also have to run `node phido` instead of `phido`. (On Windows you may use `start.bat` as the launcher.)
 
 You should create a configuration file for the installed PhiDo (in its directory) before you launch it.
 
