@@ -171,7 +171,7 @@ It is necessary to install [JSHint](http://jshint.com/) for testing.
 
 * You may install JSHint globally (`npm install jshint -g`) or locally (`npm install jshint` in the directory of PhiDo).
 
-After that you may run `npm test` (in the directory of PhiDo). Only the JS code issues are caught.
+After that you may run `npm test` (in the directory of PhiDo). Only the JS code issues are caught; the code's behaviour is not tested.
 
 ## License
 
