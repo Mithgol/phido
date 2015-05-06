@@ -76,6 +76,10 @@ If you install PhiDo in a directory on a portable drive (such as [a USB f
 
 * Node.js has to be installed on the target system. A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
+#### Be patient
+
+About 100 megabytes of dependencies are installed. Most of them contain dozens of small files with source code and metadata. An installation on a low-speed (USB 2.0) flash drive may take, for example, **half an hour** on a system with a limited Internet connection.
+
 ## Configuration options
 
 PhiDo uses the configuration given in the file `phido.conf` in PhiDo's directory (in the same directory where PhiDo's `package.json` resides).

@@ -1,7 +1,7 @@
 {
 "name": "phido",
 "bin": "./phido.js",
-"version": "0.1.0",
+"version": "0.1.1",
 "description": "Fidonet browser with a GUI.",
 "keywords": ["Fidonet", "Fido", "GUI"],
 "author": { "name": "Mithgol the Webmaster" },
@@ -17,8 +17,8 @@
    "fidonet-jam": "~3.8.2",
    "mime": "~1.3.4",
    "nodelist": "~1.1.2",
-   "nw": "~0.12.0-alpha3",
-   "simteconf": "~0.6.8",
+   "nw": "~0.12.1",
+   "simteconf": "~0.6.10",
    "underscore": "~1.8.2",
    "underscore.string": "~3.0.3",
    "uue": "~2.1.0"
