@@ -1,4 +1,4 @@
-/* global $, _, window, msglist:true */
+/* global $, _, s, window, msglist:true */
 /* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, generateAreaURL */
 
 msglist = function(echotag){ /* jshint indent:false */
@@ -15,18 +15,18 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          return;
       }
       var decoded = echobase.decodeHeader(header);
-      $msgRow.find('.msgFrom').html( _.escapeHTML(decoded.from) );
-      $msgRow.find('.msgTo').html(   _.escapeHTML(decoded.to)   );
-      $msgRow.find('.msgSubj').html( _.escapeHTML(decoded.subj) );
+      $msgRow.find('.msgFrom').html( _.escape(decoded.from) );
+      $msgRow.find('.msgTo').html(   _.escape(decoded.to)   );
+      $msgRow.find('.msgSubj').html( _.escape(decoded.subj) );
       $msgRow.find('.msgDateTime').html([
          '<nobr>',
          decoded.origTime[0], '-',
-         _(decoded.origTime[1]).pad(2, '0'), '-',
-         _(decoded.origTime[2]).pad(2, '0'),
+         s.pad(decoded.origTime[1], 2, '0'), '-',
+         s.pad(decoded.origTime[2], 2, '0'),
          '</nobr> <nobr>',
-         _(decoded.origTime[3]).pad(2, '0'), ':',
-         _(decoded.origTime[4]).pad(2, '0'), ':',
-         _(decoded.origTime[5]).pad(2, '0'),
+         s.pad(decoded.origTime[3], 2, '0'), ':',
+         s.pad(decoded.origTime[4], 2, '0'), ':',
+         s.pad(decoded.origTime[5], 2, '0'),
          '</nobr>'
       ].join(''));
       if( header.TimesRead < 1 ) $msgRow.addClass('unreadMsg');
@@ -218,7 +218,7 @@ if( arrDesc === null ){
 }
 
 echobase.readJDX(function(err){
-   if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
+   if( err ) return phiBar.reportErrorHTML( _.escape('' + err) );
 
    baseSize = echobase.size();
    var baseSizeLimit  = 100;

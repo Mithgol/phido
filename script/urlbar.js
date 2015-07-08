@@ -93,7 +93,7 @@ urlbar.prototype.render = function(URL){
       parsedURL = phiURL(URL);
    } catch(e) {
       return this.reportErrorHTML(
-         _.escapeHTML(e.message)
+         _.escape(e.message)
       );
    }
    switch( parsedURL.scheme ){

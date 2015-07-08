@@ -1,5 +1,5 @@
 /* global renderAreaURL:true, generateAreaURL:true */
-/* global _, arealist, msglist, singleMessage, areaFile, phiBar */
+/* global _, s, arealist, msglist, singleMessage, areaFile, phiBar */
 
 renderAreaURL = function(URL, parsedURL){
    if( parsedURL.echoNames.length < 1 ){
@@ -15,7 +15,7 @@ renderAreaURL = function(URL, parsedURL){
          'Sorry, opening multiple echomail areas at once ',
          'is not (yet) supported in PhiDo.',
          '<p>The address <b>',
-         _.escapeHTML(URL),
+         _.escape(URL),
          '</b> could not be opened.',
          '</p>'
       ].join(''));
@@ -52,10 +52,10 @@ generateAreaURL = function(echotag, decoded){
       encodeURIComponent(echotag),
       '/?time=',
       encodeURIComponent(decoded.origTime[0]), '/',
-      encodeURIComponent(_(decoded.origTime[1]).pad(2, '0')), '/',
-      encodeURIComponent(_(decoded.origTime[2]).pad(2, '0')), 'T',
-      encodeURIComponent(_(decoded.origTime[3]).pad(2, '0')), ':',
-      encodeURIComponent(_(decoded.origTime[4]).pad(2, '0')), ':',
-      encodeURIComponent(_(decoded.origTime[5]).pad(2, '0'))
+      encodeURIComponent(s.pad(decoded.origTime[1], 2, '0')), '/',
+      encodeURIComponent(s.pad(decoded.origTime[2], 2, '0')), 'T',
+      encodeURIComponent(s.pad(decoded.origTime[3], 2, '0')), ':',
+      encodeURIComponent(s.pad(decoded.origTime[4], 2, '0')), ':',
+      encodeURIComponent(s.pad(decoded.origTime[5], 2, '0'))
    ].join('').replace('%20', '+');
 };

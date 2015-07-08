@@ -75,7 +75,7 @@ var searchAreatagHandler = function(){
       $('#areaList tr.areaRow').each(function(){
          var $this = $(this);
          var echotag = $this.data('echotag');
-         $this.find('td.echotag').html( _.escapeHTML(echotag) );
+         $this.find('td.echotag').html( _.escape(echotag) );
          $this.show();
       });
       hideSeparatorsOfInvisible();
@@ -87,7 +87,7 @@ var searchAreatagHandler = function(){
       var echotag = $this.data('echotag');
       var foundIndex = echotag.toLowerCase().indexOf(toFind);
       if( foundIndex < 0 ){
-         $this.find('td.echotag').html( _.escapeHTML(echotag) );
+         $this.find('td.echotag').html( _.escape(echotag) );
          $this.hide();
          return true; // continue loop
       }
@@ -95,9 +95,9 @@ var searchAreatagHandler = function(){
       var center = echotag.slice(foundIndex, foundIndex + toFind.length);
       var after  = echotag.slice(foundIndex + toFind.length);
       $this.find('td.echotag').html(
-         _.escapeHTML(before) +
-         '<b>' + _.escapeHTML(center) + '</b>' +
-         _.escapeHTML(after)
+         _.escape(before) +
+         '<b>' + _.escape(center) + '</b>' +
+         _.escape(after)
       );
       $this.show();
    });
@@ -148,7 +148,7 @@ if( echoNames.length > 0 ){
       ){
          $currTBody = $('<tbody></tbody>').appendTo('#areaList');
          $('<tr><td colspan=4 class="sepDesc">' +
-            _.escapeHTML(setup.areaSeparators[currAreaSep].sepDesc) +
+            _.escape(setup.areaSeparators[currAreaSep].sepDesc) +
          '</td></tr>').appendTo($currTBody);
          currAreaSep++;
       }
@@ -162,10 +162,10 @@ if( echoNames.length > 0 ){
          echoDesc = arrDesc[1];
       }
       $('<tr class="areaRow">' +
-         '<td>'+_.escapeHTML(echoDesc)+'</td>' +
+         '<td>'+_.escape(echoDesc)+'</td>' +
          '<td class="msgnum"><i class="fa fa-spinner fa-spin"></i></td>' +
          '<td class="msgnew"><i class="fa fa-spinner fa-spin"></i></td>' +
-         '<td class="echotag">'+_.escapeHTML(echoName)+'</td>' +
+         '<td class="echotag">'+_.escape(echoName)+'</td>' +
       '</tr>').data({
          'echotag':  echoName,
          'URL':  'area://' + encodeURIComponent(echoName),

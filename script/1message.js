@@ -1,4 +1,4 @@
-/* global $, _, window, singleMessage:true */
+/* global $, _, s, window, singleMessage:true */
 /* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace, FidoHTML */
 /* global generateAreaURL */
 /* will be used: GUI, nwClipboard */
@@ -56,7 +56,7 @@ var outputMessageText = function($message, header, callback){
    echobase.decodeMessage(header, function(error, messageText){
       var $messageText = $message.find('.messageText');
       if( error ){
-         $messageText.html( _.escapeHTML('' + error) );
+         $messageText.html( _.escape('' + error) );
          return callback();
       }
       $messageText.html( FidoHTML.fromText(messageText) );
@@ -85,7 +85,7 @@ var outputMessageAvatarAndOrigin = function(
          $message.find('.origAddr').html('ERROR');
          origAddr = void 0;
       } else {
-         var origAddrHTML = _.escapeHTML(origAddr);
+         var origAddrHTML = _.escape(origAddr);
          if( setup.nodelist !== null ){
             var nodeAddr = origAddr;
             if( nodeAddr.indexOf('.') >= 0 ){
@@ -93,7 +93,7 @@ var outputMessageAvatarAndOrigin = function(
             }
             var fields = setup.nodelist.getFieldsForAddr(nodeAddr);
             if( fields !== null ){
-               origAddrHTML += ' (' + _.escapeHTML(fields.location) + ')';
+               origAddrHTML += ' (' + _.escape(fields.location) + ')';
             }
          }
          $message.find('.origAddr').html(origAddrHTML);
@@ -256,7 +256,7 @@ var outputSingleMessage = function(header, callback){
       '<tr>',
          '<th class="inverse">From</th>',
          '<td>',
-            _.escapeHTML(decoded.from) || '',
+            _.escape(decoded.from) || '',
          '</td>',
          '<td class="origAddr">',
             '<i class="fa fa-spinner fa-spin"></i>',
@@ -264,36 +264,36 @@ var outputSingleMessage = function(header, callback){
          '<td width=1>',
             '<nobr>',
                decoded.origTime[0], '-',
-               _(decoded.origTime[1]).pad(2, '0'), '-',
-               _(decoded.origTime[2]).pad(2, '0'),
+               s.pad(decoded.origTime[1], 2, '0'), '-',
+               s.pad(decoded.origTime[2], 2, '0'),
             ' ',
-               _(decoded.origTime[3]).pad(2, '0'), ':',
-               _(decoded.origTime[4]).pad(2, '0'), ':',
-               _(decoded.origTime[5]).pad(2, '0'),
+               s.pad(decoded.origTime[3], 2, '0'), ':',
+               s.pad(decoded.origTime[4], 2, '0'), ':',
+               s.pad(decoded.origTime[5], 2, '0'),
             '</nobr>',
          '</td>',
       '</tr>',
       '<tr>',
          '<th class="inverse">To</th>',
-         '<td>' + ( _.escapeHTML(decoded.to) ||'') + '</td>',
+         '<td>' + ( _.escape(decoded.to) ||'') + '</td>',
          // decoded.toAddr is traditionally ignored outside of netmail:
          '<td></td>', //'<td>' + (decoded.toAddr ||'') + '</td>',
          '<td width=1>',
             '<nobr>',
                decoded.procTime[0], '-',
-               _(decoded.procTime[1]).pad(2, '0'), '-',
-               _(decoded.procTime[2]).pad(2, '0'),
+               s.pad(decoded.procTime[1], 2, '0'), '-',
+               s.pad(decoded.procTime[2], 2, '0'),
             ' ',
-               _(decoded.procTime[3]).pad(2, '0'), ':',
-               _(decoded.procTime[4]).pad(2, '0'), ':',
-               _(decoded.procTime[5]).pad(2, '0'),
+               s.pad(decoded.procTime[3], 2, '0'), ':',
+               s.pad(decoded.procTime[4], 2, '0'), ':',
+               s.pad(decoded.procTime[5], 2, '0'),
             '</nobr>',
          '</td>',
       '</tr>',
       '<tr>',
          '<th class="inverse">Subj</th>',
          '<td colspan=3>',
-            _.escapeHTML(decoded.subj) || '',
+            _.escape(decoded.subj) || '',
          '</td>',
       '</tr>',
       '<tr>',
@@ -317,7 +317,7 @@ var outputSingleMessage = function(header, callback){
 
 phiBar.loadingMsg("Looking through messages' headers…");
 echobase.headersForMSGID(arrMSGID, function(err, headers){
-   if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
+   if( err ) return phiBar.reportErrorHTML( _.escape('' + err) );
 
    $('#content').empty();
    if( headers.length < 1 ){

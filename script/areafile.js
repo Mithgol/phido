@@ -5,7 +5,7 @@ var fileScanNextMessage = function(filename, echobase, msgNum, callback){
    if( msgNum < 1 ){
       phiBar.reportErrorHTML([
          'Sorry, the file <b>',
-         _.escapeHTML(filename),
+         _.escape(filename),
          '</b> could not be found in the area.'
       ].join(''));
       callback();
@@ -13,14 +13,14 @@ var fileScanNextMessage = function(filename, echobase, msgNum, callback){
    }
    echobase.readHeader(msgNum, function(err, header){
       if( err ){
-         phiBar.reportErrorHTML( _.escapeHTML('' + err) );
+         phiBar.reportErrorHTML( _.escape('' + err) );
          callback();
          return;
       }
       phiQ.push(function(qNext){
          echobase.decodeMessage(header, function(err, messageText){
             if( err ){
-               phiBar.reportErrorHTML( _.escapeHTML('' + err) );
+               phiBar.reportErrorHTML( _.escape('' + err) );
                qNext();
                return;
             }
@@ -82,7 +82,7 @@ if( parsedURL.objectPathParts.length > 1 ){
    phiBar.reportErrorHTML([
       'Sorry, PhiDo cannot (yet) traverse complex paths to files.',
       '<p>The address <b>',
-      _.escapeHTML(URL),
+      _.escape(URL),
       '</b> could not be opened.',
       '</p>'
    ].join(''));
@@ -98,7 +98,7 @@ if( parsedURL.echoNames.length > 1 ){
       'Sorry, opening files from multiple echomail areas at once ',
       'is not (yet) supported in PhiDo.',
       '<p>The address <b>',
-      _.escapeHTML(URL),
+      _.escape(URL),
       '</b> could not be opened.',
       '</p>'
    ].join(''));
@@ -148,7 +148,7 @@ if( arrDesc === null ){
 phiBar.loadingMsg("Looking for the designated file…");
 
 echobase.readJDX(function(err){
-   if( err ) return phiBar.reportErrorHTML( _.escapeHTML('' + err) );
+   if( err ) return phiBar.reportErrorHTML( _.escape('' + err) );
 
    phiQ.push(function(qNext){
       fileScanNextMessage(filename, echobase, echobase.size(), qNext);

@@ -14,9 +14,6 @@
 <script src="node_modules/array.prototype.find/index.js"></script>
 <script src="node_modules/underscore/underscore.js"></script>
 <script src="node_modules/underscore.string/dist/underscore.string.js"></script>
-<script>
-_.mixin(s.exports());
-</script>
 <script src="script/title.js"></script>
 <script src="script/setup.js"></script>
 <script src="script/queue.js"></script>
@@ -43,7 +40,7 @@ beforeSpace = function(inString){
    if( inString.indexOf(' ') === -1 ){
       return inString;
    }
-   return _(inString).strLeft(' ');
+   return s.strLeft(inString, ' ');
 };
 </script>
 <title>PhiDo</title>
