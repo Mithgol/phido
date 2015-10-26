@@ -25,16 +25,15 @@
 <script src="script/urlbar.js"></script>
 <script>
 phiQ = queue();
-JAM = require('fidonet-jam');
-FidoHTML = require('fidohtml')({
+JAM = nw.require('fidonet-jam');
+FidoHTML = nw.require('fidohtml')({
    dataMode: true
 });
-phiURL = require('fghi-url');
+phiURL = nw.require('fghi-url');
 phiBar = urlbar();
-MIME = require('mime');
-UUE = require('uue');
-GUI = require('nw.gui');
-nwClipboard = GUI.Clipboard.get();
+MIME = nw.require('mime');
+UUE = nw.require('uue');
+nwClipboard = nw.Clipboard.get();
 
 beforeSpace = function(inString){
    if( inString.indexOf(' ') === -1 ){
@@ -47,7 +46,7 @@ beforeSpace = function(inString){
 <script>
 $(function(){
 initSetup();
-if( setup.maximizeWindow ) GUI.Window.get().maximize();
+if( setup.maximizeWindow ) nw.Window.get().maximize();
 
 $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    var supportedSchemes = ['area'];
@@ -86,7 +85,7 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    if( supportedSchemes.indexOf(schemeLC) >= 0 ){
       phiBar.open(URL);
    } else if( safeSchemes.indexOf(schemeLC) >= 0 ){
-      GUI.Shell.openExternal(URL);
+      nw.Shell.openExternal(URL);
    }
 
    return false;
@@ -96,8 +95,8 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    var $this = $(this);
    var URL = $this.data('URL');
 
-   var contextMenu = new GUI.Menu();
-   contextMenu.append(new GUI.MenuItem({
+   var contextMenu = new nw.Menu();
+   contextMenu.append(new nw.MenuItem({
       'label': 'Copy FGHI URL',
       'click': function(){
          nwClipboard.set( URL );
@@ -128,7 +127,7 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
 // with async optional GoldED integration:
 var openStartingURL = function(){
    var defaultStartingURL = 'area://';
-   var paramsCLI = GUI.App.argv;
+   var paramsCLI = nw.App.argv;
    phiBar.attach( $('#urlbar') );
 
    var msgFileName = paramsCLI.find(function(param){
@@ -146,7 +145,7 @@ var openStartingURL = function(){
    } else msgArea = msgArea.slice( '--area='.length );
    if( /^\s*$/.test(msgArea) ) return phiBar.open(defaultStartingURL);
 
-   require('fs').readFile(
+   nw.require('fs').readFile(
       msgFileName,
       { encoding: 'binary' },
       function(err, message){

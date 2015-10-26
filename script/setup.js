@@ -3,8 +3,8 @@
 setup = {};
 
 initSetup = function(){
-   var simteconf = require('simteconf');
-   var nodelist = require('nodelist');
+   var simteconf = nw.require('simteconf');
+   var nodelist = nw.require('nodelist');
 
    var phiConf = simteconf('phido.conf', {
       skipNames: ['//', '#']

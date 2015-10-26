@@ -1,7 +1,7 @@
 /* global $, _, arealist:true */
 /* global beforeSpace, JAM, phiQ, setup, phiTitle */
 
-var async = require('async');
+var async = nw.require('async');
 
 var hideSeparatorsOfInvisible = function(){
    $('#areaList tbody').each(function(){
