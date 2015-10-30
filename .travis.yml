@@ -1,6 +1,6 @@
 sudo: false
 language: node_js
 node_js:
-  - latest
+  - stable
 before_script:
   - "npm install jshint"
