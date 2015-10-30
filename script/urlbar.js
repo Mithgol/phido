@@ -1,4 +1,4 @@
-/* global $, _, phiURL, phiQ, renderAreaURL, urlbar:true */
+/* global nw, $, _, phiURL, phiQ, renderAreaURL, urlbar:true */
 
 urlbar = function(){
    if (!(this instanceof urlbar)) return new urlbar();

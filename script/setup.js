@@ -1,4 +1,4 @@
-/* global setup:true, initSetup:true */
+/* global nw, setup:true, initSetup:true */
 
 setup = {};
 

@@ -1,4 +1,4 @@
-/* global $, _, arealist:true */
+/* global nw, $, _, arealist:true */
 /* global beforeSpace, JAM, phiQ, setup, phiTitle */
 
 var async = nw.require('async');
