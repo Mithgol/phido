@@ -16,6 +16,8 @@
 
 The application is currently in an early phase of its development and thus does not have the desired level of feature completeness.
 
+Its development is postponed until the release of NW.js version 0.13.0 (that'll support ECMAScript 6 and modern Node.js features).
+
 However, it already supports the following features:
 
 * [Fidonet Unicode substrings](https://github.com/Mithgol/fiunis)
