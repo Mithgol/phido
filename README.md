@@ -187,8 +187,6 @@ The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
 * The file `jq/scrollspy.js` contains [scrollSpy](https://github.com/thesmart/jquery-scrollspy), a jQuery plugin by John Smart (MIT-licensed).
 
-* The file `jq/jquery.scrollTo.min.js` contains [jQuery.scrollTo](https://github.com/flesler/jquery.scrollTo), a jQuery plugin by Ariel Flesler (MIT-licensed).
-
 * Fonts in the `paratype` directory are published [by ParaType](http://www.paratype.com/public/) on the terms of [ParaType Free Font Licensing Agreement](http://www.paratype.com/public/pt_openlicense_eng.asp). (See the `PT Free Font License*.txt` files in the same folder.)
 
 * The directory `bootstrap` contains [Bootstrap](http://getbootstrap.com/) licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0). It is used in a hope that a newer version becomes MIT-licensed eventually [(as planned)](http://blog.getbootstrap.com/2013/10/29/bootstrap-3-0-1-released/) and replaces the current version.
