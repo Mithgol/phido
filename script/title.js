@@ -1,6 +1,6 @@
 /* global phiTitle:true, document */
 
-phiTitle = function(givenTitle){
+phiTitle = givenTitle => {
    givenTitle = '' + givenTitle;
    if( givenTitle === '' ){
       document.title = 'PhiDo';

@@ -1,18 +1,17 @@
 /* global $, _, s, window, msglist:true */
 /* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, generateAreaURL */
 
-msglist = function(echotag){ /* jshint indent:false */
+msglist = echotag => { /* jshint indent:false */
 
-var echobase, baseSize, loadingRows, numLastRead;
+var echobase, echoDesc, baseSize, loadingRows, numLastRead;
 
-var fillRowFromHeader = function($msgRow, filledCallback){
-   echobase.readHeader(+$msgRow.data('number'), function(err, header){
+var fillRowFromHeader = ($msgRow, filledCallback) => {
+   echobase.readHeader(+$msgRow.data('number'), (err, header) => {
       if( err ){
          $msgRow.find(
             '.msgFrom, .msgTo, .msgSubj, .msgDateTime'
          ).html('FAIL');
-         filledCallback();
-         return;
+         return filledCallback();
       }
       var decoded = echobase.decodeHeader(header);
       $msgRow.find('.msgFrom').html( _.escape(decoded.from) );
@@ -35,11 +34,11 @@ var fillRowFromHeader = function($msgRow, filledCallback){
          'URL', generateAreaURL(echotag, decoded)
       ).addClass('hasURL');
 
-      filledCallback();
+      return filledCallback();
    });
 };
 
-var lastreadHighlightRow = function(callback){
+var lastreadHighlightRow = callback => {
    var $lrRow = $('.lastreadrow');
    var $firstTD = $lrRow.find('td:first');
    $firstTD.html([
@@ -50,19 +49,28 @@ var lastreadHighlightRow = function(callback){
    $.scrollTo($lrRow, {
       'duration': 1000,
       'over': { 'top': -0.5 },
-      'onAfter': function(){
-         $lrRow.animate({
-            'background-color': $.Color('#88ffcc')
-         }, 500, function(){
-            $lrRow.animate({
-               'background-color': $.Color('white')
-            }, 500, callback);
-         });
-      }
+      'onAfter': () => $lrRow.animate(
+         { 'background-color': $.Color('#88ffcc') },
+         500, () => $lrRow.animate(
+            { 'background-color': $.Color('white') },
+            500, callback
+         )
+      )
    });
 };
 
-var buildMessageTable = function(initialNum, sizeLimit, callback){
+var msghdrDelayedActionQueue = $table => $table.addClass(
+   'catchScrollEvents'
+).scrollSpy();
+
+var msghdrImmediateActionQueue = $table => $table.css(
+   'table-layout', 'auto'
+).find('.msgRow').each(function(){
+   var $row = $(this);
+   phiQ.push( qNext => fillRowFromHeader($row, qNext) );
+});
+
+var buildMessageTable = (initialNum, sizeLimit, callback) => {
    var finalMode = false;
    var finalLimit = initialNum + sizeLimit - 1;
    if( finalLimit >= baseSize ){
@@ -99,20 +107,14 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
          foundLastRead = true;
          classNamesTR += ' lastreadrow';
       }
-      currTBody += [
-         '<tr class="' + classNamesTR + '" data-number="' + currMsg + '">',
-         '<td>',
-            currMsg,
-         '</td>',
-         loadingRows,
-         '</tr>'
-      ].join('');
+      currTBody += `<tr class="${classNamesTR}" data-number="${currMsg}">` +
+         `<td>${currMsg}</td>${loadingRows}</tr>`;
    }
 
    var $currTable = $( currTableStart + currTBody + currTableEnd );
    $currTable.appendTo('#content');
 
-   phiQ.push(function(qNext){
+   phiQ.push(qNext => {
       if( multipleTables ){
          if( !foundLastRead ){
             msghdrDelayedActionQueue( $currTable );
@@ -123,19 +125,16 @@ var buildMessageTable = function(initialNum, sizeLimit, callback){
       }
       if( finalMode ){
          callback();
-      } else {
-         buildMessageTable(initialNum + sizeLimit, sizeLimit, callback);
-      }
-      qNext();
+      } else buildMessageTable(initialNum + sizeLimit, sizeLimit, callback);
+
+      return qNext();
    }).start();
 };
 
-var msghdrActionQueue = function(){
+var msghdrActionQueue = () => {
    $('.msgList .msgRow').each(function(){
       var $row = $(this);
-      phiQ.push(function(qNext){
-         fillRowFromHeader($row, qNext);
-      });
+      phiQ.push( qNext => fillRowFromHeader($row, qNext) );
    }).each(function(){
       var $row = $(this);
       if( +$row.data('number') === numLastRead ){
@@ -149,66 +148,43 @@ var msghdrActionQueue = function(){
 window.msghdrDelayedActionMsgRowProcessor = function(){
    var $row = $(this);
    var $table = $row.closest('table');
-   phiQ.push(function(qNext){
-      if( ! $table.data('inscroll') ){
-         qNext();
-         return;
-      }
+   phiQ.push(qNext => {
+      if(!( $table.data('inscroll') )) return qNext();
+
       $table.css('table-layout', 'auto');
-      fillRowFromHeader($row, function(){
+      fillRowFromHeader($row, () => {
          $row.addClass('filledFromHeader');
          if( $table.find('.msgRow:not(.filledFromHeader)').length < 1 ){
             $table.off('scrollSpy:exit').off('scrollSpy:enter');
          }
-         qNext();
-      });
-   });
-};
-
-var msghdrDelayedActionQueue = function($table){
-   $table.addClass('catchScrollEvents').scrollSpy();
-};
-
-var msghdrImmediateActionQueue = function($table){
-   $table.css('table-layout', 'auto').find('.msgRow').each(function(){
-      var $row = $(this);
-      phiQ.push(function(qNext){
-         fillRowFromHeader($row, qNext);
+         return qNext();
       });
    });
 };
 
 var lcEchotag = echotag.toLowerCase();
 var echoNames = setup.areas.group('EchoArea').names();
-var foundNames = echoNames.filter(function(echoName){
-   return echoName.toLowerCase() === lcEchotag;
-});
+var foundNames = echoNames.filter(
+   echoName => echoName.toLowerCase() === lcEchotag
+);
 
-if( foundNames.length === 0 ){
-   return phiBar.reportErrorHTML([
-      'Sorry, the echomail area <b>',
-      echotag,
-      '</b> is not found on the system.'
-   ].join(''));
-}
+if( foundNames.length === 0 ) return phiBar.reportErrorHTML(
+   `Sorry, the echomail area <b>${echotag}</b> is not found on the system.`
+);
 
 var setupEchotag = foundNames[0];
 var echoPath = beforeSpace(
    setup.areas.group('EchoArea').first(setupEchotag)
 );
-if( echoPath.toLowerCase() === 'passthrough' ){
-   return phiBar.reportErrorHTML([
-      'Sorry, the echomail area <b>',
-      echotag,
-      '</b> is passthrough.'
-   ].join(''));
-}
+if( echoPath.toLowerCase() === 'passthrough' ) return phiBar.reportErrorHTML(
+   `Sorry, the echomail area <b>${echotag}</b> is passthrough.`
+);
 echobase = JAM( echoPath );
 
 var arrDesc = /-d "([^"]+?)"/.exec(
    setup.areas.group('EchoArea').first(setupEchotag)
 );
-var echoDesc;
+
 if( arrDesc === null ){
    echoDesc = setupEchotag;
    phiTitle(echotag + ' - messages');
@@ -217,7 +193,7 @@ if( arrDesc === null ){
    phiTitle(echoDesc + ' [' + echotag + '] messages');
 }
 
-echobase.readJDX(function(err){
+echobase.readJDX(err => {
    if( err ) return phiBar.reportErrorHTML( _.escape('' + err) );
 
    baseSize = echobase.size();
@@ -247,14 +223,14 @@ echobase.readJDX(function(err){
    }
 
    phiBar.loadingMsg("Looking for the last read message's number…");
-   echobase.indexLastRead(setup.UserName, function(err, idx){
+   echobase.indexLastRead(setup.UserName, (err, idx) => {
       $('#content').html('');
       if( err ){
          numLastRead = null;
       } else {
          numLastRead = idx + 1;
       }
-      buildMessageTable(1, baseSizeLimit, function(){
+      buildMessageTable(1, baseSizeLimit, () => {
          if( baseSize <= baseSizeLimit ) msghdrActionQueue();
       });
    });

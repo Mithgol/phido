@@ -39,10 +39,8 @@ MIME = nw.require('mime');
 UUE = nw.require('uue');
 nwClipboard = nw.Clipboard.get();
 
-beforeSpace = function(inString){
-   if( inString.indexOf(' ') === -1 ){
-      return inString;
-   }
+beforeSpace = inString => {
+   if(!( inString.includes(' ') )) return inString;
    return s.strLeft(inString, ' ');
 };
 </script>
@@ -129,21 +127,17 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
 
 // this block must be the last because it mixes sync default execution path
 // with async optional GoldED integration:
-var openStartingURL = function(){
+var openStartingURL = () => {
    var defaultStartingURL = 'area://';
    var paramsCLI = nw.App.argv();
    phiBar.attach( $('#urlbar') );
 
-   var msgFileName = paramsCLI.find(function(param){
-      return param.indexOf('--file=') === 0; // starts with
-   });
+   var msgFileName = paramsCLI.find( param => param.startsWith('--file=') );
    if( typeof msgFileName === 'undefined'){
       return phiBar.open(defaultStartingURL);
    } else msgFileName = msgFileName.slice( '--file='.length );
 
-   var msgArea = paramsCLI.find(function(param){
-      return param.indexOf('--area=') === 0; // starts with
-   });
+   var msgArea = paramsCLI.find( param => param.startsWith('--area=') );
    if( typeof msgArea === 'undefined'){
       return phiBar.open(defaultStartingURL);
    } else msgArea = msgArea.slice( '--area='.length );
@@ -152,12 +146,12 @@ var openStartingURL = function(){
    nw.require('fs').readFile(
       msgFileName,
       { encoding: 'binary' },
-      function(err, message){
+      (err, message) => {
          if( err ) return phiBar.open(defaultStartingURL);
 
-         var lineMSGID = message.split( /(?:\r|\n)/ ).find(function(msgLine){
-            return msgLine.indexOf('\x01MSGID:') === 0; // starts with
-         });
+         var lineMSGID = message.split(
+            /(?:\r|\n)/
+         ).find( msgLine => msgLine.startsWith('\x01MSGID:') );
          if( typeof lineMSGID === 'undefined'){
             return phiBar.open(defaultStartingURL);
          } else lineMSGID = lineMSGID.slice( '\x01MSGID:'.length ).replace(

@@ -3,7 +3,7 @@
 
 var async = nw.require('async');
 
-var hideSeparatorsOfInvisible = function(){
+var hideSeparatorsOfInvisible = () => {
    $('#areaList tbody').each(function(){
       var $this = $(this);
       if( $this.find('tr.areaRow:visible').length < 1 ){
@@ -23,44 +23,37 @@ var hideSeparatorsOfInvisible = function(){
    }
 };
 
-var msgNumNewActionQueue = function(){
+var msgNumNewActionQueue = () => {
    $('#areaList .msgnum').each(function(){
       var $msgnum = $(this);
       var $tr = $msgnum.closest('tr');
       var $msgnew = $tr.find('.msgnew');
-      phiQ.push(function(qNext){
+      phiQ.push(qNext => {
          var echopath = $tr.data('echopath');
          if( echopath.toLowerCase() === 'passthrough' ){
             $msgnum.html('PASS-');
             $msgnew.html('THROUGH');
-            qNext();
-            return;
+            return qNext();
          }
          var echobase = JAM( echopath );
          async.series([
-            function(callback){
-               echobase.readJDX(function(err){
-                  if( err ){
-                     $msgnum.html('FAIL');
-                     return callback();
-                  }
-                  $msgnum.html( echobase.size() );
+            callback => echobase.readJDX(err => {
+               if( err ){
+                  $msgnum.html('FAIL');
                   return callback();
-               });
-            },
-            function(callback){
-               echobase.indexLastRead(setup.UserName, function(err, idx){
-                  if( err ){
-                     $msgnew.html('FAIL');
-                     return callback();
-                  }
-                  $msgnew.html(echobase.size() - 1 - idx);
+               }
+               $msgnum.html( echobase.size() );
+               return callback();
+            }),
+            callback => echobase.indexLastRead(setup.UserName, (err, idx) => {
+               if( err ){
+                  $msgnew.html('FAIL');
                   return callback();
-               });
-            }
-         ], function(){
-            qNext();
-         });
+               }
+               $msgnew.html(echobase.size() - 1 - idx);
+               return callback();
+            })
+         ], () => qNext() );
       });
    });
 };
@@ -104,7 +97,7 @@ var searchAreatagHandler = function(){
    hideSeparatorsOfInvisible();
 };
 
-arealist = function(){ /* jshint indent:false */
+arealist = () => { /* jshint indent:false */
 
 phiTitle('Arealist');
 
@@ -135,12 +128,11 @@ if( echoNames.length > 0 ){
       '<th style="text-align: center;">New</th>' +
       '<th>Echotag</th>' +
    '</tr></tbody></table>');
-   echoNames = _(echoNames).sortBy(function(value){ // stable sort
-      return value.toLowerCase();
-   });
+   // stable sort:
+   echoNames = _(echoNames).sortBy( value => value.toLowerCase() );
    var currAreaSep = 0;
    var $currTBody = $('<tbody></tbody>').appendTo('#areaList');
-   _(echoNames).each(function(echoName){
+   _(echoNames).each(echoName => {
       while(
          currAreaSep < setup.areaSeparators.length &&
          setup.areaSeparators[currAreaSep].sepName.toLowerCase() <
