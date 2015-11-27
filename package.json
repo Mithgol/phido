@@ -17,6 +17,7 @@
    "fidonet-jam": "~3.8.2",
    "font-awesome": "~4.4.0",
    "jquery": "~1.11.3",
+   "jquery.hotkeys": "~0.1.0",
    "mime": "~1.3.4",
    "nodelist": "~1.1.2",
    "nw": "~0.12.1",
