@@ -27,7 +27,11 @@
 phiQ = queue();
 JAM = nw.require('fidonet-jam');
 FidoHTML = nw.require('fidohtml')({
-   dataMode: true
+   dataMode: true,
+   URLPrefixes: {
+      '*': '', // default
+      fs: IPFSURL => IPFSURL.replace( /^fs:\/*/g, 'http://ipfs.io/' )
+   }
 });
 phiURL = nw.require('fghi-url');
 phiBar = urlbar();

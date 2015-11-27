@@ -59,7 +59,12 @@ var outputMessageText = function($message, header, callback){
          $messageText.html( _.escape('' + error) );
          return callback();
       }
-      $messageText.html( FidoHTML.fromText(messageText) );
+      $messageText.html(
+         FidoHTML.fromText(messageText)
+      ).find('img').each(function(){ // possible TODO: image filtering
+         $this = $(this);
+         $this.attr('src', $this.data('src'));
+      });
       if( setup.viewKludges ){
          $messageText.prepend(
             '<div class="kludges">' +
