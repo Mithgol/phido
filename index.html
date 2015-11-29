@@ -30,7 +30,7 @@ FidoHTML = nw.require('fidohtml')({
    dataMode: true,
    URLPrefixes: {
       '*': '', // default
-      fs: IPFSURL => IPFSURL.replace( /^fs:\/*/g, 'http://ipfs.io/' )
+      fs: IPFSURL => IPFSURL.replace( /^fs:\/*/g, 'https://ipfs.io/' )
    }
 });
 phiURL = nw.require('fghi-url');
