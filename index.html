@@ -129,7 +129,7 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
 // with async optional GoldED integration:
 var openStartingURL = () => {
    var defaultStartingURL = 'area://';
-   var paramsCLI = nw.App.argv();
+   var paramsCLI = nw.App.argv;
    phiBar.attach( $('#urlbar') );
 
    var msgFileName = paramsCLI.find( param => param.startsWith('--file=') );
