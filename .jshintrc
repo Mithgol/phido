@@ -2,6 +2,7 @@
 "node": true,
 "bitwise": true,
 "eqeqeq": true,
+"esversion": 6,
 "forin": true,
 "immed": true,
 "indent": 3,

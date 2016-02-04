@@ -25,21 +25,23 @@
 <script src="script/urlbar.js"></script>
 <script>
 phiQ = queue();
-JAM = require('fidonet-jam');
-FidoHTML = require('fidohtml')({
-   dataMode: true
-});
-phiURL = require('fghi-url');
-phiBar = urlbar();
-MIME = require('mime');
-UUE = require('uue');
-GUI = require('nw.gui');
-nwClipboard = GUI.Clipboard.get();
-
-beforeSpace = function(inString){
-   if( inString.indexOf(' ') === -1 ){
-      return inString;
+JAM = nw.require('fidonet-jam');
+FidoHTML = nw.require('fidohtml')({
+   dataMode: true,
+   URLPrefixes: {
+      '*': '', // default
+      fs: IPFSURL => IPFSURL.replace( /^fs:\/*/g, 'https://ipfs.io/' ),
+      ipfs: IPFSURL => IPFSURL.replace( /^ipfs:\/*/g, 'https://ipfs.io/' )
    }
+});
+phiURL = nw.require('fghi-url');
+phiBar = urlbar();
+MIME = nw.require('mime');
+UUE = nw.require('uue');
+nwClipboard = nw.Clipboard.get();
+
+beforeSpace = inString => {
+   if(!( inString.includes(' ') )) return inString;
    return s.strLeft(inString, ' ');
 };
 </script>
@@ -47,7 +49,7 @@ beforeSpace = function(inString){
 <script>
 $(function(){
 initSetup();
-if( setup.maximizeWindow ) GUI.Window.get().maximize();
+if( setup.maximizeWindow ) nw.Window.get().maximize();
 
 $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    var supportedSchemes = ['area'];
@@ -86,7 +88,7 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    if( supportedSchemes.indexOf(schemeLC) >= 0 ){
       phiBar.open(URL);
    } else if( safeSchemes.indexOf(schemeLC) >= 0 ){
-      GUI.Shell.openExternal(URL);
+      nw.Shell.openExternal(URL);
    }
 
    return false;
@@ -96,8 +98,8 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    var $this = $(this);
    var URL = $this.data('URL');
 
-   var contextMenu = new GUI.Menu();
-   contextMenu.append(new GUI.MenuItem({
+   var contextMenu = new nw.Menu();
+   contextMenu.append(new nw.MenuItem({
       'label': 'Copy FGHI URL',
       'click': function(){
          nwClipboard.set( URL );
@@ -126,35 +128,31 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
 
 // this block must be the last because it mixes sync default execution path
 // with async optional GoldED integration:
-var openStartingURL = function(){
+var openStartingURL = () => {
    var defaultStartingURL = 'area://';
-   var paramsCLI = GUI.App.argv;
+   var paramsCLI = nw.App.argv;
    phiBar.attach( $('#urlbar') );
 
-   var msgFileName = paramsCLI.find(function(param){
-      return param.indexOf('--file=') === 0; // starts with
-   });
+   var msgFileName = paramsCLI.find( param => param.startsWith('--file=') );
    if( typeof msgFileName === 'undefined'){
       return phiBar.open(defaultStartingURL);
    } else msgFileName = msgFileName.slice( '--file='.length );
 
-   var msgArea = paramsCLI.find(function(param){
-      return param.indexOf('--area=') === 0; // starts with
-   });
+   var msgArea = paramsCLI.find( param => param.startsWith('--area=') );
    if( typeof msgArea === 'undefined'){
       return phiBar.open(defaultStartingURL);
    } else msgArea = msgArea.slice( '--area='.length );
    if( /^\s*$/.test(msgArea) ) return phiBar.open(defaultStartingURL);
 
-   require('fs').readFile(
+   nw.require('fs').readFile(
       msgFileName,
       { encoding: 'binary' },
-      function(err, message){
+      (err, message) => {
          if( err ) return phiBar.open(defaultStartingURL);
 
-         var lineMSGID = message.split( /(?:\r|\n)/ ).find(function(msgLine){
-            return msgLine.indexOf('\x01MSGID:') === 0; // starts with
-         });
+         var lineMSGID = message.split(
+            /(?:\r|\n)/
+         ).find( msgLine => msgLine.startsWith('\x01MSGID:') );
          if( typeof lineMSGID === 'undefined'){
             return phiBar.open(defaultStartingURL);
          } else lineMSGID = lineMSGID.slice( '\x01MSGID:'.length ).replace(

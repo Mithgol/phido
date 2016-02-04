@@ -1,10 +1,10 @@
-/* global setup:true, initSetup:true */
+/* global nw, setup:true, initSetup:true */
 
 setup = {};
 
-initSetup = function(){
-   var simteconf = require('simteconf');
-   var nodelist = require('nodelist');
+initSetup = () => {
+   var simteconf = nw.require('simteconf');
+   var nodelist = nw.require('nodelist');
 
    var phiConf = simteconf('phido.conf', {
       skipNames: ['//', '#']
@@ -20,7 +20,7 @@ initSetup = function(){
    );
    setup.maximizeWindow = (
       phiConf.first('MaximizeWindow') || 'no'
-   ).toLowerCase().indexOf('yes') === 0; // starts with `yes`
+   ).toLowerCase() === 'yes';
    setup.UserName =
       phiConf.first('UserName') || confGED.first('UserName') || 'anonymous';
    setup.viewKludges = (
@@ -28,22 +28,19 @@ initSetup = function(){
    ).toLowerCase() === 'yes';
    setup.areaSeparators = (
       phiConf.all('AreaSep') || confGED.all('AreaSep') || []
-   ).filter(function(areaSep){
-      var ok = /^\s*\S+\s+"[^"]+"\s+\d+\s+[Ee][Cc][Hh][Oo]\s*$/.test(areaSep);
-      return ok;
-   }).map(function(areaSep){
+   ).filter(areaSep =>
+      /^\s*\S+\s+"[^"]+"\s+\d+\s+[Ee][Cc][Hh][Oo]\s*$/.test(areaSep)
+   ).map(areaSep => {
       var matches =
          /^\s*(\S+)\s+"([^"]+)"\s+\d+\s+[Ee][Cc][Hh][Oo]\s*$/.exec(areaSep);
       return {
          sepName: matches[1],
          sepDesc: matches[2]
       };
-   }).sort(function(a, b){
-      if( a.sepName < b.sepName ){
-         return -1;
-      } else if ( a.sepName > b.sepName ){
-         return 1;
-      } else return 0;
+   }).sort((a, b) => {
+      if( a.sepName < b.sepName ) return -1;
+      if( a.sepName > b.sepName ) return 1;
+      return 0;
    });
    // Read HPT areas:
    var encodingHPT = phiConf.last('EncodingHPT') || 'utf8';

@@ -9,29 +9,21 @@ var echobase;
 
 var lcEchotag = echotag.toLowerCase();
 var echoNames = setup.areas.group('EchoArea').names();
-var foundNames = echoNames.filter(function(echoName){
-   return echoName.toLowerCase() === lcEchotag;
-});
+var foundNames = echoNames.filter(
+   echoName => echoName.toLowerCase() === lcEchotag
+);
 
-if( foundNames.length === 0 ){
-   return phiBar.reportErrorHTML([
-      'Sorry, the echomail area <b>',
-      echotag,
-      '</b> is not found on the system.'
-   ].join(''));
-}
+if( foundNames.length === 0 ) return phiBar.reportErrorHTML(
+   `Sorry, the echomail area <b>${echotag}</b> is not found on the system.`
+);
 
 var setupEchotag = foundNames[0];
 var echoPath = beforeSpace(
    setup.areas.group('EchoArea').first(setupEchotag)
 );
-if( echoPath.toLowerCase() === 'passthrough' ){
-   return phiBar.reportErrorHTML([
-      'Sorry, the echomail area <b>',
-      echotag,
-      '</b> is passthrough.'
-   ].join(''));
-}
+if( echoPath.toLowerCase() === 'passthrough' ) return phiBar.reportErrorHTML(
+   `Sorry, the echomail area <b>${echotag}</b> is passthrough.`
+);
 echobase = JAM( echoPath );
 
 var arrDesc = /-d "([^"]+?)"/.exec(
@@ -59,7 +51,12 @@ var outputMessageText = function($message, header, callback){
          $messageText.html( _.escape('' + error) );
          return callback();
       }
-      $messageText.html( FidoHTML.fromText(messageText) );
+      $messageText.html(
+         FidoHTML.fromText(messageText)
+      ).find('img').each(function(){ // possible TODO: image filtering
+         var $this = $(this);
+         $this.attr('src', $this.data('src'));
+      });
       if( setup.viewKludges ){
          $messageText.prepend(
             '<div class="kludges">' +
@@ -88,7 +85,7 @@ var outputMessageAvatarAndOrigin = function(
          var origAddrHTML = _.escape(origAddr);
          if( setup.nodelist !== null ){
             var nodeAddr = origAddr;
-            if( nodeAddr.indexOf('.') >= 0 ){
+            if( nodeAddr.includes('.') ){
                nodeAddr = nodeAddr.slice( 0, nodeAddr.indexOf('.') );
             }
             var fields = setup.nodelist.getFieldsForAddr(nodeAddr);
@@ -134,19 +131,17 @@ var outputMessageAvatarAndOrigin = function(
    });
 };
 
-var outputMessageRelations = function($message, header, callback){
-   echobase.getParentNumber(header.MessageIndex, function(err, parentNum){
+var outputMessageRelations = ($message, header, callback) => {
+   echobase.getParentNumber(header.MessageIndex, (err, parentNum) => {
       if( err ) parentNum = 'ERROR';
       if( parentNum !== null ){
-         $message.find('.messageRelations .parent').html([
-            '<span class="label label-primary">Parent:</span> ',
-            '<span class="relNumber">',
-            parentNum,
-            '</span> '
-         ].join(''));
+         $message.find('.messageRelations .parent').html(
+            '<span class="label label-primary">Parent:</span> ' +
+            `<span class="relNumber">${parentNum}</span> `
+         );
          $message.find('.messageRelations').show();
       }
-      echobase.getNextChildNumber(header.MessageIndex, function(err, ncNum){
+      echobase.getNextChildNumber(header.MessageIndex, (err, ncNum) => {
          if( err ) ncNum = 'ERROR';
          if( ncNum !== null ){
             $message.find('.messageRelations .nextSibling').html([
@@ -157,48 +152,49 @@ var outputMessageRelations = function($message, header, callback){
             ].join(''));
             $message.find('.messageRelations').show();
          }
-         echobase.getChildrenNumbers(header.MessageIndex, function(
-            err, arrChildrenNum
-         ){
-            if( err ) arrChildrenNum = ['ERROR'];
-            if( arrChildrenNum.length > 0 ){
-               $message.find('.messageRelations .children').html([
-                  ' <span class="label label-primary">Children:</span> ',
-                  '<span class="relNumber">',
-                  arrChildrenNum.join('</span>, <span class="relNumber">'),
-                  '</span> '
-               ].join(''));
-               $message.find('.messageRelations').show();
-            }
+         echobase.getChildrenNumbers(
+            header.MessageIndex,
+            (err, arrChildrenNum) => {
+               if( err ) arrChildrenNum = ['ERROR'];
+               if( arrChildrenNum.length > 0 ){
+                  $message.find('.messageRelations .children').html([
+                     ' <span class="label label-primary">Children:</span> ',
+                     '<span class="relNumber">',
+                     arrChildrenNum.join('</span>, <span class="relNumber">'),
+                     '</span> '
+                  ].join(''));
+                  $message.find('.messageRelations').show();
+               }
 
-            $message.find('.relNumber').each(function(){
-               /* jshint bitwise: false */
-               var $this = $(this);
-               var relNumber = +$this.html();
+               $message.find('.relNumber').each(function(){
+                  /* jshint bitwise: false */
+                  var $this = $(this);
+                  var relNumber = +$this.html();
 
-               phiQ.push(function(qNext){
-                  echobase.readHeader(relNumber, function(err, header){
-                     if( err ) return qNext();
+                  phiQ.push(qNext =>
+                     echobase.readHeader(relNumber, (err, header) => {
+                        if( err ) return qNext();
 
-                     var decoded = echobase.decodeHeader(header);
-                     var msgURL = generateAreaURL(echotag, decoded);
-                     $this.wrapInner([
-                        '<a href="#" data-href="' + msgURL + '">',
-                        '</a>'
-                     ].join(''));
+                        var msgURL = generateAreaURL(
+                           echotag, echobase.decodeHeader(header)
+                        );
+                        $this.wrapInner(
+                           `<a href="#" data-href="${msgURL}"></a>`
+                        );
 
-                     qNext();
-                  });
+                        qNext();
+                     })
+                  );
                });
-            });
 
-            callback();
-         });
+               callback();
+            }
+         );
       });
    });
 };
 
-var outputSingleMessage = function(header, callback){
+var outputSingleMessage = (header, callback) => {
    var defaultAvatarSize = 140;
    var decoded = echobase.decodeHeader(header);
    header.decoded = decoded;
@@ -305,32 +301,28 @@ var outputSingleMessage = function(header, callback){
       '</tr>',
    '</table>'].join('')).appendTo('#content');
 
-   phiQ.push(function(qNext){
-      outputMessageText($curr, header, qNext);
-   }).push(function(qNext){
-      outputMessageRelations($curr, header, qNext);
-   }).push(function(qNext){
-      outputMessageAvatarAndOrigin($curr, header, defaultAvatarSize, qNext);
-   });
+   phiQ.push(
+      qNext => outputMessageText($curr, header, qNext)
+   ).push(
+      qNext => outputMessageRelations($curr, header, qNext)
+   ).push(qNext =>
+      outputMessageAvatarAndOrigin($curr, header, defaultAvatarSize, qNext)
+   );
    callback();
 };
 
 phiBar.loadingMsg("Looking through messages' headers…");
-echobase.headersForMSGID(arrMSGID, function(err, headers){
+echobase.headersForMSGID(arrMSGID, (err, headers) => {
    if( err ) return phiBar.reportErrorHTML( _.escape('' + err) );
 
    $('#content').empty();
-   if( headers.length < 1 ){
-      $('#content').html(
-         'Empty! [' + arrMSGID.join(', ') + '] not found!'
-      );
-      return;
-   }
-   headers.forEach(function(header){
-      phiQ.push(function(qNext){
-         outputSingleMessage(header, qNext);
-      });
-   });
+   if( headers.length < 1 ) return $('#content').html(
+      'Empty! [' + arrMSGID.join(', ') + '] not found!'
+   );
+
+   headers.forEach(header => phiQ.push(
+      qNext => outputSingleMessage(header, qNext)
+   ));
    phiQ.start();
 });
 

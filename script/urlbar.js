@@ -1,4 +1,4 @@
-/* global $, _, phiURL, phiQ, renderAreaURL, urlbar:true */
+/* global nw, $, _, phiURL, phiQ, renderAreaURL, urlbar:true */
 
 urlbar = function(){
    if (!(this instanceof urlbar)) return new urlbar();
@@ -112,7 +112,7 @@ urlbar.prototype.render = function(URL){
             '</p>'
          ].join(''));
          $('#externalOpen').on('click', function(){
-            require('nw.gui').Shell.openExternal(URL);
+            nw.Shell.openExternal(URL);
             return false;
          });
       //break;
