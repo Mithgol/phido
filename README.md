@@ -28,6 +28,8 @@ However, it already supports the following features:
 
 * [IPFS](http://ipfs.io/) URLs (both `fs:` and `ipfs:`)
 
+* some Fidonet Runes (Markdown-alike declarations of hyperlinks and images)
+
 ## Requirements
 
 * PhiDo is written in HTML5 + CSS + JavaScript and uses the latest [nw.js](https://github.com/nwjs/nw.js) engine to run. A system supported by nw.js (such as Windows, or Linux, or Mac OS X) is required.
