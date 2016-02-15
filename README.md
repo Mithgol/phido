@@ -26,7 +26,7 @@ However, it already supports the following features:
 
 * some [FGHI URLs](https://github.com/Mithgol/FGHI-URL)
 
-* [IPFS](http://ipfs.io/) URLs (both `fs:` and `ipfs:`)
+* [IPFS](https://ipfs.io/) URLs (both `fs:` and `ipfs:`), using the [`ipfs.io`](https://ipfs.io/) web gate
 
 * some Fidonet Runes (Markdown-alike declarations of hyperlinks and images)
 
