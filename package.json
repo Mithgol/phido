@@ -35,7 +35,6 @@
    "width": 600,
    "height": 400,
    "position": "center",
-   "toolbar": true,
    "title": "Starting PhiDo...",
    "icon": "icon/PhiDo-32x32.png"
 }

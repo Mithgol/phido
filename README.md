@@ -128,8 +128,6 @@ The following configuration options are supported (in arbitrary order):
 
 * `MaximizeWindow` — if `Yes` (case-insensitive), the PhiDo's window is maximized after PhiDo starts.
 
-An alpha version of PhiDo, meant for testing, may display developer's toolbar at the top of its window. You may change `"toolbar": true` to `"toolbar": false` in `package.json` to hide the toolbar.
-
 ### Examples of external configuration files
 
 Examples of the area configuration file of HPT are available in its own CVS repository on SourceForge [in English](http://husky.cvs.sf.net/viewvc/husky/hpt/config/areas) and [in Russian](http://husky.cvs.sf.net/viewvc/husky/hpt/config/areas.ru). Text lines of these examples are commented out (by `#` characters in the lines' beginnings) but your real configuration lines must be uncommented.
