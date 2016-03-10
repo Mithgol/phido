@@ -1,7 +1,7 @@
 /* global renderAreaURL:true, generateAreaURL:true */
 /* global _, s, arealist, msglist, singleMessage, areaFile, phiBar */
 
-renderAreaURL = function(URL, parsedURL){
+renderAreaURL = (URL, parsedURL) => {
    if( parsedURL.echoNames.length < 1 ){
       arealist();
       return;
@@ -36,7 +36,7 @@ renderAreaURL = function(URL, parsedURL){
    msglist( parsedURL.echoNames[0][0] );
 };
 
-generateAreaURL = function(echotag, decoded){
+generateAreaURL = (echotag, decoded) => {
    /* jshint indent:false */
    if( decoded.msgid ) return [
       'area://',

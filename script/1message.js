@@ -38,14 +38,12 @@ if( arrDesc === null ){
    phiTitle(echoDesc + ' [' + echotag + '] messages');
 }
 
-var arrMSGID = parsedURL.optionalParams.filter(function(param){
-   return param.name === 'msgid';
-}).map(function(param){
-   return param.value;
-});
+var arrMSGID = parsedURL.optionalParams.filter(
+   param => param.name === 'msgid'
+).map(param => param.value);
 
-var outputMessageText = function($message, header, callback){
-   echobase.decodeMessage(header, function(error, messageText){
+var outputMessageText = ($message, header, callback) => {
+   echobase.decodeMessage(header, (error, messageText) => {
       var $messageText = $message.find('.messageText');
       if( error ){
          $messageText.html( _.escape('' + error) );
@@ -61,11 +59,9 @@ var outputMessageText = function($message, header, callback){
          $messageText.prepend(
             '<div class="kludges">' +
             FidoHTML.fromText(
-               echobase.decodeKludges(header).split(
-                  '\n'
-               ).map(function(kludge){
-                  return '\u263A' + kludge;
-               }).join('\n')
+               echobase.decodeKludges(header).split('\n').map(
+                  kludge => '\u263A' + kludge
+               ).join('\n')
             ) +
             '</p>'
          );

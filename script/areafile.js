@@ -113,7 +113,7 @@ if( arrDesc === null ){
 }
 phiBar.loadingMsg('Looking for the designated file…');
 
-echobase.readJDX(function(err){
+echobase.readJDX(err => {
    if( err ) return phiBar.reportErrorHTML( _.escape('' + err) );
 
    phiQ.push(
