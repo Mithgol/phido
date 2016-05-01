@@ -34,7 +34,7 @@ var fileScanNextMessage = (filename, echobase, msgNum, callback) => {
                   'image/png',
                   'image/gif',
                   'image/svg+xml'
-               ].indexOf(mimeType) >= 0 ){
+               ].includes(mimeType) ){
                   var dataURL = `data:${mimeType};base64,` +
                      decodedFile.toString('base64');
                   if( mimeType === 'image/svg+xml' ){

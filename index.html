@@ -84,9 +84,9 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
    if( separatorPosition < 0 ) return false;
 
    var schemeLC = URL.slice(0, separatorPosition).toLowerCase();
-   if( supportedSchemes.indexOf(schemeLC) >= 0 ){
+   if( supportedSchemes.includes(schemeLC) ){
       phiBar.open(URL);
-   } else if( safeSchemes.indexOf(schemeLC) >= 0 ){
+   } else if( safeSchemes.includes(schemeLC) ){
       nw.Shell.openExternal(URL);
    }
 
