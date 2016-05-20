@@ -83,7 +83,7 @@ If you install PhiDo in a directory on a portable drive (such as [a USB f
 
 #### Be patient
 
-About 100 megabytes of dependencies are installed. Most of them contain dozens of small files with source code and metadata. An installation on a low-speed (USB 2.0) flash drive may take, for example, **half an hour** on a system with a limited Internet connection.
+About 200 megabytes of dependencies are installed. Most of them contain dozens of small files with source code and metadata. An installation on a low-speed (USB 2.0) flash drive may take, for example, **half an hour** on a system with a limited Internet connection.
 
 ## Configuration options
 
