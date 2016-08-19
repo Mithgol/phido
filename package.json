@@ -16,7 +16,7 @@
    "fidonet-jam": "~3.8.10",
    "font-awesome": "~4.6.1",
    "ftp-fileecho-list": "~3.0.0",
-   "jquery": "~3.0.0",
+   "jquery": "~3.1.0",
    "jquery.hotkeys": "~0.1.0",
    "jquery.scrollto": "~2.1.2",
    "mime": "~1.3.4",
