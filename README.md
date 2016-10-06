@@ -148,6 +148,8 @@ It is useful because PhiDo has the following features that are not present i
 
 * User's picture (avatar) in a message's header
 
+* Fidonet Runes (Markdown-alike declarations of hyperlinks and images)
+
 Two lines have to be added to configuration files of GoldED to enable launching of PhiDo.
 
 The first additional line has to be added in the main GoldED's configuration file (usually called `golded.cfg` or `gedcyg.cfg`); this line defines a new external utility (15th in this example).
