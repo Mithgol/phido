@@ -37,7 +37,7 @@ However, it already supports the following features:
 
 * Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and some other browser (such as Firefox) is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
-* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system. (For example, follow the “[Installation](https://github.com/joyent/node/wiki/Installation)” article in the Node's wiki.) A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
+* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system. (Usually [Node.js installers](https://nodejs.org/en/download/) install both Node.js and npm.) A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 * PhiDo currently supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
@@ -93,7 +93,7 @@ You may use `phido.conf-example` as an example. (Or even copy `phido.conf-exa
 
 The following configuration options are supported (in arbitrary order):
 
-* `ConfigGoldED` — path to the configuration file of GoldED (or [GoldED+](http://golded-plus.sf.net), or GoldED-NSF). This setting is not necessary, but it allows to use PhiDo alongside the popular Fidonet mail editor (GoldED) when the former uses some settings of the latter. The following settings (also individually mentioned below) are used:
+* `ConfigGoldED` — path to the configuration file of GoldED (or [GoldED+](http://golded-plus.sf.net), or GoldED-NSF). This setting is not necessary, but it allows to use PhiDo alongside that popular Fidonet mail editor (GoldED) when the former uses some settings of the latter. The following settings (also individually mentioned below) are used:
    * `UserName`
    * `ViewKludges`
    * `StyleCodes`
