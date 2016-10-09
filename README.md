@@ -37,7 +37,7 @@ However, it already supports the following features:
 
 * Have 2 Gb RAM (or more). When PhiDo renders large Fidonet echomail areas (thousands of messages) and some other browser (such as Firefox) is running in background, if the system has only 1 Gb RAM (or less), swapping occurs inevitably.
 
-* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system. (Usually [Node.js installers](https://nodejs.org/en/download/) install both Node.js and npm.) A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
+* PhiDo currently requires **Node.js** and **npm** to be present (installed) on your system; the version of **npm** must be 3.0.0 or greater. (Usually [Node.js installers](https://nodejs.org/en/download/) install both Node.js and npm.) A compatible Node's fork such as [io.js](https://iojs.org/) or [JXcore](http://jxcore.com/) is fine too.
 
 * PhiDo currently supports only the JAM [(Joaquim-Andrew-Mats)](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) type of Fidonet message bases.
 
