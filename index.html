@@ -143,30 +143,16 @@ var openStartingURL = () => {
    } else msgArea = msgArea.slice( '--area='.length );
    if( /^\s*$/.test(msgArea) ) return phiBar.open(defaultStartingURL);
 
-   nw.require('fs').readFile(
-      msgFileName,
-      { encoding: 'binary' },
-      (err, message) => {
-         if( err ) return phiBar.open(defaultStartingURL);
+   nw.require('find-msgid-in-file')(msgFileName, (err, MSGID) => {
+      if( err || MSGID === null ) return phiBar.open(defaultStartingURL);
 
-         var lineMSGID = message.split(
-            /(?:\r|\n)/
-         ).find( msgLine => msgLine.startsWith('\x01MSGID:') );
-         if( typeof lineMSGID === 'undefined'){
-            return phiBar.open(defaultStartingURL);
-         } else lineMSGID = lineMSGID.slice( '\x01MSGID:'.length ).replace(
-            /^\s*/g, ''
-         );
-         if( lineMSGID.length < 1 ) return phiBar.open(defaultStartingURL);
-
-         phiBar.open([
-            'area://',
-            encodeURIComponent(msgArea),
-            '/?msgid=',
-            encodeURIComponent(lineMSGID)
-         ].join('').replace('%20', '+'));
-      }
-   );
+      return phiBar.open([
+         'area://',
+         encodeURIComponent(msgArea),
+         '/?msgid=',
+         encodeURIComponent(MSGID)
+      ].join('').replace('%20', '+'));
+   });
 };
 openStartingURL();
 
