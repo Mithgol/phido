@@ -45,6 +45,8 @@ However, it already supports the following features:
 
 * PhiDo does not currently create any lock files, not does it lock files in use. Users themselves have to prevent their echoprocessors (tossers) or mail editors from running when PhiDo is active.
 
+* PhiDo currently uses ParaType's fonts of three font families: PT Sans, PT Serif, PT Mono. These families were released by ParaType with an open user license; use the corresponding ParaType's web page ([in English](http://www.paratype.com/public/) or [in Russian](http://www.paratype.ru/public/)) to download these fonts and install them on your system.
+
 ## Installing PhiDo
 
 [![(npm package version)](https://nodei.co/npm/phido.png?downloads=true&downloadRank=true)](https://npmjs.org/package/phido)
@@ -189,8 +191,6 @@ The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 * The file `jq/jquery.color.min.js` contains [jQuery Color](https://github.com/jquery/jquery-color) plugin by jQuery Foundation and other contributors, [MIT-licensed](https://jquery.org/license/).
 
 * The file `jq/scrollspy.js` contains [scrollSpy](https://github.com/thesmart/jquery-scrollspy), a jQuery plugin by John Smart (MIT-licensed).
-
-* Fonts in the `paratype` directory are published [by ParaType](http://www.paratype.com/public/) on the terms of [ParaType Free Font Licensing Agreement](http://www.paratype.com/public/pt_openlicense_eng.asp). (See the `PT Free Font License*.txt` files in the same folder.)
 
 * The directory `bootstrap` contains [Bootstrap](http://getbootstrap.com/) licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0). It is used in a hope that a newer version becomes MIT-licensed eventually [(as planned)](http://blog.getbootstrap.com/2013/10/29/bootstrap-3-0-1-released/) and replaces the current version.
 
