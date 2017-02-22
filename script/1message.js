@@ -1,5 +1,5 @@
 /* global $, _, s, window, singleMessage:true */
-/* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace, FidoHTML */
+/* global phiQ, phiTitle, phiBar, setup, JAM, beforeSpace, FidoHTML, fiunis */
 /* global generateAreaURL */
 /* will be used: GUI, nwClipboard */
 
@@ -285,7 +285,7 @@ var outputSingleMessage = (header, callback) => {
       '<tr>',
          '<th class="inverse">Subj</th>',
          '<td colspan=3>',
-            _.escape(decoded.subj) || '',
+            _.escape( fiunis.decode(decoded.subj) ) || '',
          '</td>',
       '</tr>',
       '<tr>',

@@ -1,5 +1,6 @@
 /* global $, _, s, window, msglist:true */
 /* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, generateAreaURL */
+/* global fiunis */
 
 msglist = echotag => { /* jshint indent:false */
 
@@ -16,7 +17,7 @@ var fillRowFromHeader = ($msgRow, filledCallback) => {
       var decoded = echobase.decodeHeader(header);
       $msgRow.find('.msgFrom').html( _.escape(decoded.from) );
       $msgRow.find('.msgTo').html(   _.escape(decoded.to)   );
-      $msgRow.find('.msgSubj').html( _.escape(decoded.subj) );
+      $msgRow.find('.msgSubj').html( _.escape(fiunis.decode(decoded.subj)) );
       $msgRow.find('.msgDateTime').html([
          '<nobr>',
          decoded.origTime[0], '-',
