@@ -10,7 +10,7 @@
    "url": "https://github.com/Mithgol/phido.git"
 },
 "dependencies": {
-   "async": "~2.2.0",
+   "async": "~2.3.0",
    "bootpag": "~1.0.7",
    "fghi-url": "~0.5.0-pre.5",
    "fidohtml": "~2.0.0",
@@ -18,7 +18,7 @@
    "find-msgid-in-file": "~0.1.0",
    "fiunis": "~2.1.4",
    "font-awesome": "~4.7.0",
-   "ftp-fileecho-list": "~3.0.3",
+   "ftp-fileecho-list": "~3.0.4",
    "jquery": "~3.2.0",
    "jquery.hotkeys": "~0.1.0",
    "jquery.scrollto": "~2.1.2",
