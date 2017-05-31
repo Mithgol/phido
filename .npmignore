@@ -33,3 +33,8 @@ npm-debug.log
 
 # Project-specific
 phido.conf
+
+# .npmignore should ignore tests and Git stuff
+test
+.gitignore
+.git
