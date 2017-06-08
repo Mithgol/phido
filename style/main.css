@@ -1,4 +1,3 @@
-body { zoom: reset; }
 ul li { list-style-image: url(../img/bullet.gif); }
 .msgnum, .msgnew { text-align: center; }
 .table-hover > tbody > tr > td.sepDesc,

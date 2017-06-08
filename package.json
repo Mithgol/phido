@@ -40,5 +40,6 @@
    "position": "center",
    "title": "Starting PhiDo...",
    "icon": "icon/PhiDo-32x32.png"
-}
+},
+"chromium-args": "--force-device-scale-factor"
 }
