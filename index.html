@@ -8,7 +8,6 @@
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="jq/jquery.color.min.js"></script>
 <script src="node_modules/jquery.hotkeys/jquery.hotkeys.js"></script>
-<script src="jq/scrollspy.js"></script>
 <script src="node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="node_modules/underscore/underscore.js"></script>
@@ -117,13 +116,6 @@ $('#content').css('text-align', 'left').on('click', 'a[data-href]', function(){
       $this.html('<i class="fa fa-spinner fa-spin"></i>');
       return false;
    }
-}).on('scrollSpy:exit', '.catchScrollEvents', function(){
-   $(this).data('inscroll', false);
-}).on('scrollSpy:enter', '.catchScrollEvents', function(){
-   $(this).data('inscroll', true).find('.msgRow').each(
-      msghdrDelayedActionMsgRowProcessor
-   );
-   phiQ.start();
 });
 
 // this block must be the last because it mixes sync default execution path

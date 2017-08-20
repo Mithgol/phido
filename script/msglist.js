@@ -1,6 +1,18 @@
-/* global $, _, s, window, msglist:true */
+/* global $, _, s, window, IntersectionObserver, msglist:true */
 /* global phiTitle, phiBar, phiQ, setup, JAM, beforeSpace, generateAreaURL */
 /* global fiunis */
+
+var intersectioner = observedEntries => observedEntries.forEach(entry => {
+   var $target = $(entry.target);
+   if( $target.hasClass('totallyFilled') ) return; // do not refill tables
+
+   if( entry.isIntersecting ){
+      $target.data('inscroll', true).find('.msgRow').each(
+         window.msghdrDelayedActionMsgRowProcessor
+      );
+      phiQ.start();
+   } else $target.data('inscroll', false);
+});
 
 msglist = echotag => { /* jshint indent:false */
 
@@ -60,9 +72,10 @@ var lastreadHighlightRow = callback => {
    });
 };
 
-var msghdrDelayedActionQueue = $table => $table.addClass(
-   'catchScrollEvents'
-).scrollSpy();
+var msghdrDelayedActionQueue = $table => {
+   var iObserver = new IntersectionObserver(intersectioner);
+   iObserver.observe($table[0]);
+};
 
 var msghdrImmediateActionQueue = $table => $table.css(
    'table-layout', 'auto'
@@ -148,15 +161,17 @@ var msghdrActionQueue = () => {
 
 window.msghdrDelayedActionMsgRowProcessor = function(){
    var $row = $(this);
+   if( $row.hasClass('filledFromHeader') ) return; // do not refill rows
+
    var $table = $row.closest('table');
    phiQ.push(qNext => {
-      if(!( $table.data('inscroll') )) return qNext();
+      if(!( $table.data('inscroll') )) return qNext(); // scrolled out
 
       $table.css('table-layout', 'auto');
       fillRowFromHeader($row, () => {
          $row.addClass('filledFromHeader');
          if( $table.find('.msgRow:not(.filledFromHeader)').length < 1 ){
-            $table.off('scrollSpy:exit').off('scrollSpy:enter');
+            $table.addClass('totallyFilled');
          }
          return qNext();
       });
