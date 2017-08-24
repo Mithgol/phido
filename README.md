@@ -188,7 +188,7 @@ After that you may run `npm test` (in the directory of PhiDo). Only the JS 
 
 The source code is MIT-licensed (see `LICENSE`), with the following exceptions:
 
-* The directory `bootstrap` contains [Bootstrap](http://getbootstrap.com/) licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0). It is used in a hope that a newer version becomes MIT-licensed eventually [(as planned)](http://blog.getbootstrap.com/2013/10/29/bootstrap-3-0-1-released/) and replaces the current version.
+* The directory `bootstrap` contains [Bootstrap](http://getbootstrap.com/) v3.0.2 licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0). (It is planned to update it to a newer version, separately MIT-licensed.)
 
 * This product uses the JAM(mbp) API — Copyright 1993 Joaquim Homrighausen, Andrew Milner, Mats Birch, Mats Wallin. ALL RIGHTS RESERVED. (JAM may be used by any developer as long as [its specifications](https://github.com/Mithgol/node-fidonet-jam/blob/master/JAM.txt) are followed exactly. JAM may be used free-of-charge by any developer for any purpose, commercially or otherwise.)
 
