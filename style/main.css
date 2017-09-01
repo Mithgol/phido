@@ -38,7 +38,7 @@ A[data-url] { cursor: pointer; }
 .messageRelations .parent, .messageRelations .nextSibling { white-space: nowrap; }
 .kludges { color: #777; }
 
-.messageText IMG { max-width: 95vw; }
+.messageText IMG, .messageText VIDEO, .messageText AUDIO { max-width: 95vw; }
 blockquote.fidoQuote, blockquote.fidoQuoteOuter { margin-bottom: 0; }
 .monospaceBlock { line-height: 1; }
 .monospaceBlock code {
