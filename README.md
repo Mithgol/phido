@@ -13,7 +13,7 @@
 [![(Fidonet Unicode substrings)](https://img.shields.io/badge/Fidonet-Unicode%20substrings-57ab1e.svg?style=plastic)](https://github.com/Mithgol/fiunis)
 [![(Fidonet avatars)](https://img.shields.io/badge/Fidonet-avatars-57ab1e.svg?style=plastic)](https://github.com/Mithgol/node-fidonet-jam/blob/master/avatar.txt)
 [![(FGHI URL)](https://img.shields.io/badge/FGHI-URL-57ab1e.svg?style=plastic)](https://github.com/Mithgol/FGHI-URL)
-[![(Fidonet Runes)](https://img.shields.io/badge/Fidonet-Runes-57ab1e.svg?style=plastic)](https://github.com/Mithgol/node-fidonet-fidohtml)
+[![(Fidonet Runes)](https://img.shields.io/badge/Fidonet-Runes-57ab1e.svg?style=plastic)](https://github.com/Mithgol/node-fidonet-fidohtml/blob/master/runes.txt)
 
 The application is currently in an early phase of its development and thus does not have the desired level of feature completeness.
 
