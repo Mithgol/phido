@@ -28,7 +28,7 @@ var fileScanNextMessage = (filename, echobase, msgNum, callback) => {
                   );
                   return nextMessageProcessed();
                }
-               var mimeType = MIME.lookup(filename);
+               var mimeType = MIME.getType(filename);
                if([
                   'image/jpeg',
                   'image/png',
