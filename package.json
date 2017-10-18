@@ -1,7 +1,7 @@
 {
 "name": "phido",
 "bin": "./phido.js",
-"version": "0.4.0",
+"version": "0.5.0",
 "description": "Fidonet browser with a GUI.",
 "keywords": ["Fidonet", "Fido", "GUI"],
 "author": { "name": "Mithgol the Webmaster" },
