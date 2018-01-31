@@ -23,7 +23,7 @@
    "jquery-color": "https://github.com/jquery/jquery-color/tarball/485460cc0109cef100a1a6afd0d0225292bd69b9",
    "jquery.hotkeys": "~0.1.0",
    "jquery.scrollto": "~2.1.2",
-   "mime": "~2.1.0",
+   "mime": "~2.2.0",
    "nodelist": "~2.0.0",
    "nw": "0.28.0-sdk",
    "simteconf": "~1.0.0",
