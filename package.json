@@ -20,7 +20,7 @@
    "font-awesome": "~4.7.0",
    "ftp-fileecho-list": "~3.0.7",
    "jquery": "~3.3.1",
-   "jquery-color": "https://github.com/jquery/jquery-color/tarball/485460cc0109cef100a1a6afd0d0225292bd69b9",
+   "jquery-color": "~3.0.0-alpha.1",
    "jquery.hotkeys": "~0.1.0",
    "jquery.scrollto": "~2.1.2",
    "mime": "~2.2.0",
