@@ -25,7 +25,7 @@
    "jquery.scrollto": "~2.1.2",
    "mime": "~2.2.0",
    "nodelist": "~2.0.0",
-   "nw": "0.29.1-sdk",
+   "nw": "0.29.2-sdk",
    "simteconf": "~1.0.0",
    "underscore": "~1.8.3",
    "underscore.string": "~3.3.4",
